@@ -1,0 +1,211 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module tb.misc</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="tb.html"><font color="#ffffff">tb</font></a>.misc</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/djung/lib/tb/misc.so">/home/djung/lib/tb/misc.so</a></font></td></tr></table>
+    <p><tt>General&nbsp;collection&nbsp;of&nbsp;supplementary&nbsp;functions&nbsp;and&nbsp;classes&nbsp;that&nbsp;do&nbsp;not<br>
+really&nbsp;fit&nbsp;in&nbsp;anywhere&nbsp;else.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="__builtin__.html">__builtin__</a><br>
+</td><td width="25%" valign=top><a href="commands.html">commands</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="tb.misc.html#Tab">Tab</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="tb.misc.html#tic">tic</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Tab">class <strong>Tab</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Display&nbsp;data&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;table,&nbsp;print&nbsp;to&nbsp;stdout.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Tab-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>Initialize&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;to&nbsp;hold&nbsp;table&nbsp;data.&nbsp;Specify&nbsp;the&nbsp;columns&nbsp;in&nbsp;the<br>
+order&nbsp;given&nbsp;by&nbsp;titles.Separate&nbsp;columns&nbsp;by&nbsp;sep.&nbsp;Show&nbsp;head&nbsp;row&nbsp;if&nbsp;head&nbsp;is<br>
+True.</tt></dd></dl>
+
+<dl><dt><a name="Tab-add"><strong>add</strong></a>(...)</dt><dd><tt>Add&nbsp;a&nbsp;data&nbsp;row&nbsp;to&nbsp;the&nbsp;table.</tt></dd></dl>
+
+<dl><dt><a name="Tab-display"><strong>display</strong></a>(...)</dt><dd><tt>Display&nbsp;the&nbsp;table&nbsp;(write&nbsp;to&nbsp;stdout).</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="tic">class <strong>tic</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Implements&nbsp;a&nbsp;<a href="__builtin__.html#object">object</a>-oriented&nbsp;Python&nbsp;version&nbsp;of&nbsp;the&nbsp;Matlab&nbsp;<a href="#tic">tic</a>&nbsp;and&nbsp;toc<br>
+functions.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="tic-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="tic-toc"><strong>toc</strong></a>(...)</dt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-allscalar"><strong>allscalar</strong></a>(...)</dt><dd><tt>Test&nbsp;if&nbsp;all&nbsp;elements&nbsp;of&nbsp;the&nbsp;sequence&nbsp;or&nbsp;set&nbsp;are&nbsp;scalar.</tt></dd></dl>
+ <dl><dt><a name="-anyobject"><strong>anyobject</strong></a>(...)</dt><dd><tt>Test&nbsp;if&nbsp;any&nbsp;element&nbsp;of&nbsp;the&nbsp;sequence&nbsp;or&nbsp;set&nbsp;is&nbsp;an&nbsp;instance&nbsp;of&nbsp;a<br>
+user-defined&nbsp;class.</tt></dd></dl>
+ <dl><dt><a name="-basename"><strong>basename</strong></a>(...)</dt><dd><tt>My&nbsp;variation&nbsp;of&nbsp;os.path.basename,&nbsp;in&nbsp;which&nbsp;a&nbsp;given&nbsp;suffix&nbsp;can&nbsp;be<br>
+canceled&nbsp;out&nbsp;(like&nbsp;in&nbsp;the&nbsp;php&nbsp;version&nbsp;of&nbsp;this&nbsp;function).</tt></dd></dl>
+ <dl><dt><a name="-capitalize"><strong>capitalize</strong></a>(...)</dt><dd><tt>Return&nbsp;string&nbsp;with&nbsp;first&nbsp;letter&nbsp;in&nbsp;uppercase&nbsp;and&nbsp;the&nbsp;rest&nbsp;of&nbsp;the<br>
+characters&nbsp;in&nbsp;lowercase.</tt></dd></dl>
+ <dl><dt><a name="-commonprefix"><strong>commonprefix</strong></a>(...)</dt><dd><tt>Finds&nbsp;the&nbsp;common&nbsp;prefix&nbsp;of&nbsp;all&nbsp;given&nbsp;strings.</tt></dd></dl>
+ <dl><dt><a name="-dump"><strong>dump</strong></a>(...)</dt><dd><tt>Print&nbsp;values&nbsp;of&nbsp;the&nbsp;passed&nbsp;arguments&nbsp;to&nbsp;the&nbsp;screen,&nbsp;together&nbsp;with<br>
+additional&nbsp;information&nbsp;about&nbsp;the&nbsp;value,&nbsp;like&nbsp;length&nbsp;or&nbsp;shape&nbsp;of&nbsp;a&nbsp;list&nbsp;or<br>
+an&nbsp;array.&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;value&nbsp;may&nbsp;be&nbsp;specified&nbsp;by&nbsp;using&nbsp;keyword<br>
+arguments.</tt></dd></dl>
+ <dl><dt><a name="-eqlist"><strong>eqlist</strong></a>(...)</dt><dd><tt>Print&nbsp;a&nbsp;dictionary&nbsp;to&nbsp;stdout&nbsp;as&nbsp;a&nbsp;list&nbsp;of&nbsp;elements&nbsp;in&nbsp;the&nbsp;form&nbsp;"key&nbsp;=<br>
+value",&nbsp;aligning&nbsp;all&nbsp;equality&nbsp;signs.&nbsp;Also&nbsp;all&nbsp;nested&nbsp;contents&nbsp;are&nbsp;formatted<br>
+nicely&nbsp;in&nbsp;this&nbsp;way.&nbsp;If&nbsp;the&nbsp;keyword&nbsp;"maxshape"&nbsp;is&nbsp;specified,&nbsp;display&nbsp;only<br>
+the&nbsp;contents&nbsp;of&nbsp;those&nbsp;numpy&nbsp;arrays&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;a&nbsp;dimension&nbsp;larger&nbsp;than<br>
+the&nbsp;specified&nbsp;number.&nbsp;Instead,&nbsp;just&nbsp;note&nbsp;the&nbsp;shape&nbsp;of&nbsp;the&nbsp;array.&nbsp;For&nbsp;sparse<br>
+matrices,&nbsp;maxshape&nbsp;gives&nbsp;the&nbsp;maximum&nbsp;number&nbsp;of&nbsp;nonzero&nbsp;elements.&nbsp;If&nbsp;the<br>
+keyword&nbsp;"dense"&nbsp;is&nbsp;set&nbsp;to&nbsp;True,&nbsp;sparse&nbsp;matrices&nbsp;are&nbsp;converted&nbsp;to&nbsp;dense<br>
+matrices&nbsp;before&nbsp;displaying.</tt></dd></dl>
+ <dl><dt><a name="-equal"><strong>equal</strong></a>(...)</dt><dd><tt>My&nbsp;version&nbsp;of&nbsp;the&nbsp;function&nbsp;"all"&nbsp;with&nbsp;equality&nbsp;check&nbsp;(==),&nbsp;that<br>
+works&nbsp;with&nbsp;all&nbsp;types&nbsp;of&nbsp;objects,&nbsp;even&nbsp;with&nbsp;scalars&nbsp;and&nbsp;nested&nbsp;lists.</tt></dd></dl>
+ <dl><dt><a name="-equaltype"><strong>equaltype</strong></a>(...)</dt><dd><tt>Test&nbsp;if&nbsp;all&nbsp;elements&nbsp;of&nbsp;the&nbsp;sequence&nbsp;or&nbsp;set&nbsp;have&nbsp;the&nbsp;same&nbsp;type.</tt></dd></dl>
+ <dl><dt><a name="-evalmath"><strong>evalmath</strong></a>(...)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,&nbsp;assume<br>
+that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with&nbsp;eval<br>
+before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.<br>
+&nbsp;<br>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower&nbsp;for<br>
+values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+ <dl><dt><a name="-expandstr"><strong>expandstr</strong></a>(...)</dt><dd><tt>Return&nbsp;the&nbsp;string,&nbsp;but&nbsp;expand&nbsp;it&nbsp;to&nbsp;the&nbsp;given&nbsp;length&nbsp;with&nbsp;the&nbsp;given<br>
+character.&nbsp;&nbsp;If&nbsp;flip&nbsp;is&nbsp;True,&nbsp;fill&nbsp;characters&nbsp;in&nbsp;front&nbsp;of&nbsp;string&nbsp;instead&nbsp;of<br>
+behind&nbsp;it.</tt></dd></dl>
+ <dl><dt><a name="-get_num_from_ratio"><strong>get_num_from_ratio</strong></a>(...)</dt><dd><tt>Interprete&nbsp;the&nbsp;given&nbsp;value&nbsp;(possibly&nbsp;string)&nbsp;as&nbsp;a&nbsp;certain&nbsp;ratio.&nbsp;Treat<br>
+the&nbsp;ratio&nbsp;as&nbsp;being&nbsp;a&nbsp;certain&nbsp;part&nbsp;of&nbsp;the&nbsp;given&nbsp;number&nbsp;"total"&nbsp;and&nbsp;return<br>
+the&nbsp;resulting&nbsp;number&nbsp;(ratio*total,&nbsp;rounded).<br>
+&nbsp;<br>
+The&nbsp;ratio&nbsp;can&nbsp;be&nbsp;given&nbsp;as&nbsp;a&nbsp;floating&nbsp;point&nbsp;number&nbsp;(including&nbsp;a&nbsp;"."),&nbsp;as&nbsp;a<br>
+percentage&nbsp;(ending&nbsp;with&nbsp;"%"),&nbsp;as&nbsp;a&nbsp;parts-per-million&nbsp;value&nbsp;(ending&nbsp;with<br>
+"ppm")&nbsp;or&nbsp;as&nbsp;a&nbsp;parts-per-billion&nbsp;value&nbsp;(ending&nbsp;with&nbsp;"ppb").&nbsp;If&nbsp;mathematical<br>
+operators&nbsp;are&nbsp;found&nbsp;("*",&nbsp;"/",&nbsp;"+",&nbsp;"-"),&nbsp;the&nbsp;expression&nbsp;is&nbsp;evaluated.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;given&nbsp;value&nbsp;is&nbsp;not&nbsp;a&nbsp;string,&nbsp;the&nbsp;following&nbsp;rules&nbsp;apply:<br>
+Integers&nbsp;are&nbsp;treated&nbsp;as&nbsp;the&nbsp;requested&nbsp;number&nbsp;itself,&nbsp;floats&nbsp;as&nbsp;ratios<br>
+from&nbsp;the&nbsp;total&nbsp;number.<br>
+&nbsp;<br>
+Always,&nbsp;an&nbsp;integer&nbsp;is&nbsp;returned.&nbsp;Note&nbsp;that&nbsp;also&nbsp;negative&nbsp;numbers&nbsp;may&nbsp;be<br>
+returned&nbsp;(if&nbsp;the&nbsp;given&nbsp;ratio&nbsp;is&nbsp;negative).&nbsp;This&nbsp;could&nbsp;be&nbsp;useful&nbsp;in&nbsp;some<br>
+situations.</tt></dd></dl>
+ <dl><dt><a name="-get_num_or_acc"><strong>get_num_or_acc</strong></a>(...)</dt><dd><tt>Interprete&nbsp;a&nbsp;string&nbsp;as&nbsp;either&nbsp;an&nbsp;interger&nbsp;number&nbsp;or&nbsp;a&nbsp;float&nbsp;representing<br>
+an&nbsp;accuracy.&nbsp;Return&nbsp;the&nbsp;resulting&nbsp;number&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;requested&nbsp;accuracy,<br>
+of&nbsp;which&nbsp;one&nbsp;will&nbsp;be&nbsp;False&nbsp;and&nbsp;the&nbsp;other&nbsp;will&nbsp;carry&nbsp;the&nbsp;respective&nbsp;value.<br>
+The&nbsp;accuracy&nbsp;can&nbsp;be&nbsp;given&nbsp;as&nbsp;a&nbsp;floating&nbsp;point&nbsp;number&nbsp;(including&nbsp;a&nbsp;"."),&nbsp;as<br>
+a&nbsp;percentage&nbsp;(ending&nbsp;with&nbsp;"%"),&nbsp;as&nbsp;a&nbsp;parts-per-million&nbsp;value&nbsp;(ending&nbsp;with<br>
+"ppm")&nbsp;or&nbsp;as&nbsp;a&nbsp;parts-per-billion&nbsp;value&nbsp;(ending&nbsp;with&nbsp;"ppb").&nbsp;Additionally,<br>
+return&nbsp;the&nbsp;number&nbsp;of&nbsp;digits&nbsp;that&nbsp;would&nbsp;be&nbsp;needed&nbsp;to&nbsp;represent&nbsp;the&nbsp;targeted<br>
+accuracy.</tt></dd></dl>
+ <dl><dt><a name="-get_ratio"><strong>get_ratio</strong></a>(...)</dt><dd><tt>Interprete&nbsp;a&nbsp;string&nbsp;as&nbsp;a&nbsp;float&nbsp;representing&nbsp;a&nbsp;certain&nbsp;ratio.&nbsp;The&nbsp;ratio<br>
+can&nbsp;be&nbsp;given&nbsp;as&nbsp;a&nbsp;floating&nbsp;point&nbsp;number&nbsp;(including&nbsp;a&nbsp;"."),&nbsp;as&nbsp;a&nbsp;percentage<br>
+(ending&nbsp;with&nbsp;"%"),&nbsp;as&nbsp;a&nbsp;parts-per-million&nbsp;value&nbsp;(ending&nbsp;with&nbsp;"ppm")&nbsp;or&nbsp;as&nbsp;a<br>
+parts-per-billion&nbsp;value&nbsp;(ending&nbsp;with&nbsp;"ppb").&nbsp;If&nbsp;mathematical&nbsp;operators&nbsp;are<br>
+found&nbsp;("*",&nbsp;"/",&nbsp;"+",&nbsp;"-"),&nbsp;evaluate&nbsp;the&nbsp;expression.</tt></dd></dl>
+ <dl><dt><a name="-hasattrs"><strong>hasattrs</strong></a>(...)</dt><dd><tt>Return&nbsp;whether&nbsp;the&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;has&nbsp;all&nbsp;attributes&nbsp;with&nbsp;the&nbsp;given&nbsp;names.</tt></dd></dl>
+ <dl><dt><a name="-humanbytes"><strong>humanbytes</strong></a>(...)</dt><dd><tt>Return&nbsp;given&nbsp;byte&nbsp;count&nbsp;(integer)&nbsp;in&nbsp;a&nbsp;human&nbsp;readable&nbsp;format&nbsp;(string).<br>
+Example:&nbsp;664070&nbsp;--&gt;&nbsp;649Ki.&nbsp;&nbsp;Supported&nbsp;binary&nbsp;prefixes:&nbsp;kibi,&nbsp;mebi,&nbsp;gibi,<br>
+tebi,&nbsp;pebi,&nbsp;exbi,&nbsp;zebi,&nbsp;yobi.</tt></dd></dl>
+ <dl><dt><a name="-isiterable"><strong>isiterable</strong></a>(...)</dt><dd><tt>Check&nbsp;if&nbsp;an&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;is&nbsp;iterable.&nbsp;Return&nbsp;True&nbsp;for&nbsp;lists,&nbsp;tuples,<br>
+dictionaries&nbsp;and&nbsp;numpy&nbsp;arrays&nbsp;(all&nbsp;objects&nbsp;that&nbsp;possess&nbsp;an&nbsp;__iter__<br>
+method).&nbsp;&nbsp;Return&nbsp;False&nbsp;for&nbsp;scalars&nbsp;(float,&nbsp;int,&nbsp;etc.),&nbsp;strings,&nbsp;bool&nbsp;and<br>
+None.</tt></dd></dl>
+ <dl><dt><a name="-ismath"><strong>ismath</strong></a>(...)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing&nbsp;only<br>
+mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course&nbsp;digits).<br>
+Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a&nbsp;given<br>
+expression.<br>
+&nbsp;<br>
+Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is&nbsp;actually<br>
+valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be&nbsp;passed&nbsp;to&nbsp;eval&nbsp;or<br>
+not.</tt></dd></dl>
+ <dl><dt><a name="-isobject"><strong>isobject</strong></a>(...)</dt><dd><tt>Return&nbsp;True&nbsp;if&nbsp;obj&nbsp;possesses&nbsp;an&nbsp;attribute&nbsp;called&nbsp;"__dict__",&nbsp;otherwise<br>
+return&nbsp;False.</tt></dd></dl>
+ <dl><dt><a name="-minima"><strong>minima</strong></a>(...)</dt><dd><tt>Find&nbsp;indices&nbsp;of&nbsp;all&nbsp;local&nbsp;minima&nbsp;of&nbsp;the&nbsp;function&nbsp;given&nbsp;by&nbsp;the&nbsp;array<br>
+a.</tt></dd></dl>
+ <dl><dt><a name="-nearest"><strong>nearest</strong></a>(...)</dt><dd><tt>Return&nbsp;index&nbsp;of&nbsp;the&nbsp;nearest&nbsp;value&nbsp;in&nbsp;a&nbsp;to&nbsp;v.</tt></dd></dl>
+ <dl><dt><a name="-nicetime"><strong>nicetime</strong></a>(...)</dt><dd><tt>Return&nbsp;nice&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;given&nbsp;number&nbsp;of&nbsp;seconds&nbsp;in&nbsp;a<br>
+human-readable&nbsp;format&nbsp;(approximated).&nbsp;Example:&nbsp;3634&nbsp;s&nbsp;--&gt;&nbsp;1&nbsp;h.</tt></dd></dl>
+ <dl><dt><a name="-npc"><strong>npc</strong></a>(...)</dt><dd><tt>Return&nbsp;number&nbsp;of&nbsp;processor&nbsp;cores&nbsp;on&nbsp;this&nbsp;machine.&nbsp;Supported&nbsp;operating<br>
+systems:&nbsp;Linux/Unix,&nbsp;MacOS,&nbsp;Windows.</tt></dd></dl>
+ <dl><dt><a name="-opt2list"><strong>opt2list</strong></a>(...)</dt><dd><tt>Return&nbsp;list&nbsp;of&nbsp;values&nbsp;as&nbsp;specified&nbsp;by&nbsp;an&nbsp;option&nbsp;string&nbsp;of&nbsp;the&nbsp;form<br>
+"x1,x2,x3,x4,x5".&nbsp;dtype&nbsp;specifies&nbsp;the&nbsp;type&nbsp;of&nbsp;the&nbsp;values&nbsp;(int,&nbsp;float,<br>
+str,&nbsp;etc.).&nbsp;Default:&nbsp;int.</tt></dd></dl>
+ <dl><dt><a name="-opt2mathlist"><strong>opt2mathlist</strong></a>(...)</dt><dd><tt>Return&nbsp;list&nbsp;of&nbsp;values&nbsp;as&nbsp;specified&nbsp;by&nbsp;an&nbsp;option&nbsp;string&nbsp;of&nbsp;the&nbsp;form<br>
+"x1,x2,x3,x4,x5".&nbsp;dtype&nbsp;specifies&nbsp;the&nbsp;type&nbsp;of&nbsp;the&nbsp;values&nbsp;(int,&nbsp;float,&nbsp;str,<br>
+etc.).&nbsp;If&nbsp;mathematical&nbsp;expressions&nbsp;are&nbsp;contained&nbsp;inside&nbsp;the&nbsp;option&nbsp;strings,<br>
+they&nbsp;are&nbsp;evaluated.&nbsp;Default:&nbsp;int.</tt></dd></dl>
+ <dl><dt><a name="-opt2range"><strong>opt2range</strong></a>(...)</dt><dd><tt>Return&nbsp;list&nbsp;of&nbsp;integers&nbsp;as&nbsp;specified&nbsp;by&nbsp;an&nbsp;option&nbsp;string&nbsp;of&nbsp;the&nbsp;form<br>
+"x:y:z".&nbsp;z&nbsp;has&nbsp;to&nbsp;be&nbsp;a&nbsp;positive&nbsp;integer,&nbsp;x&nbsp;and&nbsp;y&nbsp;have&nbsp;to&nbsp;be&nbsp;non-negative<br>
+integers.&nbsp;Use&nbsp;lower&nbsp;and&nbsp;upper&nbsp;to&nbsp;define&nbsp;the&nbsp;lower&nbsp;and&nbsp;upper&nbsp;limits.&nbsp;In&nbsp;this<br>
+way,&nbsp;the&nbsp;user&nbsp;can&nbsp;specify&nbsp;ranges&nbsp;by&nbsp;leaving&nbsp;x&nbsp;or&nbsp;y&nbsp;empty.</tt></dd></dl>
+ <dl><dt><a name="-opt2ranges"><strong>opt2ranges</strong></a>(...)</dt><dd><tt>Return&nbsp;list&nbsp;of&nbsp;integers&nbsp;as&nbsp;specified&nbsp;by&nbsp;an&nbsp;option&nbsp;string&nbsp;of&nbsp;the&nbsp;form<br>
+"x1:y1:z1,x2:y2:z2,...".&nbsp;Each&nbsp;z&nbsp;has&nbsp;to&nbsp;be&nbsp;a&nbsp;positive&nbsp;integer,&nbsp;x&nbsp;and&nbsp;y&nbsp;have<br>
+to&nbsp;be&nbsp;positive&nbsp;integers&nbsp;or&nbsp;zero.&nbsp;Use&nbsp;lower&nbsp;and&nbsp;upper&nbsp;to&nbsp;define&nbsp;the&nbsp;lower<br>
+and&nbsp;upper&nbsp;limits&nbsp;for&nbsp;the&nbsp;ranges.&nbsp;In&nbsp;this&nbsp;way,&nbsp;the&nbsp;user&nbsp;can&nbsp;specify&nbsp;ranges<br>
+by&nbsp;leaving&nbsp;x&nbsp;or&nbsp;y&nbsp;empty.</tt></dd></dl>
+ <dl><dt><a name="-printcols"><strong>printcols</strong></a>(...)</dt><dd><tt>Print&nbsp;the&nbsp;strings&nbsp;in&nbsp;the&nbsp;given&nbsp;list&nbsp;in&nbsp;column&nbsp;by&nbsp;column&nbsp;(similar&nbsp;the<br>
+bash&nbsp;command&nbsp;"ls"),&nbsp;respecting&nbsp;the&nbsp;width&nbsp;of&nbsp;the&nbsp;shell&nbsp;window.&nbsp;If&nbsp;ret&nbsp;is<br>
+True,&nbsp;give&nbsp;back&nbsp;the&nbsp;resulting&nbsp;string&nbsp;instead&nbsp;of&nbsp;printing&nbsp;it&nbsp;to&nbsp;stdout.</tt></dd></dl>
+ <dl><dt><a name="-prod"><strong>prod</strong></a>(...)</dt><dd><tt>Return&nbsp;the&nbsp;product&nbsp;of&nbsp;all&nbsp;elements&nbsp;of&nbsp;the&nbsp;given&nbsp;sequence.<br>
+&nbsp;<br>
+I&nbsp;use&nbsp;this&nbsp;function&nbsp;mainly&nbsp;to&nbsp;avoid&nbsp;importing&nbsp;the&nbsp;huge&nbsp;numpy&nbsp;module&nbsp;(which<br>
+takes&nbsp;up&nbsp;to&nbsp;1.5&nbsp;seconds&nbsp;on&nbsp;my&nbsp;computer).</tt></dd></dl>
+ <dl><dt><a name="-sepnumstr"><strong>sepnumstr</strong></a>(...)</dt><dd><tt>Separate&nbsp;numeric&nbsp;values&nbsp;from&nbsp;characters&nbsp;within&nbsp;a&nbsp;string.&nbsp;Return<br>
+resulting&nbsp;numeric&nbsp;values&nbsp;and&nbsp;strings&nbsp;as&nbsp;a&nbsp;list.</tt></dd></dl>
+ <dl><dt><a name="-typename"><strong>typename</strong></a>(...)</dt><dd><tt>Just&nbsp;a&nbsp;shortcut&nbsp;to&nbsp;return&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;type&nbsp;of&nbsp;the&nbsp;given&nbsp;<a href="__builtin__.html#object">object</a>.</tt></dd></dl>
+ <dl><dt><a name="-types"><strong>types</strong></a>(...)</dt><dd><tt>Return&nbsp;list&nbsp;of&nbsp;typenames&nbsp;that&nbsp;the&nbsp;iterable&nbsp;value&nbsp;contains.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__pyx_capi__</strong> = {'get_num_or_acc': &lt;capsule object "PyObject *(PyObject *, int __pyx_skip_dispatch)"&gt;}<br>
+<strong>__test__</strong> = {}</td></tr></table>
+</body></html>

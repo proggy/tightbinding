@@ -1,0 +1,90 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module tb.sc.shells</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="tb.html"><font color="#ffffff">tb</font></a>.<a href="tb.sc.html"><font color="#ffffff">sc</font></a>.shells</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/djung/lib/tb/sc/shells.py">/home/djung/lib/tb/sc/shells.py</a></font></td></tr></table>
+    <p><tt>A&nbsp;shell&nbsp;is&nbsp;the&nbsp;set&nbsp;of&nbsp;vectors&nbsp;of&nbsp;a&nbsp;simple&nbsp;hypercubic&nbsp;lattice&nbsp;that&nbsp;have&nbsp;the<br>
+same&nbsp;length&nbsp;(distance&nbsp;to&nbsp;the&nbsp;chosen&nbsp;origin)&nbsp;and&nbsp;the&nbsp;same&nbsp;characteristic<br>
+vector.<br>
+&nbsp;<br>
+For&nbsp;small&nbsp;n,&nbsp;the&nbsp;shell&nbsp;of&nbsp;order&nbsp;n&nbsp;consists&nbsp;of&nbsp;the&nbsp;n-th&nbsp;next&nbsp;neighbors&nbsp;of&nbsp;a<br>
+chosen&nbsp;lattice&nbsp;site,&nbsp;but&nbsp;there&nbsp;are&nbsp;deviations&nbsp;from&nbsp;this&nbsp;statement&nbsp;for&nbsp;higher<br>
+n&nbsp;because&nbsp;there&nbsp;are&nbsp;shells&nbsp;whose&nbsp;sites&nbsp;have&nbsp;the&nbsp;same&nbsp;distance&nbsp;to&nbsp;the&nbsp;origin,<br>
+but&nbsp;have&nbsp;different&nbsp;characteristic&nbsp;vectors.&nbsp;Examples&nbsp;for&nbsp;a&nbsp;2D&nbsp;lattice&nbsp;are&nbsp;the<br>
+shells&nbsp;with&nbsp;the&nbsp;characteristic&nbsp;vectors&nbsp;(5,&nbsp;0)&nbsp;and&nbsp;(4,&nbsp;3).<br>
+&nbsp;<br>
+The&nbsp;lattice&nbsp;sites&nbsp;that&nbsp;belong&nbsp;to&nbsp;a&nbsp;certain&nbsp;shell&nbsp;can&nbsp;be&nbsp;calculated&nbsp;by<br>
+obtaining&nbsp;all&nbsp;permutations&nbsp;of&nbsp;its&nbsp;characteristic&nbsp;vector&nbsp;including&nbsp;all<br>
+possible&nbsp;sign&nbsp;changes.&nbsp;To&nbsp;do&nbsp;that,&nbsp;use&nbsp;the&nbsp;function&nbsp;"signperms".<br>
+&nbsp;<br>
+Written&nbsp;by&nbsp;Daniel&nbsp;Jung,&nbsp;Jacobs&nbsp;University&nbsp;Bremen,&nbsp;Germany&nbsp;(2012).</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="itertools.html">itertools</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-cvects"><strong>cvects</strong></a>(order, dim<font color="#909090">=1</font>)</dt><dd><tt>Return&nbsp;characteristic&nbsp;vectors&nbsp;of&nbsp;the&nbsp;shells&nbsp;of&nbsp;a&nbsp;dim-dimensional&nbsp;(dim)<br>
+simple&nbsp;hypercubic&nbsp;lattice&nbsp;up&nbsp;to&nbsp;the&nbsp;given&nbsp;order&nbsp;"order".&nbsp;The&nbsp;result&nbsp;is&nbsp;a<br>
+list&nbsp;with&nbsp;length&nbsp;order+1&nbsp;of&nbsp;tuples&nbsp;with&nbsp;length&nbsp;dim,&nbsp;so&nbsp;the&nbsp;0-th&nbsp;order&nbsp;is<br>
+included.&nbsp;&nbsp;All&nbsp;found&nbsp;vectors&nbsp;will&nbsp;be&nbsp;from&nbsp;the&nbsp;"irreducible&nbsp;wedge"&nbsp;of&nbsp;the<br>
+hyperdimensional&nbsp;lattice.<br>
+&nbsp;<br>
+This&nbsp;iterative&nbsp;algorithm&nbsp;is&nbsp;more&nbsp;intuitive&nbsp;and&nbsp;memory-efficient&nbsp;than&nbsp;the<br>
+common&nbsp;"trial-and-error"&nbsp;method&nbsp;(calculate&nbsp;far&nbsp;too&nbsp;many&nbsp;characteristic<br>
+vectors&nbsp;and&nbsp;then&nbsp;sort&nbsp;them&nbsp;afterwards).&nbsp;The&nbsp;shell&nbsp;orders&nbsp;are&nbsp;found&nbsp;in<br>
+ascending&nbsp;sequence,&nbsp;the&nbsp;algorithm&nbsp;can&nbsp;break&nbsp;at&nbsp;any&nbsp;time.&nbsp;Furthermore,&nbsp;it<br>
+works&nbsp;for&nbsp;any&nbsp;dimensionality.<br>
+&nbsp;<br>
+Possible&nbsp;future&nbsp;improvement:<br>
+-&nbsp;avoid&nbsp;multiple&nbsp;calculation&nbsp;of&nbsp;the&nbsp;same&nbsp;distances<br>
+-&nbsp;break&nbsp;on&nbsp;certain&nbsp;condition,&nbsp;not&nbsp;on&nbsp;fixed&nbsp;order<br>
+&nbsp;<br>
+Example&nbsp;usage:<br>
+&gt;&gt;&gt;&nbsp;<a href="#-cvects">cvects</a>(3,&nbsp;dim=2)&nbsp;&nbsp;#&nbsp;find&nbsp;neighbors&nbsp;in&nbsp;a&nbsp;2D&nbsp;lattice&nbsp;up&nbsp;to&nbsp;order&nbsp;3<br>
+[(0,&nbsp;0),&nbsp;(1,&nbsp;0),&nbsp;(1,&nbsp;1),&nbsp;(2,&nbsp;0)]</tt></dd></dl>
+ <dl><dt><a name="-signperms"><strong>signperms</strong></a>(tup)</dt><dd><tt>Return&nbsp;an&nbsp;(unordered)&nbsp;list&nbsp;of&nbsp;all&nbsp;possible&nbsp;permutations&nbsp;of&nbsp;a&nbsp;given&nbsp;tuple<br>
+of&nbsp;values,&nbsp;including&nbsp;all&nbsp;possible&nbsp;sign&nbsp;flips&nbsp;of&nbsp;the&nbsp;values.&nbsp;&nbsp;In&nbsp;other<br>
+words,&nbsp;if&nbsp;the&nbsp;characteristic&nbsp;vector&nbsp;of&nbsp;a&nbsp;shell&nbsp;is&nbsp;given,&nbsp;the&nbsp;relative<br>
+vectors&nbsp;pointing&nbsp;to&nbsp;all&nbsp;the&nbsp;lattice&nbsp;sites&nbsp;of&nbsp;the&nbsp;shell&nbsp;are&nbsp;returned.&nbsp;Also<br>
+the&nbsp;number&nbsp;of&nbsp;shell&nbsp;members&nbsp;can&nbsp;obtained&nbsp;easily&nbsp;as&nbsp;the&nbsp;length&nbsp;of&nbsp;the<br>
+result,&nbsp;i.e.&nbsp;&nbsp;len(<a href="#-signperms">signperms</a>(characteristic_vector)).<br>
+&nbsp;<br>
+Example&nbsp;usage:<br>
+&gt;&gt;&gt;&nbsp;<a href="#-signperms">signperms</a>((1,&nbsp;0))<br>
+[(0,&nbsp;1),&nbsp;(0,&nbsp;-1),&nbsp;(1,&nbsp;0),&nbsp;(-1,&nbsp;0)]<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;n100&nbsp;=&nbsp;<a href="#-cvects">cvects</a>(100,&nbsp;dim=3)[-1]<br>
+&gt;&gt;&gt;&nbsp;n100&nbsp;&nbsp;#&nbsp;characteristic&nbsp;vector&nbsp;of&nbsp;100th&nbsp;shell&nbsp;in&nbsp;a&nbsp;3D&nbsp;lattice<br>
+(7,&nbsp;5,&nbsp;1)<br>
+&gt;&gt;&gt;&nbsp;perms&nbsp;=&nbsp;<a href="#-signperms">signperms</a>(n100)<br>
+&gt;&gt;&gt;&nbsp;len(perms)&nbsp;&nbsp;#&nbsp;number&nbsp;of&nbsp;shell&nbsp;members<br>
+48<br>
+&gt;&gt;&gt;&nbsp;perms[:5]&nbsp;&nbsp;#&nbsp;just&nbsp;show&nbsp;a&nbsp;few&nbsp;here<br>
+[(-7,&nbsp;-5,&nbsp;-1),&nbsp;(-1,&nbsp;-7,&nbsp;5),&nbsp;(7,&nbsp;-5,&nbsp;1),&nbsp;(-5,&nbsp;7,&nbsp;1),&nbsp;(7,&nbsp;5,&nbsp;-1)]</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__created__</strong> = '2012-05-06'<br>
+<strong>__modified__</strong> = '2012-07-05'</td></tr></table>
+</body></html>
