@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>tb &mdash; tb 0.1 documentation</title>
+    <title>tb.check &mdash; tb 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,8 +26,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="tb 0.1 documentation" href="#" />
-    <link rel="next" title="tb.check" href="check.html" /> 
+    <link rel="top" title="tb 0.1 documentation" href="index.html" />
+    <link rel="next" title="tb.define" href="define.html" />
+    <link rel="prev" title="tb" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,9 +41,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="check.html" title="tb.check"
+          <a href="define.html" title="tb.define"
              accesskey="N">next</a> |</li>
-        <li><a href="#">tb 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="index.html" title="tb"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">tb 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,35 +55,25 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="tb">
-<h1>tb<a class="headerlink" href="#tb" title="Permalink to this headline">¶</a></h1>
-<p>Submodules:</p>
+  <div class="section" id="tb-check">
+<h1>tb.check<a class="headerlink" href="#tb-check" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="check.html">tb.check</a></li>
-<li class="toctree-l1"><a class="reference internal" href="define.html">tb.define</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">tb.misc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sc.html">tb.sc</a></li>
+<ul class="simple">
 </ul>
 </div>
-<span class="target" id="module-tb"></span><p>Tight binding package. Define tight binding systems (see submodule
-<a class="reference internal" href="define.html#module-tb.define" title="tb.define"><tt class="xref py py-mod docutils literal"><span class="pre">tb.define</span></tt></a>) as instances of the class <a class="reference internal" href="sc.html#tb.sc.SuperCell" title="tb.sc.SuperCell"><tt class="xref py py-class docutils literal"><span class="pre">tb.sc.SuperCell</span></tt></a> and create
-the dynamic matrix (tight-binding matrix) using its method
-<a class="reference internal" href="sc.html#tb.sc.SuperCell.tbmat" title="tb.sc.SuperCell.tbmat"><tt class="xref py py-meth docutils literal"><span class="pre">tb.sc.SuperCell.tbmat()</span></tt></a>.</p>
+<span class="target" id="module-tb.check"></span><p>Check matrices for symmetry.</p>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="tb.intersect">
-<tt class="descclassname">tb.</tt><tt class="descname">intersect</tt><big>(</big><em>*params</em><big>)</big><a class="reference internal" href="_modules/tb.html#intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tb.intersect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return intersection of given parameter sets. Expect list of instances
-of <tt class="xref py py-class docutils literal"><span class="pre">bundle.Bundle</span></tt>. Return instance of <tt class="xref py py-class docutils literal"><span class="pre">bundle.Bundle</span></tt>.</p>
+<dt id="tb.check.symmetric">
+<tt class="descclassname">tb.check.</tt><tt class="descname">symmetric</tt><big>(</big><em>mat</em><big>)</big><a class="reference internal" href="_modules/tb/check.html#symmetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tb.check.symmetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if given matrix is symmetric.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="tb.tbmat">
-<tt class="descclassname">tb.</tt><tt class="descname">tbmat</tt><big>(</big><em>scell</em>, <em>format=None</em><big>)</big><a class="reference internal" href="_modules/tb.html#tbmat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tb.tbmat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the tight binding matrix of the given supercell definition
-<em>scell</em>.</p>
+<dt id="tb.check.hermitian">
+<tt class="descclassname">tb.check.</tt><tt class="descname">hermitian</tt><big>(</big><em>mat</em><big>)</big><a class="reference internal" href="_modules/tb/check.html#hermitian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tb.check.hermitian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if given matrix is hermitian.</p>
 </dd></dl>
 
 </div>
@@ -99,21 +93,24 @@ of <tt class="xref py py-class docutils literal"><span class="pre">bundle.Bundle
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">tb</a><ul>
+<li><a class="reference internal" href="#">tb.check</a><ul>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">tb</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="check.html"
-                        title="next chapter">tb.check</a></p>
+  <p class="topless"><a href="define.html"
+                        title="next chapter">tb.define</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/index.txt"
+    <li><a href="_sources/check.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -143,9 +140,12 @@ of <tt class="xref py py-class docutils literal"><span class="pre">bundle.Bundle
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="check.html" title="tb.check"
+          <a href="define.html" title="tb.define"
              >next</a> |</li>
-        <li><a href="#">tb 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="index.html" title="tb"
+             >previous</a> |</li>
+        <li><a href="index.html">tb 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

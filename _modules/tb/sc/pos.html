@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tb.sc.pos &mdash; tb 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="tb 0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="tb.sc" href="../sc.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">tb 0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../../tb.html" >tb</a> &raquo;</li>
+          <li><a href="../sc.html" accesskey="U">tb.sc</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for tb.sc.pos</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="c">#</span>
+<span class="c"># Copyright notice</span>
+<span class="c"># ----------------</span>
+<span class="c">#</span>
+<span class="c"># Copyright (C) 2013-2014 Daniel Jung</span>
+<span class="c"># Contact: djungbremen@gmail.com</span>
+<span class="c">#</span>
+<span class="c"># This program is free software; you can redistribute it and/or modify it</span>
+<span class="c"># under the terms of the GNU General Public License as published by the Free</span>
+<span class="c"># Software Foundation; either version 2 of the License, or (at your option)</span>
+<span class="c"># any later version.</span>
+<span class="c">#</span>
+<span class="c"># This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="c"># ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="c"># FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for</span>
+<span class="c"># more details.</span>
+<span class="c">#</span>
+<span class="c"># You should have received a copy of the GNU General Public License along</span>
+<span class="c"># with this program; if not, write to the Free Software Foundation, Inc.,</span>
+<span class="c"># 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.</span>
+<span class="c">#</span>
+<span class="sd">&quot;&quot;&quot;Utilities to choose a list of random positions with the given number of</span>
+<span class="sd">dimensions (dim) and of the given length (size) from a uniform grid with the</span>
+<span class="sd">given shape (shape).&quot;&quot;&quot;</span>
+<span class="n">__created__</span> <span class="o">=</span> <span class="s">&#39;2012-05-02&#39;</span>
+<span class="n">__modified__</span> <span class="o">=</span> <span class="s">&#39;2014-01-26&#39;</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">tb</span>
+<span class="kn">import</span> <span class="nn">dist</span>
+<span class="kn">import</span> <span class="nn">progress</span>
+
+
+<div class="viewcode-block" id="PosRule"><a class="viewcode-back" href="../../../sc.pos.html#tb.sc.pos.PosRule">[docs]</a><span class="k">class</span> <span class="nc">PosRule</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">Distribution</span><span class="p">):</span>
+    <span class="c"># 2012-05-02 - 2012-05-02</span>
+    <span class="c">### is there anything extra to be done? Or is it just the same as a</span>
+    <span class="c">### distribution object?</span>
+    <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="all"><a class="viewcode-back" href="../../../sc.pos.html#tb.sc.pos.all">[docs]</a><span class="k">class</span> <span class="nc">all</span><span class="p">(</span><span class="n">PosRule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get all positions of a lattice with the given shape. So, there is no</span>
+<span class="sd">    randomness included, hence this class is (as you may think) very simple in</span>
+<span class="sd">    nature.&quot;&quot;&quot;</span>
+    <span class="c"># 2012-05-02 - 2014-01-26</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mix</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize homogeneous position generator. Set either mixing ratio</span>
+<span class="sd">        (mix) or fixed number of positions (num). Set lattice shape (shape).&quot;&quot;&quot;</span>
+        <span class="c"># 2012-05-03 - 2014-01-26</span>
+
+        <span class="c"># set attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">num</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mix</span> <span class="o">=</span> <span class="n">mix</span>
+
+        <span class="c"># set additional attributes for __repr__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">mix</span><span class="o">=</span><span class="n">mix</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distinguish</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all positions as a list. If distinguish is True, nest the</span>
+<span class="sd">        position list inside a 1-tuple (as the positions cannot be</span>
+<span class="sd">        distinguished any further in this case).&quot;&quot;&quot;</span>
+        <span class="c"># 2012-05-03 - 2012-09-03</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)),)</span> <span class="k">if</span> <span class="n">distinguish</span> \
+            <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="hom"><a class="viewcode-back" href="../../../sc.pos.html#tb.sc.pos.hom">[docs]</a><span class="k">class</span> <span class="nc">hom</span><span class="p">(</span><span class="n">PosRule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate random positions (integer tuples) of a lattice with the given</span>
+<span class="sd">    shape. It is made sure that no position is generated twice. The positions</span>
+<span class="sd">    are distributed homogeneously, i.e. every possible position is chosen with</span>
+<span class="sd">    the same probability.</span>
+
+<span class="sd">    Call an instance of this class, providing the shape of the lattice (shape)</span>
+<span class="sd">    and the number of positions needed (size).&quot;&quot;&quot;</span>
+    <span class="c"># 2012-05-03 - 2012-09-03</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mix</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize homogeneous position generator. Set either mixing ratio</span>
+<span class="sd">        (mix) or fixed number of positions (num). Set lattice shape (shape).&quot;&quot;&quot;</span>
+        <span class="c"># 2012-05-03</span>
+
+        <span class="c"># check that either mix or num is set</span>
+        <span class="k">if</span> <span class="n">mix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">num</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">mix</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">num</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;exactly one of &quot;mix&quot; and &quot;num&quot; must be None&#39;</span><span class="p">)</span>
+
+        <span class="c"># process mixing ratio</span>
+        <span class="k">if</span> <span class="n">mix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mix</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="c"># make sure that the lattice is large enough (shape) for the requested</span>
+        <span class="c"># number of positions (num)</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;not enough lattice positions for the &#39;</span> <span class="o">+</span>
+                             <span class="s">&#39;requested sample size&#39;</span><span class="p">)</span>
+
+        <span class="c"># set attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">num</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mix</span> <span class="o">=</span> <span class="n">mix</span>
+
+        <span class="c"># set additional attributes for __repr__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">mix</span><span class="o">=</span><span class="n">mix</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distinguish</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return random positions (get a new realization of the disordered</span>
+<span class="sd">        system). If distinguish is True, nest the position list inside a</span>
+<span class="sd">        1-tuple (as the positions cannot be distinguished any further in this</span>
+<span class="sd">        case).&quot;&quot;&quot;</span>
+        <span class="c"># 2012-05-03 - 2012-09-03</span>
+
+        <span class="c"># choose random positions one by one</span>
+        <span class="c">### One could also choose many random indices at once, put them into a</span>
+        <span class="c">### set, and repeat this until the requested number of positions is</span>
+        <span class="c">### reached.</span>
+        <span class="c">### That would presumably have by far better performance</span>
+        <span class="c">### However, it seems to be fast enough in all test cases...</span>
+        <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">:</span>
+            <span class="c"># get a random position</span>
+            <span class="n">newpos</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+                <span class="n">newpos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">d</span><span class="p">]))</span>
+            <span class="n">newpos</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">newpos</span><span class="p">)</span>
+
+            <span class="c"># check if this position is already in the list</span>
+            <span class="k">if</span> <span class="n">newpos</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">:</span>
+                <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newpos</span><span class="p">)</span>
+
+        <span class="c"># return sorted list of positions</span>
+        <span class="c">### one could also write a generator and use yield</span>
+        <span class="n">positions</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">positions</span><span class="p">,)</span> <span class="k">if</span> <span class="n">distinguish</span> <span class="k">else</span> <span class="n">positions</span>
+
+</div>
+<div class="viewcode-block" id="spheres"><a class="viewcode-back" href="../../../sc.pos.html#tb.sc.pos.spheres">[docs]</a><span class="k">class</span> <span class="nc">spheres</span><span class="p">(</span><span class="n">PosRule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate random positions (integer tuples) of a lattice with the given</span>
+<span class="sd">    shape under the existence of spherical imhomogeneities.</span>
+
+<span class="sd">    It is made sure that no position is generated twice.</span>
+
+<span class="sd">    Call an instance of this class, providing the shape of the lattice (shape)</span>
+<span class="sd">    and the number of positions needed (size).&quot;&quot;&quot;</span>
+    <span class="c"># 2012-05-03 - 2012-07-06</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">rad</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">sconc</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">iconc</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">iconcin</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">iconcout</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="s">&#39;10s&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize position generator for spherical inhomogeneities. Set</span>
+<span class="sd">        lattice shape (shape), radius of spheres (rad) and minimum space</span>
+<span class="sd">        between the spheres (space). Set exactly 3 of the 4 concentrations</span>
+<span class="sd">        sconc, iconc, iconcin and iconcout:</span>
+
+<span class="sd">        sconc    : concentration of spheres throughout the system</span>
+<span class="sd">        iconc    : total concentration of impurities within the system</span>
+<span class="sd">        iconcin  : concentration of impurities inside the spheres</span>
+<span class="sd">        iconcout : concentration of impurities outside the spheres</span>
+
+<span class="sd">        Instead of concentrations (floats between 0 and 1 or strings with</span>
+<span class="sd">        character %), also numbers (integers) can be given.</span>
+
+<span class="sd">        If the given timeout is exceeded and still no valid configuration could</span>
+<span class="sd">        be found, the program exits.</span>
+
+<span class="sd">        Possible extensions:</span>
+<span class="sd">        --&gt; allow spheres to overlap boundaries (with periodic boundary</span>
+<span class="sd">            conditions)?&quot;&quot;&quot;</span>
+        <span class="c"># 2012-07-05 - 2012-07-06</span>
+
+        <span class="c"># check arguments</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">([</span><span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+                <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sconc</span><span class="p">,</span> <span class="n">iconc</span><span class="p">,</span> <span class="n">iconcin</span><span class="p">,</span> <span class="n">iconcout</span><span class="p">]])</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;exactly three of sconc, iconc, iconcin and &#39;</span> <span class="o">+</span>
+                             <span class="s">&#39;iconcout must be given, the fourth must be None&#39;</span><span class="p">)</span>
+
+        <span class="c"># calculate how many sites a sphere contains (&quot;sites per sphere&quot;)</span>
+        <span class="n">sps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_sphere</span><span class="p">(</span><span class="n">rad</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="c"># calculate lattice size</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c"># interprete concentrations</span>
+        <span class="k">if</span> <span class="n">iconcout</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">snum</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">sconc</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">size</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">sps</span><span class="p">),</span>
+                                              <span class="n">roundfunc</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">)</span>
+            <span class="n">inum</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">iconc</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+            <span class="n">inumin</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">iconcin</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">sps</span><span class="o">*</span><span class="n">snum</span><span class="p">)</span>
+            <span class="n">inumout</span> <span class="o">=</span> <span class="n">inum</span><span class="o">-</span><span class="n">inumin</span>
+        <span class="k">elif</span> <span class="n">iconcin</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">snum</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">sconc</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">size</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">sps</span><span class="p">),</span>
+                                              <span class="n">roundfunc</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">)</span>
+            <span class="n">inum</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">iconc</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+            <span class="n">inumout</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">iconcout</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">size</span><span class="o">-</span><span class="n">sps</span><span class="o">*</span><span class="n">snum</span><span class="p">)</span>
+            <span class="n">inumin</span> <span class="o">=</span> <span class="n">inum</span><span class="o">-</span><span class="n">inumout</span>
+        <span class="k">elif</span> <span class="n">iconc</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">snum</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">sconc</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">size</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">sps</span><span class="p">),</span>
+                                              <span class="n">roundfunc</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">)</span>
+            <span class="n">inumin</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">iconcin</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">sps</span><span class="o">*</span><span class="n">snum</span><span class="p">)</span>
+            <span class="n">inumout</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">get_num_from_ratio</span><span class="p">(</span><span class="n">iconcout</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">size</span><span class="o">-</span><span class="n">sps</span><span class="o">*</span><span class="n">snum</span><span class="p">)</span>
+            <span class="n">inum</span> <span class="o">=</span> <span class="n">inumin</span><span class="o">+</span><span class="n">inumout</span>
+        <span class="k">elif</span> <span class="n">sconc</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c"># deducing snum from impurity concentrations not yet possible</span>
+            <span class="c"># (solution difficult... but possible?)</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&#39;sphere concentration cannot be None &#39;</span> <span class="o">+</span>
+                                      <span class="s">&#39;at the moment (solution not yet found)&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;at least one of sconc, iconc, iconcin, or &#39;</span> <span class="o">+</span>
+                             <span class="s">&#39;iconcout must be None&#39;</span><span class="p">)</span>
+
+        <span class="c"># check integrity of the numbers</span>
+        <span class="k">if</span> <span class="n">inum</span> <span class="o">!=</span> <span class="n">inumin</span><span class="o">+</span><span class="n">inumout</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;impurity numbers don</span><span class="se">\&#39;</span><span class="s">t add up (</span><span class="si">%i</span><span class="s"> != </span><span class="si">%i</span><span class="s">+</span><span class="si">%i</span><span class="s">)&#39;</span>
+                             <span class="o">%</span> <span class="p">(</span><span class="n">inum</span><span class="p">,</span> <span class="n">inumin</span><span class="p">,</span> <span class="n">inumout</span><span class="p">))</span>
+
+        <span class="c"># set attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rad</span> <span class="o">=</span> <span class="n">rad</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">space</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">snum</span> <span class="o">=</span> <span class="n">snum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inum</span> <span class="o">=</span> <span class="n">inum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inumin</span> <span class="o">=</span> <span class="n">inumin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inumout</span> <span class="o">=</span> <span class="n">inumout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+
+        <span class="c"># set additional attributes for __repr__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">rad</span><span class="o">=</span><span class="n">rad</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="n">space</span><span class="p">,</span> <span class="n">sconc</span><span class="o">=</span><span class="n">sconc</span><span class="p">,</span>
+                           <span class="n">iconc</span><span class="o">=</span><span class="n">iconc</span><span class="p">,</span> <span class="n">iconcin</span><span class="o">=</span><span class="n">iconcin</span><span class="p">,</span> <span class="n">iconcout</span><span class="o">=</span><span class="n">iconcout</span><span class="p">,</span>
+                           <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+        <span class="c"># provide the &quot;num&quot; attribute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">inum</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distinguish</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return random positions (get a new realization of the disordered</span>
+<span class="sd">        system). If distinguish is True, return the lists of positions inside/</span>
+<span class="sd">        outside the spheres separately (list of two lists).&quot;&quot;&quot;</span>
+        <span class="c"># 2012-07-05 - 2012-09-03</span>
+
+        <span class="c"># Plan:</span>
+        <span class="c"># 1. select the centres of the spheres</span>
+        <span class="c"># 2. select random impurity positions inside the spheres</span>
+        <span class="c"># 3. select random impurity positions outside the spheres</span>
+
+        <span class="c"># calculate lattice size</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="c"># select sphere centers (one by one)</span>
+        <span class="n">centers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c"># current try counter (per start with empty centers list)</span>
+        <span class="n">started</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c"># how many times it has been started with empty centers</span>
+                     <span class="c"># list</span>
+        <span class="n">probed</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c"># how many positions have been probed in total</span>
+        <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">tout</span> <span class="o">=</span> <span class="n">progress</span><span class="o">.</span><span class="n">Until</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>  <span class="c"># timeout handler</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">centers</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">snum</span><span class="p">:</span>
+            <span class="c"># check timeout</span>
+            <span class="k">if</span> <span class="n">tout</span><span class="o">.</span><span class="n">check</span><span class="p">():</span>
+                <span class="k">print</span> <span class="s">&#39;found only </span><span class="si">%i</span><span class="s"> of </span><span class="si">%i</span><span class="s"> centers&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">centers</span><span class="p">),</span>
+                                                       <span class="bp">self</span><span class="o">.</span><span class="n">snum</span><span class="p">),</span>
+                <span class="k">print</span> <span class="s">&#39;at </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">centers</span><span class="p">),</span>
+                <span class="k">print</span> <span class="s">&#39;(started </span><span class="si">%i</span><span class="s">x, now at try #</span><span class="si">%i</span><span class="s">,&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">started</span><span class="p">,</span> <span class="n">tries</span><span class="p">),</span>
+                <span class="k">print</span> <span class="s">&#39;probed </span><span class="si">%i</span><span class="s"> positions in total)&#39;</span> <span class="o">%</span> <span class="n">probed</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;sphere PosRule timed out (</span><span class="si">%s</span><span class="s">) &#39;</span>
+                                 <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+                <span class="c"># could not find suitable sphere centers... maybe the system is</span>
+                <span class="c"># too small for the chosen sphere concentration?</span>
+
+            <span class="c"># check try counter</span>
+            <span class="k">if</span> <span class="n">tries</span> <span class="o">&gt;</span> <span class="n">size</span><span class="o">*</span><span class="n">dim</span><span class="p">:</span>  <span class="c"># hopefully a good estimate</span>
+                <span class="c"># then start all over</span>
+                <span class="n">centers</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">started</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+
+            <span class="c"># try counter</span>
+            <span class="n">tries</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">probed</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c"># get a random position</span>
+            <span class="n">newpos</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+                <span class="n">newpos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">d</span><span class="p">]))</span>
+            <span class="n">newpos</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">newpos</span><span class="p">)</span>
+
+            <span class="c"># exclude positions that are too near to the boundaries</span>
+            <span class="n">skip</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">newpos</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rad</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">/</span><span class="mf">2.</span> \
+                        <span class="ow">or</span> <span class="n">newpos</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">rad</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="o">/</span><span class="mf">2.</span><span class="p">:</span>
+                    <span class="n">skip</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">skip</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c"># if the sphere overlaps with another sphere, find a new center</span>
+            <span class="n">skip</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">for</span> <span class="n">center</span> <span class="ow">in</span> <span class="n">centers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">newpos</span><span class="p">,</span> <span class="n">center</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rad</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="p">:</span>
+                    <span class="n">skip</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">skip</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c"># if the new center is valid, append it to the list of centers</span>
+            <span class="n">centers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newpos</span><span class="p">)</span>
+
+        <span class="n">centers</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="c">#print &#39;the centers are %s&#39; % str(centers)</span>
+        <span class="c">#print &#39;(started %ix, now at try #%i,&#39; % (started, tries),</span>
+        <span class="c">#print &#39;probed %i positions in total)&#39; % probed</span>
+
+        <span class="c"># identify all lattice sites that belong to the spheres (index list)</span>
+        <span class="n">allsites</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+        <span class="n">spheresites</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">bulksites</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c"># index lists</span>
+        <span class="k">for</span> <span class="n">sind</span><span class="p">,</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">allsites</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">center</span> <span class="ow">in</span> <span class="n">centers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">center</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rad</span><span class="p">:</span>
+                    <span class="n">spheresites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sind</span><span class="p">)</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">bulksites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sind</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">spheresites</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">bulksites</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">allsites</span><span class="p">),</span> <span class="s">&#39;strange...&#39;</span>
+
+        <span class="c"># select impurities inside and outside the spheres</span>
+        <span class="n">ininds</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spheresites</span><span class="p">))[:</span><span class="bp">self</span><span class="o">.</span><span class="n">inumin</span><span class="p">]</span>
+        <span class="n">inside</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spheresites</span><span class="p">)[</span><span class="n">ininds</span><span class="p">])</span>
+        <span class="n">outinds</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bulksites</span><span class="p">))[:</span><span class="bp">self</span><span class="o">.</span><span class="n">inumout</span><span class="p">]</span>
+        <span class="n">outside</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bulksites</span><span class="p">)[</span><span class="n">outinds</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">distinguish</span><span class="p">:</span>
+            <span class="c"># distinguish different classes of positions, namely those that are</span>
+            <span class="c"># inside and those that are outside the spheres</span>
+            <span class="n">positions_inside</span> <span class="o">=</span> <span class="p">[</span><span class="n">allsites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inside</span><span class="p">]</span>
+            <span class="n">positions_outside</span> <span class="o">=</span> <span class="p">[</span><span class="n">allsites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">outside</span><span class="p">]</span>
+
+            <span class="c"># return sorted lists of positions</span>
+            <span class="n">positions_inside</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="n">positions_outside</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">positions_inside</span><span class="p">,</span> <span class="n">positions_outside</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># collect all impurity positions</span>
+            <span class="n">positions</span> <span class="o">=</span> <span class="p">[</span><span class="n">allsites</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inside</span><span class="o">+</span><span class="n">outside</span><span class="p">]</span>
+
+            <span class="c"># return sorted list of positions</span>
+            <span class="n">positions</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">positions</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="spheres.distance"><a class="viewcode-back" href="../../../sc.pos.html#tb.sc.pos.spheres.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">coord1</span><span class="p">,</span> <span class="n">coord2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate euclidian distance between the two given coordinates.&quot;&quot;&quot;</span>
+        <span class="c"># 2012-07-06</span>
+        <span class="n">coord1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coord1</span><span class="p">)</span>
+        <span class="n">coord2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coord2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">coord1</span><span class="o">-</span><span class="n">coord2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="spheres.in_sphere"><a class="viewcode-back" href="../../../sc.pos.html#tb.sc.pos.spheres.in_sphere">[docs]</a>    <span class="k">def</span> <span class="nf">in_sphere</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find the number of points of a dim-dimensional uniform grid that are</span>
+<span class="sd">        located within a sphere with the given radius, assuming the sphere</span>
+<span class="sd">        itself is centred on one of the grid points.&quot;&quot;&quot;</span>
+        <span class="c"># 2012-07-05</span>
+        <span class="n">gridsize</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[(</span><span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="n">gridsize</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">+</span><span class="mi">1</span><span class="p">),)</span><span class="o">*</span><span class="n">dim</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">grid</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">tb 0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../../tb.html" >tb</a> &raquo;</li>
+          <li><a href="../sc.html" >tb.sc</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Daniel Jung.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
