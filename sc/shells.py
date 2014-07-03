@@ -21,7 +21,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
-"""A shell is the set of vectors of a simple hypercubic lattice that have the
+"""Calculate characteristic vectors of the n-th shell.
+
+A shell is the set of vectors of a simple hypercubic lattice that have the
 same length (distance to the chosen origin) and the same characteristic
 vector.
 
@@ -33,10 +35,7 @@ shells with the characteristic vectors (5, 0) and (4, 3).
 
 The lattice sites that belong to a certain shell can be calculated by
 obtaining all permutations of its characteristic vector including all
-possible sign changes. To do that, use the function "signperms".
-
-Written by Daniel Jung, Jacobs University Bremen, Germany (2012).
-"""
+possible sign changes. To do that, use the function :func:`signperms`."""
 __created__ = '2012-05-06'
 __modified__ = '2012-07-05'
 import itertools
@@ -44,25 +43,28 @@ import numpy
 
 
 def cvects(order, dim=1):
-    """Return characteristic vectors of the shells of a dim-dimensional (dim)
-    simple hypercubic lattice up to the given order "order". The result is a
-    list with length order+1 of tuples with length dim, so the 0-th order is
-    included.  All found vectors will be from the "irreducible wedge" of the
-    hyperdimensional lattice.
+    """Return characteristic vectors of the shells of a *dim*-dimensional
+    simple hypercubic lattice up to the given *order*. The result is a list
+    with length *order*+1 of tuples with length *dim*, so the 0-th order is
+    always included. All found vectors will be from the "irreducible wedge" of
+    the hyperdimensional lattice.
 
     This iterative algorithm is more intuitive and memory-efficient than the
-    common "trial-and-error" method (calculate far too many characteristic
+    common "trial-and-error" method (calculate "far too many" characteristic
     vectors and then sort them afterwards). The shell orders are found in
-    ascending sequence, the algorithm can break at any time. Furthermore, it
-    works for any dimensionality.
+    ascending sequence, the algorithm can be stopped at any time. Furthermore,
+    it works for any dimensionality.
 
-    Possible future improvement:
-    - avoid multiple calculation of the same distances
-    - break on certain condition, not on fixed order
+    Possible future improvements:
+
+        - avoid multiple calculation of the same distances
+        - break on certain condition, not on fixed order
 
     Example usage:
-    >>> cvects(3, dim=2)  # find neighbors in a 2D lattice up to order 3
-    [(0, 0), (1, 0), (1, 1), (2, 0)]"""
+
+        >>> cvects(3, dim=2)  # find neighbors in a 2D lattice up to order 3
+        [(0, 0), (1, 0), (1, 1), (2, 0)]
+    """
     # 2012-05-06
     # former tb.sc.shells from 2012-04-04 - 2012-05-01
 
@@ -145,24 +147,24 @@ def cvects(order, dim=1):
 
 def signperms(tup):
     """Return an (unordered) list of all possible permutations of a given tuple
-    of values, including all possible sign flips of the values.  In other
-    words, if the characteristic vector of a shell is given, the relative
+    *tup* of values, including **all possible sign flips** of the values.  In
+    other words, if the characteristic vector of a shell is given, the relative
     vectors pointing to all the lattice sites of the shell are returned. Also
     the number of shell members can obtained easily as the length of the
-    result, i.e.  len(signperms(characteristic_vector)).
+    result, i.e. ``len(signperms(characteristic_vector))``.
 
     Example usage:
-    >>> signperms((1, 0))
-    [(0, 1), (0, -1), (1, 0), (-1, 0)]
-
-    >>> n100 = cvects(100, dim=3)[-1]
-    >>> n100  # characteristic vector of 100th shell in a 3D lattice
-    (7, 5, 1)
-    >>> perms = signperms(n100)
-    >>> len(perms)  # number of shell members
-    48
-    >>> perms[:5]  # just show a few here
-    [(-7, -5, -1), (-1, -7, 5), (7, -5, 1), (-5, 7, 1), (7, 5, -1)]"""
+        >>> signperms((1, 0))
+        [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        >>> n100 = cvects(100, dim=3)[-1]
+        >>> n100  # characteristic vector of 100th shell in a 3D lattice
+        (7, 5, 1)
+        >>> perms = signperms(n100)
+        >>> len(perms)  # number of shell members
+        48
+        >>> perms[:5]  # just show a few here
+        [(-7, -5, -1), (-1, -7, 5), (7, -5, 1), (-5, 7, 1), (7, 5, -1)]
+    """
     # 2012-05-06 - 2012-05-06
     # former tb.sc.signperms from 2012-04-04 - 2012-05-01
     # former Neighbor.signperms from 2011-08-20

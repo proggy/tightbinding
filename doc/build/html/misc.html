@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tb.misc &mdash; tb 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="tb 0.1 documentation" href="index.html" />
+    <link rel="next" title="tb.sc" href="sc.html" />
+    <link rel="prev" title="tb.define" href="define.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sc.html" title="tb.sc"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="define.html" title="tb.define"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">tb 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tb.misc">
+<span id="tb-misc"></span><h1>tb.misc<a class="headerlink" href="#module-tb.misc" title="Permalink to this headline">¶</a></h1>
+<p>General collection of supplementary functions and classes that do not
+really fit in anywhere else.</p>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tb.misc.tic">
+<em class="property">class </em><tt class="descclassname">tb.misc.</tt><tt class="descname">tic</tt><a class="headerlink" href="#tb.misc.tic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements a object-oriented Python version of the Matlab tic and toc
+functions.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="tb.misc.Tab">
+<em class="property">class </em><tt class="descclassname">tb.misc.</tt><tt class="descname">Tab</tt><a class="headerlink" href="#tb.misc.Tab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display data in form of a table, print to stdout.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="tb.misc.allscalar">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">allscalar</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.allscalar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if all elements of the sequence or set are scalar.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.anyobject">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">anyobject</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.anyobject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if any element of the sequence or set is an instance of a
+user-defined class.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.basename">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">basename</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>My variation of os.path.basename, in which a given suffix can be
+canceled out (like in the php version of this function).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.capitalize">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">capitalize</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.capitalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string with first letter in uppercase and the rest of the
+characters in lowercase.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.commonprefix">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">commonprefix</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.commonprefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the common prefix of all given strings.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.eqlist">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">eqlist</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.eqlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a dictionary to stdout as a list of elements in the form &#8220;key =
+value&#8221;, aligning all equality signs. Also all nested contents are formatted
+nicely in this way. If the keyword &#8220;maxshape&#8221; is specified, display only
+the contents of those numpy arrays that do not have a dimension larger than
+the specified number. Instead, just note the shape of the array. For sparse
+matrices, maxshape gives the maximum number of nonzero elements. If the
+keyword &#8220;dense&#8221; is set to True, sparse matrices are converted to dense
+matrices before displaying.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.equal">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">equal</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.equal" title="Permalink to this definition">¶</a></dt>
+<dd><p>My version of the function &#8220;all&#8221; with equality check (==), that
+works with all types of objects, even with scalars and nested lists.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.equaltype">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">equaltype</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.equaltype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if all elements of the sequence or set have the same type.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.expandstr">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">expandstr</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.expandstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the string, but expand it to the given length with the given
+character.  If flip is True, fill characters in front of string instead of
+behind it.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.typename">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">typename</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.typename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just a shortcut to return the name of the type of the given object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.dump">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">dump</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print values of the passed arguments to the screen, together with
+additional information about the value, like length or shape of a list or
+an array. The name of the value may be specified by using keyword
+arguments.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.humanbytes">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">humanbytes</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.humanbytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return given byte count (integer) in a human readable format (string).
+Example: 664070 &#8211;&gt; 649Ki.  Supported binary prefixes: kibi, mebi, gibi,
+tebi, pebi, exbi, zebi, yobi.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.nicetime">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">nicetime</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.nicetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return nice string representation of the given number of seconds in a
+human-readable format (approximated). Example: 3634 s &#8211;&gt; 1 h.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.isiterable">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">isiterable</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.isiterable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if an object is iterable. Return True for lists, tuples,
+dictionaries and numpy arrays (all objects that possess an __iter__
+method).  Return False for scalars (float, int, etc.), strings, bool and
+None.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.isobject">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">isobject</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.isobject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if obj possesses an attribute called &#8220;__dict__&#8221;, otherwise
+return False.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.nearest">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">nearest</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.nearest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return index of the nearest value in a to v.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.npc">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">npc</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.npc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of processor cores on this machine. Supported operating
+systems: Linux/Unix, MacOS, Windows.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.opt2list">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">opt2list</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.opt2list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of values as specified by an option string of the form
+&#8220;x1,x2,x3,x4,x5&#8221;. dtype specifies the type of the values (int, float,
+str, etc.). Default: int.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.opt2mathlist">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">opt2mathlist</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.opt2mathlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of values as specified by an option string of the form
+&#8220;x1,x2,x3,x4,x5&#8221;. dtype specifies the type of the values (int, float, str,
+etc.). If mathematical expressions are contained inside the option strings,
+they are evaluated. Default: int.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.opt2range">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">opt2range</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.opt2range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of integers as specified by an option string of the form
+&#8220;x:y:z&#8221;. z has to be a positive integer, x and y have to be non-negative
+integers. Use lower and upper to define the lower and upper limits. In this
+way, the user can specify ranges by leaving x or y empty.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.opt2ranges">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">opt2ranges</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.opt2ranges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of integers as specified by an option string of the form
+&#8220;x1:y1:z1,x2:y2:z2,...&#8221;. Each z has to be a positive integer, x and y have
+to be positive integers or zero. Use lower and upper to define the lower
+and upper limits for the ranges. In this way, the user can specify ranges
+by leaving x or y empty.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.ismath">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">ismath</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.ismath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the given string is a mathematical expression (containing only
+mathematical operators like &#8216;+&#8217;, &#8216;-&#8216;, &#8216;*&#8217;, or &#8216;/&#8217;, and of course digits).
+Can be used before using &#8220;eval&#8221; on some string to evaluate a given
+expression.</p>
+<p>Note: This function does not check if the numerical expression is actually
+valid. It just gives a hint if the given string should be passed to eval or
+not.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.evalmath">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">evalmath</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.evalmath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast value to the given data type (dtype). If value is a string, assume
+that it contains a mathematical expression, and evaluate it with eval
+before casting it to the specified type.</p>
+<p>The function could always use eval, but this is assumed to be slower for
+values that do not have to be evaluated.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.printcols">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">printcols</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.printcols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the strings in the given list in column by column (similar the
+bash command &#8220;ls&#8221;), respecting the width of the shell window. If ret is
+True, give back the resulting string instead of printing it to stdout.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.prod">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">prod</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.prod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the product of all elements of the given sequence.</p>
+<p>I use this function mainly to avoid importing the huge numpy module (which
+takes up to 1.5 seconds on my computer).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.sepnumstr">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">sepnumstr</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.sepnumstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Separate numeric values from characters within a string. Return
+resulting numeric values and strings as a list.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.types">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">types</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of typenames that the iterable value contains.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.minima">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">minima</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.minima" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find indices of all local minima of the function given by the array
+a.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.get_num_or_acc">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">get_num_or_acc</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.get_num_or_acc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interprete a string as either an interger number or a float representing
+an accuracy. Return the resulting number as well as the requested accuracy,
+of which one will be False and the other will carry the respective value.
+The accuracy can be given as a floating point number (including a &#8221;.&#8221;), as
+a percentage (ending with &#8220;%&#8221;), as a parts-per-million value (ending with
+&#8220;ppm&#8221;) or as a parts-per-billion value (ending with &#8220;ppb&#8221;). Additionally,
+return the number of digits that would be needed to represent the targeted
+accuracy.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.get_ratio">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">get_ratio</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.get_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interprete a string as a float representing a certain ratio. The ratio
+can be given as a floating point number (including a &#8221;.&#8221;), as a percentage
+(ending with &#8220;%&#8221;), as a parts-per-million value (ending with &#8220;ppm&#8221;) or as a
+parts-per-billion value (ending with &#8220;ppb&#8221;). If mathematical operators are
+found (&#8220;*&#8221;, &#8220;/&#8221;, &#8220;+&#8221;, &#8220;-&#8221;), evaluate the expression.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.get_num_from_ratio">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">get_num_from_ratio</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.get_num_from_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interprete the given value (possibly string) as a certain ratio. Treat
+the ratio as being a certain part of the given number &#8220;total&#8221; and return
+the resulting number (ratio*total, rounded).</p>
+<p>The ratio can be given as a floating point number (including a &#8221;.&#8221;), as a
+percentage (ending with &#8220;%&#8221;), as a parts-per-million value (ending with
+&#8220;ppm&#8221;) or as a parts-per-billion value (ending with &#8220;ppb&#8221;). If mathematical
+operators are found (&#8220;*&#8221;, &#8220;/&#8221;, &#8220;+&#8221;, &#8220;-&#8221;), the expression is evaluated.</p>
+<p>If the given value is not a string, the following rules apply:
+Integers are treated as the requested number itself, floats as ratios
+from the total number.</p>
+<p>Always, an integer is returned. Note that also negative numbers may be
+returned (if the given ratio is negative). This could be useful in some
+situations.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tb.misc.hasattrs">
+<tt class="descclassname">tb.misc.</tt><tt class="descname">hasattrs</tt><big>(</big><big>)</big><a class="headerlink" href="#tb.misc.hasattrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the object has all attributes with the given names.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tb.misc</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="define.html"
+                        title="previous chapter">tb.define</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sc.html"
+                        title="next chapter">tb.sc</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/misc.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sc.html" title="tb.sc"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="define.html" title="tb.define"
+             >previous</a> |</li>
+        <li><a href="index.html">tb 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Daniel Jung.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

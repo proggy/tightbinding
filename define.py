@@ -21,7 +21,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
-"""Define tight binding systems using instances of tb.sc.SuperCell."""
+"""Define tight binding systems using instances of :class:`tb.sc.SuperCell`."""
 __created__ = '2013-07-12'
 __modified__ = '2014-01-27'
 import bundle
@@ -86,7 +86,8 @@ def anderson(hop=-1., dist='uniform', loc=0., scale=1., shape=(10,),
     """Define 1-band simple-cubic tight binding system with site-diagonal
     disorder and constant isotropic next-neighbor hopping, using a continuous
     probability distribution. Return supercell object (instance of
-    tb.sc.SuperCell) and parameter set (instance of bundle.Bundle)."""
+    :class:`tb.sc.SuperCell`) and parameter set (instance of
+    :class:`bundle.Bundle`)."""
     # created 2013-07-07, modified 2013-07-12
     # former tb._anderson (developed 2011-09-15 - 2012-11-28)
     # former tb._Anderson from 2011-03-29

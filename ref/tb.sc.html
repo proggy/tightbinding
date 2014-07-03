@@ -9,24 +9,15 @@
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="tb.html"><font color="#ffffff">tb</font></a>.sc</strong></big></big></font></td
 ><td align=right valign=bottom
 ><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/djung/lib/tb/sc/__init__.py">/home/djung/lib/tb/sc/__init__.py</a></font></td></tr></table>
-    <p><tt>Package&nbsp;to&nbsp;define&nbsp;tight&nbsp;binding&nbsp;supercells&nbsp;and&nbsp;calculate&nbsp;their&nbsp;tight<br>
-binding&nbsp;matrices&nbsp;(hamiltonians)&nbsp;in&nbsp;site-occupation&nbsp;basis.&nbsp;Start&nbsp;by&nbsp;creating&nbsp;an<br>
-instance&nbsp;of&nbsp;the&nbsp;<a href="#SuperCell">SuperCell</a>&nbsp;class.&nbsp;The&nbsp;methods&nbsp;<a href="#SuperCell">SuperCell</a>.add_scnn&nbsp;and<br>
-<a href="#SuperCell">SuperCell</a>.add_fccnn&nbsp;(and&nbsp;others)&nbsp;give&nbsp;good&nbsp;examples&nbsp;how&nbsp;to&nbsp;define&nbsp;lattices<br>
-within&nbsp;the&nbsp;supercell.<br>
+    <p><tt>Package&nbsp;to&nbsp;define&nbsp;tight&nbsp;binding&nbsp;supercells&nbsp;and&nbsp;calculate&nbsp;their&nbsp;tight&nbsp;binding<br>
+matrices&nbsp;(hamiltonians)&nbsp;in&nbsp;site-occupation&nbsp;basis.&nbsp;Start&nbsp;by&nbsp;creating&nbsp;an&nbsp;instance<br>
+of&nbsp;the&nbsp;:class:`<a href="#SuperCell">SuperCell</a>`&nbsp;class.&nbsp;The&nbsp;methods&nbsp;:py:meth:`<a href="#SuperCell">SuperCell</a>.add_scnn`<br>
+and&nbsp;:py:meth:`<a href="#SuperCell">SuperCell</a>.add_fccnn`&nbsp;(and&nbsp;others)&nbsp;give&nbsp;good&nbsp;examples&nbsp;of&nbsp;how&nbsp;to<br>
+define&nbsp;lattices&nbsp;within&nbsp;the&nbsp;supercell.<br>
 &nbsp;<br>
-The&nbsp;submodule&nbsp;"dist"&nbsp;contains&nbsp;everything&nbsp;needed&nbsp;to&nbsp;generate&nbsp;random&nbsp;numbers&nbsp;from<br>
-various&nbsp;probability&nbsp;distributions,&nbsp;including&nbsp;a&nbsp;few&nbsp;predefined&nbsp;distributions.<br>
-&nbsp;<br>
-Future&nbsp;visions:<br>
---&gt;&nbsp;supercell&nbsp;itself&nbsp;may&nbsp;have&nbsp;(anti)periodic&nbsp;boundary&nbsp;conditions&nbsp;(until&nbsp;now,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;just&nbsp;lattices&nbsp;have&nbsp;boundary&nbsp;conditions)<br>
---&gt;&nbsp;improve&nbsp;<a href="#Lattice">Lattice</a>.ndindex2index&nbsp;(increase&nbsp;performance&nbsp;even&nbsp;more&nbsp;by&nbsp;using&nbsp;a<br>
-&nbsp;&nbsp;&nbsp;&nbsp;lookup&nbsp;table)<br>
---&gt;&nbsp;add&nbsp;special&nbsp;algorithms&nbsp;for&nbsp;special&nbsp;cases&nbsp;(e.g.,&nbsp;<a href="#Lattice">Lattice</a>.scnnmat)<br>
---&gt;&nbsp;add&nbsp;automatic&nbsp;performance&nbsp;checks&nbsp;(compare&nbsp;times&nbsp;for&nbsp;finding&nbsp;the&nbsp;connections<br>
-&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;setting&nbsp;of&nbsp;matrix&nbsp;elements,&nbsp;random&nbsp;and&nbsp;constant)<br>
---&gt;&nbsp;rename&nbsp;"dim"&nbsp;to&nbsp;"ndim",&nbsp;be&nbsp;consistent&nbsp;with&nbsp;numpy.ndarray</tt></p>
+The&nbsp;submodule&nbsp;:mod:`tb.sc.dist`&nbsp;contains&nbsp;everything&nbsp;needed&nbsp;to&nbsp;generate&nbsp;random<br>
+numbers&nbsp;from&nbsp;various&nbsp;probability&nbsp;distributions,&nbsp;including&nbsp;a&nbsp;few&nbsp;predefined<br>
+distributions.</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -76,8 +67,8 @@ Future&nbsp;visions:<br>
 <font color="#000000" face="helvetica, arial"><a name="Entity">class <strong>Entity</strong></a>(<a href="tb.sc.html#SuperCellObject">SuperCellObject</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>Define&nbsp;an&nbsp;entity,&nbsp;characterized&nbsp;by&nbsp;a&nbsp;constant&nbsp;or&nbsp;random&nbsp;potential<br>
-(pot).<br>&nbsp;</tt></td></tr>
+<td colspan=2><tt>Define&nbsp;an&nbsp;entity&nbsp;(i.e.,&nbsp;an&nbsp;orbital),&nbsp;characterized&nbsp;by&nbsp;the&nbsp;constant&nbsp;or<br>
+random&nbsp;potential&nbsp;*pot*.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="tb.sc.html#Entity">Entity</a></dd>
@@ -86,7 +77,7 @@ Future&nbsp;visions:<br>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="Entity-__init__"><strong>__init__</strong></a>(self, pot<font color="#909090">=0.0</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Initialize&nbsp;entity.</tt></dd></dl>
+<dl><dt><a name="Entity-__init__"><strong>__init__</strong></a>(self, pot<font color="#909090">=0.0</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Initialize&nbsp;the&nbsp;entity.</tt></dd></dl>
 
 <dl><dt><a name="Entity-is_complex"><strong>is_complex</strong></a>(self)</dt><dd><tt>Check&nbsp;whether&nbsp;this&nbsp;entity&nbsp;has&nbsp;a&nbsp;complex&nbsp;potential.</tt></dd></dl>
 
@@ -100,28 +91,29 @@ Methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:
 
 <dl><dt><a name="Entity-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="Entity-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="Entity-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="Entity-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
 <dl><dt><a name="Entity-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
@@ -154,13 +146,13 @@ Methods defined here:<br>
 
 <dl><dt><a name="Lattice-coords"><strong>coords</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;coordinates&nbsp;of&nbsp;all&nbsp;the&nbsp;sites.</tt></dd></dl>
 
-<dl><dt><a name="Lattice-indmat"><strong>indmat</strong></a>(self, vects)</dt><dd><tt>Return&nbsp;index&nbsp;matrix.&nbsp;Format&nbsp;will&nbsp;be&nbsp;coordinate&nbsp;sparse&nbsp;format&nbsp;(coo).<br>
-It&nbsp;will&nbsp;contain&nbsp;ones&nbsp;for&nbsp;those&nbsp;blocks&nbsp;that&nbsp;have&nbsp;to&nbsp;be&nbsp;set&nbsp;to&nbsp;enable<br>
-hopping&nbsp;in&nbsp;the&nbsp;direction&nbsp;of&nbsp;the&nbsp;given&nbsp;vector&nbsp;(vect),&nbsp;and&nbsp;zeros<br>
+<dl><dt><a name="Lattice-indmat"><strong>indmat</strong></a>(self, vects)</dt><dd><tt>Return&nbsp;index&nbsp;matrix.&nbsp;Format&nbsp;will&nbsp;be&nbsp;coordinate&nbsp;sparse&nbsp;format<br>
+("coo").&nbsp;&nbsp;It&nbsp;will&nbsp;contain&nbsp;ones&nbsp;for&nbsp;those&nbsp;blocks&nbsp;that&nbsp;have&nbsp;to&nbsp;be&nbsp;set&nbsp;to<br>
+enable&nbsp;hopping&nbsp;in&nbsp;the&nbsp;direction&nbsp;of&nbsp;the&nbsp;given&nbsp;vectors&nbsp;*vects*,&nbsp;and&nbsp;zeros<br>
 elsewhere.</tt></dd></dl>
 
-<dl><dt><a name="Lattice-ndindex2index"><strong>ndindex2index</strong></a>(self, ndindex, shape<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;index&nbsp;of&nbsp;the&nbsp;given&nbsp;n-dimensional&nbsp;index&nbsp;that&nbsp;it&nbsp;would&nbsp;have&nbsp;in<br>
-the&nbsp;n-dimensional&nbsp;index&nbsp;list&nbsp;provided&nbsp;by&nbsp;scipy.ndindex.&nbsp;If&nbsp;ndindex&nbsp;is&nbsp;a<br>
+<dl><dt><a name="Lattice-ndindex2index"><strong>ndindex2index</strong></a>(self, ndindex, shape<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;index&nbsp;of&nbsp;the&nbsp;given&nbsp;n-dimensional&nbsp;index&nbsp;*ndindex*&nbsp;that&nbsp;it&nbsp;would&nbsp;have&nbsp;in<br>
+the&nbsp;n-dimensional&nbsp;index&nbsp;list&nbsp;provided&nbsp;by&nbsp;:func:`scipy.ndindex`.&nbsp;If&nbsp;*ndindex*&nbsp;is&nbsp;a<br>
 2D&nbsp;array,&nbsp;each&nbsp;row&nbsp;is&nbsp;treated&nbsp;as&nbsp;an&nbsp;n-dimensional&nbsp;index,&nbsp;and&nbsp;the&nbsp;result<br>
 will&nbsp;be&nbsp;a&nbsp;1D&nbsp;array&nbsp;of&nbsp;indices.&nbsp;&nbsp;Can&nbsp;also&nbsp;be&nbsp;given&nbsp;a&nbsp;list&nbsp;of&nbsp;nd-indices<br>
 (2d-array).</tt></dd></dl>
@@ -179,10 +171,11 @@ Data and other attributes defined here:<br>
 Methods inherited from <a href="tb.sc.html#LatticeObject">LatticeObject</a>:<br>
 <dl><dt><a name="Lattice-add_neigh"><strong>add_neigh</strong></a>(self, *neighs, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;neighbor&nbsp;interaction&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;to&nbsp;the&nbsp;lattice&nbsp;that&nbsp;may&nbsp;connect<br>
 several&nbsp;unitcells&nbsp;defined&nbsp;by&nbsp;relative&nbsp;vectors.&nbsp;For&nbsp;a&nbsp;complete&nbsp;list&nbsp;of<br>
-possible&nbsp;arguments,&nbsp;look&nbsp;at&nbsp;the&nbsp;definition&nbsp;of&nbsp;<a href="#Neighbor">Neighbor</a>.__init__.<br>
+possible&nbsp;arguments,&nbsp;look&nbsp;at&nbsp;the&nbsp;definition&nbsp;of<br>
+:py:meth:`<a href="#Neighbor">Neighbor</a>.__init__`.<br>
 &nbsp;<br>
 Also,&nbsp;predefined&nbsp;neighbor&nbsp;objects&nbsp;may&nbsp;be&nbsp;given&nbsp;as&nbsp;positional&nbsp;arguments.<br>
-Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd></dl>
+Then,&nbsp;keyword&nbsp;arguments&nbsp;must&nbsp;not&nbsp;be&nbsp;given.</tt></dd></dl>
 
 <dl><dt><a name="Lattice-get_neigh"><strong>get_neigh</strong></a>(self, label)</dt><dd><tt>Get&nbsp;neighbor&nbsp;by&nbsp;label.</tt></dd></dl>
 
@@ -200,28 +193,29 @@ Methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:
 
 <dl><dt><a name="Lattice-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="Lattice-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="Lattice-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="Lattice-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
 <dl><dt><a name="Lattice-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
@@ -239,7 +233,7 @@ Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellOb
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>Define&nbsp;shared&nbsp;methods&nbsp;and&nbsp;attributes&nbsp;of&nbsp;the&nbsp;lattice&nbsp;classes&nbsp;(so&nbsp;far:<br>
-<a href="#Lattice">Lattice</a>&nbsp;and&nbsp;<a href="#SparseLattice">SparseLattice</a>.<br>&nbsp;</tt></td></tr>
+:class:`<a href="#Lattice">Lattice</a>`&nbsp;and&nbsp;:class:`<a href="#SparseLattice">SparseLattice</a>`).<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="tb.sc.html#LatticeObject">LatticeObject</a></dd>
@@ -250,10 +244,11 @@ Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellOb
 Methods defined here:<br>
 <dl><dt><a name="LatticeObject-add_neigh"><strong>add_neigh</strong></a>(self, *neighs, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;neighbor&nbsp;interaction&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;to&nbsp;the&nbsp;lattice&nbsp;that&nbsp;may&nbsp;connect<br>
 several&nbsp;unitcells&nbsp;defined&nbsp;by&nbsp;relative&nbsp;vectors.&nbsp;For&nbsp;a&nbsp;complete&nbsp;list&nbsp;of<br>
-possible&nbsp;arguments,&nbsp;look&nbsp;at&nbsp;the&nbsp;definition&nbsp;of&nbsp;<a href="#Neighbor">Neighbor</a>.__init__.<br>
+possible&nbsp;arguments,&nbsp;look&nbsp;at&nbsp;the&nbsp;definition&nbsp;of<br>
+:py:meth:`<a href="#Neighbor">Neighbor</a>.__init__`.<br>
 &nbsp;<br>
 Also,&nbsp;predefined&nbsp;neighbor&nbsp;objects&nbsp;may&nbsp;be&nbsp;given&nbsp;as&nbsp;positional&nbsp;arguments.<br>
-Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd></dl>
+Then,&nbsp;keyword&nbsp;arguments&nbsp;must&nbsp;not&nbsp;be&nbsp;given.</tt></dd></dl>
 
 <dl><dt><a name="LatticeObject-get_neigh"><strong>get_neigh</strong></a>(self, label)</dt><dd><tt>Get&nbsp;neighbor&nbsp;by&nbsp;label.</tt></dd></dl>
 
@@ -271,28 +266,29 @@ Methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:
 
 <dl><dt><a name="LatticeObject-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="LatticeObject-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="LatticeObject-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="LatticeObject-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
 <dl><dt><a name="LatticeObject-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
@@ -323,48 +319,49 @@ Methods defined here:<br>
 <dl><dt><a name="Neighbor-add_hop"><strong>add_hop</strong></a>(self, *ents, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;hopping&nbsp;from&nbsp;entity&nbsp;1&nbsp;of&nbsp;the&nbsp;unitcell&nbsp;to&nbsp;entity&nbsp;2&nbsp;of&nbsp;each&nbsp;of<br>
 the&nbsp;specified&nbsp;neighbor&nbsp;cells&nbsp;(which&nbsp;are&nbsp;specified&nbsp;by&nbsp;the&nbsp;given&nbsp;relative<br>
 vectors).&nbsp;All&nbsp;entities&nbsp;must&nbsp;be&nbsp;defined&nbsp;within&nbsp;the&nbsp;unitcell&nbsp;of&nbsp;the<br>
-lattice.&nbsp;&nbsp;The&nbsp;hopping&nbsp;parameter&nbsp;can&nbsp;either&nbsp;be&nbsp;a&nbsp;constant&nbsp;or&nbsp;drawn&nbsp;from<br>
-a&nbsp;probability&nbsp;distribution.&nbsp;The&nbsp;interaction&nbsp;may&nbsp;be&nbsp;defined&nbsp;as&nbsp;isotropic<br>
-(iso),&nbsp;also&nbsp;allowing&nbsp;hopping&nbsp;from&nbsp;entity&nbsp;2&nbsp;to&nbsp;entity&nbsp;1&nbsp;(but&nbsp;still&nbsp;in<br>
-the&nbsp;same&nbsp;direction,&nbsp;from&nbsp;this&nbsp;unitcell&nbsp;to&nbsp;the&nbsp;neighbor&nbsp;cell).<br>
+lattice.&nbsp;&nbsp;The&nbsp;hopping&nbsp;parameter&nbsp;can&nbsp;either&nbsp;be&nbsp;constant&nbsp;or&nbsp;drawn&nbsp;from&nbsp;a<br>
+probability&nbsp;distribution.&nbsp;The&nbsp;interaction&nbsp;may&nbsp;be&nbsp;defined&nbsp;as&nbsp;isotropic<br>
+(*iso*=*True*),&nbsp;also&nbsp;allowing&nbsp;hopping&nbsp;from&nbsp;entity&nbsp;2&nbsp;to&nbsp;entity&nbsp;1&nbsp;(but<br>
+still&nbsp;in&nbsp;the&nbsp;same&nbsp;direction,&nbsp;from&nbsp;this&nbsp;unitcell&nbsp;to&nbsp;the&nbsp;neighbor&nbsp;cell).<br>
 &nbsp;<br>
-If&nbsp;more&nbsp;than&nbsp;two&nbsp;entities&nbsp;are&nbsp;given,&nbsp;all&nbsp;combinations&nbsp;are&nbsp;added.&nbsp;If&nbsp;iso<br>
-is&nbsp;True,&nbsp;even&nbsp;all&nbsp;permutations&nbsp;are&nbsp;added.&nbsp;Example&nbsp;with&nbsp;three&nbsp;entities<br>
-e1,&nbsp;e2,&nbsp;e3:&nbsp;The&nbsp;possible&nbsp;combinations&nbsp;are&nbsp;(e1,&nbsp;e2),&nbsp;(e1,&nbsp;e3),&nbsp;(e2,&nbsp;e3).<br>
-If&nbsp;iso&nbsp;is&nbsp;True,&nbsp;there&nbsp;will&nbsp;also&nbsp;be&nbsp;the&nbsp;hoppings&nbsp;(e3,&nbsp;e2),&nbsp;(e3,&nbsp;e1),<br>
-(e2,&nbsp;e1).</tt></dd></dl>
+If&nbsp;more&nbsp;than&nbsp;two&nbsp;entities&nbsp;are&nbsp;given&nbsp;in&nbsp;the&nbsp;list&nbsp;*ents*,&nbsp;all&nbsp;possible<br>
+**combinations**&nbsp;are&nbsp;added.&nbsp;If&nbsp;*iso*&nbsp;is&nbsp;*True*,&nbsp;even&nbsp;all<br>
+**permutations**&nbsp;are&nbsp;added.<br>
+&nbsp;<br>
+Example&nbsp;with&nbsp;three&nbsp;entities&nbsp;e1,&nbsp;e2,&nbsp;e3:&nbsp;The&nbsp;possible&nbsp;combinations&nbsp;are<br>
+(e1,&nbsp;e2),&nbsp;(e1,&nbsp;e3),&nbsp;(e2,&nbsp;e3).&nbsp;&nbsp;If&nbsp;*iso*&nbsp;is&nbsp;*True*,&nbsp;there&nbsp;will&nbsp;also&nbsp;be<br>
+the&nbsp;hoppings&nbsp;(e3,&nbsp;e2),&nbsp;(e3,&nbsp;e1),&nbsp;(e2,&nbsp;e1).</tt></dd></dl>
 
-<dl><dt><a name="Neighbor-add_vect"><strong>add_vect</strong></a>(self, vect<font color="#909090">=None</font>, iso<font color="#909090">=False</font>, perm<font color="#909090">=False</font>, permall<font color="#909090">=False</font>)</dt><dd><tt>Add&nbsp;a&nbsp;vector&nbsp;to&nbsp;this&nbsp;neighbor&nbsp;interaction&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;leading&nbsp;to&nbsp;a<br>
-specific&nbsp;neighbor&nbsp;cell.<br>
+<dl><dt><a name="Neighbor-add_vect"><strong>add_vect</strong></a>(self, vect<font color="#909090">=None</font>, iso<font color="#909090">=False</font>, perm<font color="#909090">=False</font>, permall<font color="#909090">=False</font>)</dt><dd><tt>Add&nbsp;a&nbsp;vector&nbsp;*vect*&nbsp;to&nbsp;this&nbsp;neighbor&nbsp;interaction&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;leading&nbsp;to<br>
+a&nbsp;specific&nbsp;neighbor&nbsp;cell.<br>
 &nbsp;<br>
-If&nbsp;iso&nbsp;is&nbsp;set&nbsp;to&nbsp;True,&nbsp;also&nbsp;the&nbsp;neighbor&nbsp;of&nbsp;the&nbsp;negative&nbsp;vector&nbsp;is&nbsp;set,<br>
+If&nbsp;*iso*&nbsp;is&nbsp;*True*,&nbsp;also&nbsp;the&nbsp;neighbor&nbsp;of&nbsp;the&nbsp;negative&nbsp;vector&nbsp;is&nbsp;set,<br>
 with&nbsp;the&nbsp;adjoint&nbsp;(complex&nbsp;conjugated&nbsp;and&nbsp;transposed)&nbsp;of&nbsp;the&nbsp;hopping<br>
 matrix&nbsp;of&nbsp;this&nbsp;neighbor.<br>
 &nbsp;<br>
-If&nbsp;perm&nbsp;is&nbsp;set&nbsp;to&nbsp;True,&nbsp;the&nbsp;neighbors&nbsp;of&nbsp;all&nbsp;permutations&nbsp;of&nbsp;the&nbsp;given<br>
-vector&nbsp;are&nbsp;set&nbsp;with&nbsp;the&nbsp;same&nbsp;neighbor&nbsp;hopping&nbsp;matrix.&nbsp;Of&nbsp;course,&nbsp;if<br>
-both&nbsp;iso&nbsp;and&nbsp;perm&nbsp;are&nbsp;set&nbsp;to&nbsp;True,&nbsp;the&nbsp;neighbors&nbsp;of&nbsp;the&nbsp;negative<br>
+If&nbsp;*perm*&nbsp;is&nbsp;*True*,&nbsp;the&nbsp;neighbors&nbsp;of&nbsp;all&nbsp;permutations&nbsp;of&nbsp;the&nbsp;given<br>
+vector&nbsp;*vect*&nbsp;are&nbsp;set&nbsp;with&nbsp;the&nbsp;same&nbsp;neighbor&nbsp;hopping&nbsp;matrix.&nbsp;Of&nbsp;course,<br>
+if&nbsp;both&nbsp;*iso*&nbsp;and&nbsp;*perm*&nbsp;are&nbsp;True,&nbsp;the&nbsp;neighbors&nbsp;of&nbsp;the&nbsp;negative<br>
 vectors&nbsp;of&nbsp;all&nbsp;permutations&nbsp;are&nbsp;set&nbsp;with&nbsp;the&nbsp;adjoint&nbsp;of&nbsp;the&nbsp;matrix.<br>
-This&nbsp;case&nbsp;could&nbsp;be&nbsp;useful&nbsp;for&nbsp;bcc-like&nbsp;structures.<br>
+This&nbsp;case&nbsp;is&nbsp;especially&nbsp;useful&nbsp;for&nbsp;bcc-like&nbsp;structures.<br>
 &nbsp;<br>
-If&nbsp;permall&nbsp;is&nbsp;set&nbsp;to&nbsp;True,&nbsp;the&nbsp;blocks&nbsp;of&nbsp;all&nbsp;permutations&nbsp;of&nbsp;the&nbsp;given<br>
-vector&nbsp;are&nbsp;set&nbsp;with&nbsp;the&nbsp;neighbor's&nbsp;hopping&nbsp;matrix,&nbsp;including&nbsp;all<br>
-negative&nbsp;values,&nbsp;i.e.&nbsp;covering&nbsp;all&nbsp;possible&nbsp;directions.&nbsp;Not&nbsp;the<br>
-adjoint,&nbsp;but&nbsp;the&nbsp;matrix&nbsp;itself&nbsp;is&nbsp;always&nbsp;used.&nbsp;USE&nbsp;THIS&nbsp;OPTION&nbsp;WITH<br>
-CAUTION!&nbsp;It&nbsp;should&nbsp;only&nbsp;be&nbsp;used&nbsp;in&nbsp;systems&nbsp;with&nbsp;only&nbsp;one&nbsp;site&nbsp;per<br>
-unitcell.&nbsp;Otherwise,&nbsp;unwanted&nbsp;hoppings&nbsp;will&nbsp;probably&nbsp;occur.&nbsp;This&nbsp;option<br>
-overrides&nbsp;the&nbsp;options&nbsp;iso&nbsp;and&nbsp;perm.</tt></dd></dl>
+If&nbsp;*permall*&nbsp;is&nbsp;*True*,&nbsp;the&nbsp;blocks&nbsp;of&nbsp;all&nbsp;permutations&nbsp;of&nbsp;the&nbsp;given<br>
+vector&nbsp;*vect*&nbsp;are&nbsp;set&nbsp;with&nbsp;the&nbsp;neighbor's&nbsp;hopping&nbsp;matrix,&nbsp;**including<br>
+all&nbsp;negative&nbsp;values**,&nbsp;i.e.&nbsp;covering&nbsp;all&nbsp;possible&nbsp;directions.&nbsp;Not&nbsp;the<br>
+adjoint,&nbsp;but&nbsp;the&nbsp;matrix&nbsp;itself&nbsp;is&nbsp;always&nbsp;used.&nbsp;**USE&nbsp;THIS&nbsp;OPTION&nbsp;WITH<br>
+CAUTION!**&nbsp;It&nbsp;should&nbsp;only&nbsp;be&nbsp;used&nbsp;in&nbsp;systems&nbsp;with&nbsp;only&nbsp;one&nbsp;site&nbsp;per<br>
+unitcell.&nbsp;Otherwise,&nbsp;unwanted&nbsp;hoppings&nbsp;could&nbsp;occur.&nbsp;This&nbsp;option<br>
+overrides&nbsp;the&nbsp;options&nbsp;*iso*&nbsp;and&nbsp;*perm*.</tt></dd></dl>
 
-<dl><dt><a name="Neighbor-checkhops"><strong>checkhops</strong></a>(self)</dt><dd><tt>Check&nbsp;if&nbsp;all&nbsp;the&nbsp;entities&nbsp;of&nbsp;the&nbsp;defined&nbsp;hoppings&nbsp;exist&nbsp;in&nbsp;the<br>
-unitcell.</tt></dd></dl>
+<dl><dt><a name="Neighbor-checkhops"><strong>checkhops</strong></a>(self)</dt><dd><tt>Check&nbsp;if&nbsp;all&nbsp;the&nbsp;entities&nbsp;of&nbsp;the&nbsp;defined&nbsp;hoppings&nbsp;really&nbsp;exist&nbsp;in<br>
+the&nbsp;unitcell.</tt></dd></dl>
 
 <dl><dt><a name="Neighbor-ents"><strong>ents</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;entities&nbsp;of&nbsp;all&nbsp;the&nbsp;sites&nbsp;of&nbsp;the&nbsp;unitcell.</tt></dd></dl>
 
-<dl><dt><a name="Neighbor-is_complex"><strong>is_complex</strong></a>(self)</dt><dd><tt>Check&nbsp;whether&nbsp;this&nbsp;neighbor&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;contains&nbsp;complex&nbsp;potentials&nbsp;or<br>
-hoppings.</tt></dd></dl>
+<dl><dt><a name="Neighbor-is_complex"><strong>is_complex</strong></a>(self)</dt><dd><tt>Check&nbsp;whether&nbsp;this&nbsp;neighbor&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;contains&nbsp;any&nbsp;complex&nbsp;hoppings.</tt></dd></dl>
 
 <dl><dt><a name="Neighbor-tbmat"><strong>tbmat</strong></a>(self, format<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;submatrix&nbsp;of&nbsp;this&nbsp;neighbor&nbsp;interaction&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;containing&nbsp;all<br>
-constant&nbsp;hopping&nbsp;parameters.&nbsp;Convert&nbsp;to&nbsp;the&nbsp;specified&nbsp;format&nbsp;(one&nbsp;of<br>
+constant&nbsp;hopping&nbsp;parameters.&nbsp;Convert&nbsp;to&nbsp;the&nbsp;specified&nbsp;*format*&nbsp;(one&nbsp;of<br>
 dense,&nbsp;csr,&nbsp;csc,&nbsp;dok,&nbsp;coo,&nbsp;dia,&nbsp;bsr,&nbsp;or&nbsp;lil).</tt></dd></dl>
 
 <hr>
@@ -377,28 +374,29 @@ Methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:
 
 <dl><dt><a name="Neighbor-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="Neighbor-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="Neighbor-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="Neighbor-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
 <dl><dt><a name="Neighbor-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
@@ -416,7 +414,7 @@ Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellOb
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>Define&nbsp;a&nbsp;site.&nbsp;May&nbsp;be&nbsp;part&nbsp;of&nbsp;the&nbsp;unitcell&nbsp;of&nbsp;a&nbsp;lattice,&nbsp;or&nbsp;a&nbsp;single<br>
-site&nbsp;within&nbsp;the&nbsp;supercell.&nbsp;May&nbsp;contain&nbsp;several&nbsp;entities&nbsp;(potentials).<br>&nbsp;</tt></td></tr>
+site&nbsp;within&nbsp;the&nbsp;supercell.&nbsp;May&nbsp;contain&nbsp;several&nbsp;entities&nbsp;(orbitals).<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="tb.sc.html#Site">Site</a></dd>
@@ -425,36 +423,38 @@ site&nbsp;within&nbsp;the&nbsp;supercell.&nbsp;May&nbsp;contain&nbsp;several&nbs
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="Site-__init__"><strong>__init__</strong></a>(self, dim<font color="#909090">=1</font>, coord<font color="#909090">=None</font>, label<font color="#909090">=None</font>, ents<font color="#909090">=None</font>, hops<font color="#909090">=None</font>)</dt><dd><tt>Initialize&nbsp;site.</tt></dd></dl>
+<dl><dt><a name="Site-__init__"><strong>__init__</strong></a>(self, dim<font color="#909090">=1</font>, coord<font color="#909090">=None</font>, label<font color="#909090">=None</font>, ents<font color="#909090">=None</font>, hops<font color="#909090">=None</font>)</dt><dd><tt>Initialize&nbsp;the&nbsp;site.</tt></dd></dl>
 
-<dl><dt><a name="Site-add_ent"><strong>add_ent</strong></a>(self, *ents, **kwargs)</dt><dd><tt>Add&nbsp;an&nbsp;entity&nbsp;to&nbsp;the&nbsp;site.&nbsp;The&nbsp;entity&nbsp;is&nbsp;characterized&nbsp;by&nbsp;a&nbsp;constant<br>
-or&nbsp;random&nbsp;potential&nbsp;(pot).<br>
+<dl><dt><a name="Site-add_ent"><strong>add_ent</strong></a>(self, *ents, **kwargs)</dt><dd><tt>Add&nbsp;an&nbsp;entity&nbsp;(an&nbsp;orbital)&nbsp;to&nbsp;the&nbsp;site.&nbsp;An&nbsp;entity&nbsp;is&nbsp;characterized<br>
+by&nbsp;the&nbsp;constant&nbsp;or&nbsp;random&nbsp;potential&nbsp;*pot*.<br>
 &nbsp;<br>
 Also,&nbsp;predefined&nbsp;site&nbsp;objects&nbsp;may&nbsp;be&nbsp;given&nbsp;as&nbsp;positional&nbsp;arguments.<br>
-Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd></dl>
+Then,&nbsp;keyword&nbsp;arguments&nbsp;must&nbsp;not&nbsp;be&nbsp;given.</tt></dd></dl>
 
-<dl><dt><a name="Site-add_hop"><strong>add_hop</strong></a>(self, *ents, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;hopping&nbsp;between&nbsp;the&nbsp;given&nbsp;entities.&nbsp;All&nbsp;entities&nbsp;must&nbsp;already<br>
-exist&nbsp;in&nbsp;the&nbsp;list&nbsp;of&nbsp;entities&nbsp;of&nbsp;this&nbsp;site.&nbsp;The&nbsp;hopping&nbsp;parameter&nbsp;can<br>
-either&nbsp;be&nbsp;constant&nbsp;or&nbsp;drawn&nbsp;from&nbsp;a&nbsp;probability&nbsp;distribution.&nbsp;The<br>
-interaction&nbsp;may&nbsp;be&nbsp;defined&nbsp;as&nbsp;isotropic&nbsp;(iso),&nbsp;meaning&nbsp;that&nbsp;also<br>
-hopping&nbsp;in&nbsp;the&nbsp;opposite&nbsp;direction&nbsp;will&nbsp;be&nbsp;allowed.</tt></dd></dl>
+<dl><dt><a name="Site-add_hop"><strong>add_hop</strong></a>(self, *ents, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;hopping&nbsp;between&nbsp;the&nbsp;given&nbsp;list&nbsp;of&nbsp;entities&nbsp;*ents*.&nbsp;All<br>
+entities&nbsp;must&nbsp;already&nbsp;exist&nbsp;in&nbsp;the&nbsp;list&nbsp;of&nbsp;entities&nbsp;of&nbsp;this&nbsp;site.&nbsp;The<br>
+hopping&nbsp;parameter&nbsp;can&nbsp;either&nbsp;be&nbsp;constant&nbsp;or&nbsp;drawn&nbsp;from&nbsp;a&nbsp;probability<br>
+distribution.&nbsp;The&nbsp;interaction&nbsp;may&nbsp;be&nbsp;defined&nbsp;as&nbsp;isotropic<br>
+(*iso*=*True*),&nbsp;meaning&nbsp;that&nbsp;also&nbsp;hopping&nbsp;in&nbsp;the&nbsp;opposite&nbsp;direction&nbsp;is<br>
+allowed.</tt></dd></dl>
 
 <dl><dt><a name="Site-checkhops"><strong>checkhops</strong></a>(self, unitcell<font color="#909090">=None</font>)</dt><dd><tt>Check&nbsp;if&nbsp;all&nbsp;the&nbsp;entities&nbsp;of&nbsp;the&nbsp;hoppings&nbsp;exist&nbsp;in&nbsp;the&nbsp;list&nbsp;of<br>
-entities.&nbsp;If&nbsp;a&nbsp;unitcell&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;is&nbsp;given,&nbsp;also&nbsp;checks&nbsp;if&nbsp;all&nbsp;the&nbsp;hopping<br>
+entities.&nbsp;If&nbsp;a&nbsp;*unitcell*&nbsp;is&nbsp;specified,&nbsp;also&nbsp;check&nbsp;if&nbsp;all&nbsp;the&nbsp;hopping<br>
 entities&nbsp;exist&nbsp;in&nbsp;that&nbsp;unitcell.</tt></dd></dl>
 
 <dl><dt><a name="Site-get_ent"><strong>get_ent</strong></a>(self, label)</dt><dd><tt>Get&nbsp;entity&nbsp;by&nbsp;label.</tt></dd></dl>
 
-<dl><dt><a name="Site-is_complex"><strong>is_complex</strong></a>(self)</dt><dd><tt>Check&nbsp;whether&nbsp;this&nbsp;site&nbsp;has&nbsp;complex&nbsp;potentials&nbsp;or&nbsp;hoppings.</tt></dd></dl>
+<dl><dt><a name="Site-is_complex"><strong>is_complex</strong></a>(self)</dt><dd><tt>Check&nbsp;whether&nbsp;this&nbsp;site&nbsp;contains&nbsp;any&nbsp;complex&nbsp;potentials&nbsp;or<br>
+hoppings.</tt></dd></dl>
 
 <dl><dt><a name="Site-tbmat"><strong>tbmat</strong></a>(self, format<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;submatrix&nbsp;of&nbsp;this&nbsp;site,&nbsp;containing&nbsp;all&nbsp;constant&nbsp;hoppings&nbsp;and<br>
 potentials.&nbsp;Convert&nbsp;to&nbsp;the&nbsp;specified&nbsp;format&nbsp;(one&nbsp;of&nbsp;dense,&nbsp;csr,&nbsp;csc,<br>
-dok,&nbsp;coo,&nbsp;dia,&nbsp;bsr,&nbsp;or&nbsp;lil).&nbsp;&nbsp;If&nbsp;new&nbsp;is&nbsp;True,&nbsp;recalculate&nbsp;the&nbsp;whole<br>
-matrix,&nbsp;including&nbsp;the&nbsp;random&nbsp;hopping&nbsp;dictionary.&nbsp;If&nbsp;cache&nbsp;is&nbsp;True,<br>
-always&nbsp;return&nbsp;the&nbsp;cached&nbsp;version&nbsp;of&nbsp;the&nbsp;matrix&nbsp;(if&nbsp;there&nbsp;is&nbsp;no&nbsp;cached<br>
-version,&nbsp;raise&nbsp;an&nbsp;exception).&nbsp;If&nbsp;new&nbsp;and&nbsp;cache&nbsp;are&nbsp;False,&nbsp;calculate&nbsp;the<br>
-submatrix&nbsp;only&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,&nbsp;otherwise&nbsp;just&nbsp;return&nbsp;the<br>
-cache.</tt></dd></dl>
+dok,&nbsp;coo,&nbsp;dia,&nbsp;bsr,&nbsp;or&nbsp;lil).&nbsp;&nbsp;If&nbsp;*new*&nbsp;is&nbsp;*True*,&nbsp;recalculate&nbsp;the&nbsp;whole<br>
+matrix,&nbsp;including&nbsp;the&nbsp;random&nbsp;hopping&nbsp;dictionary.&nbsp;If&nbsp;*cache*&nbsp;is&nbsp;*True*,<br>
+return&nbsp;the&nbsp;cached&nbsp;version&nbsp;of&nbsp;the&nbsp;matrix&nbsp;(if&nbsp;there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,<br>
+raise&nbsp;an&nbsp;exception).&nbsp;If&nbsp;*new*&nbsp;and&nbsp;*cache*&nbsp;are&nbsp;both&nbsp;*False*,&nbsp;calculate<br>
+the&nbsp;submatrix&nbsp;only&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,&nbsp;otherwise&nbsp;return&nbsp;the<br>
+cached&nbsp;version.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -466,28 +466,29 @@ Methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:
 
 <dl><dt><a name="Site-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="Site-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="Site-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="Site-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
 <dl><dt><a name="Site-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
@@ -505,13 +506,15 @@ Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellOb
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt>Define&nbsp;a&nbsp;sparse&nbsp;lattice,&nbsp;using&nbsp;a&nbsp;unitcell&nbsp;that&nbsp;may&nbsp;contain&nbsp;multiple<br>
-sites,&nbsp;but&nbsp;in&nbsp;contrast&nbsp;to&nbsp;a&nbsp;regular&nbsp;lattice,&nbsp;is&nbsp;not&nbsp;repeated&nbsp;periodically<br>
-in&nbsp;space,&nbsp;but&nbsp;exists&nbsp;only&nbsp;at&nbsp;given&nbsp;positions&nbsp;within&nbsp;the&nbsp;lattice&nbsp;grid.<br>
+sites.&nbsp;In&nbsp;contrast&nbsp;to&nbsp;a&nbsp;regular&nbsp;lattice,&nbsp;the&nbsp;unitcell&nbsp;is&nbsp;not&nbsp;repeated<br>
+periodically&nbsp;in&nbsp;space,&nbsp;but&nbsp;exists&nbsp;only&nbsp;at&nbsp;given&nbsp;positions&nbsp;within&nbsp;the<br>
+lattice&nbsp;grid.<br>
 &nbsp;<br>
-Allow&nbsp;"long"&nbsp;hoppings&nbsp;if&nbsp;"longhops"&nbsp;is&nbsp;set&nbsp;to&nbsp;True.&nbsp;"Long"&nbsp;hoppings&nbsp;are<br>
+Allow&nbsp;"long"&nbsp;hoppings&nbsp;if&nbsp;*longhops*&nbsp;is&nbsp;set&nbsp;to&nbsp;*True*.&nbsp;"Long"&nbsp;hoppings&nbsp;are<br>
 those&nbsp;that&nbsp;circle&nbsp;the&nbsp;whole&nbsp;lattice&nbsp;in&nbsp;at&nbsp;least&nbsp;one&nbsp;dimension&nbsp;due&nbsp;to<br>
 periodic&nbsp;boundary&nbsp;conditions&nbsp;(dangerous,&nbsp;because&nbsp;hoppings&nbsp;from&nbsp;a&nbsp;site&nbsp;to<br>
-itself&nbsp;could&nbsp;be&nbsp;possible).<br>&nbsp;</tt></td></tr>
+itself&nbsp;could&nbsp;be&nbsp;possible,&nbsp;which&nbsp;would&nbsp;alter&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;site<br>
+potentials).<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="tb.sc.html#SparseLattice">SparseLattice</a></dd>
@@ -521,28 +524,30 @@ itself&nbsp;could&nbsp;be&nbsp;possible).<br>&nbsp;</tt></td></tr>
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="SparseLattice-__init__"><strong>__init__</strong></a>(self, dim<font color="#909090">=1</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>, neighs<font color="#909090">=None</font>, positions<font color="#909090">=None</font>, longhops<font color="#909090">=False</font>, diaghops<font color="#909090">=False</font>)</dt><dd><tt>Initialize&nbsp;sparse&nbsp;lattice&nbsp;<a href="__builtin__.html#object">object</a>.</tt></dd></dl>
+<dl><dt><a name="SparseLattice-__init__"><strong>__init__</strong></a>(self, dim<font color="#909090">=1</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>, neighs<font color="#909090">=None</font>, positions<font color="#909090">=None</font>, longhops<font color="#909090">=False</font>, diaghops<font color="#909090">=False</font>)</dt><dd><tt>Initialize&nbsp;the&nbsp;sparse&nbsp;lattice.</tt></dd></dl>
 
 <dl><dt><a name="SparseLattice-coords"><strong>coords</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;coordinates&nbsp;of&nbsp;all&nbsp;the&nbsp;sites.</tt></dd></dl>
 
-<dl><dt><a name="SparseLattice-indmat"><strong>indmat</strong></a>(self, vects, positions)</dt><dd><tt>Return&nbsp;index&nbsp;matrix.&nbsp;Format&nbsp;will&nbsp;be&nbsp;coordinate&nbsp;sparse&nbsp;format&nbsp;(coo).<br>
-It&nbsp;will&nbsp;contain&nbsp;ones&nbsp;for&nbsp;those&nbsp;blocks&nbsp;that&nbsp;have&nbsp;to&nbsp;be&nbsp;set&nbsp;to&nbsp;enable<br>
-hopping&nbsp;in&nbsp;the&nbsp;direction&nbsp;of&nbsp;the&nbsp;given&nbsp;vector&nbsp;(vect),&nbsp;and&nbsp;zeros<br>
-elsewhere&nbsp;(and&nbsp;minus&nbsp;one&nbsp;where&nbsp;a&nbsp;sign&nbsp;flip&nbsp;should&nbsp;occur&nbsp;due&nbsp;to<br>
+<dl><dt><a name="SparseLattice-indmat"><strong>indmat</strong></a>(self, vects, positions)</dt><dd><tt>Return&nbsp;index&nbsp;matrix.&nbsp;The&nbsp;output&nbsp;format&nbsp;will&nbsp;be&nbsp;the&nbsp;coordinate&nbsp;sparse<br>
+format&nbsp;(coo).&nbsp;&nbsp;It&nbsp;will&nbsp;contain&nbsp;ones&nbsp;for&nbsp;those&nbsp;blocks&nbsp;that&nbsp;have&nbsp;to&nbsp;be<br>
+set&nbsp;to&nbsp;enable&nbsp;hopping&nbsp;in&nbsp;the&nbsp;direction&nbsp;of&nbsp;the&nbsp;given&nbsp;vector&nbsp;*vect*,&nbsp;and<br>
+zeros&nbsp;elsewhere&nbsp;(and&nbsp;minus&nbsp;one&nbsp;where&nbsp;a&nbsp;sign&nbsp;flip&nbsp;should&nbsp;occur&nbsp;due&nbsp;to<br>
 antiperiodic&nbsp;boundary&nbsp;conditions).</tt></dd></dl>
 
-<dl><dt><a name="SparseLattice-ndindex2index"><strong>ndindex2index</strong></a>(self, ndindex, shape<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;index&nbsp;of&nbsp;the&nbsp;given&nbsp;n-dimensional&nbsp;index&nbsp;that&nbsp;it&nbsp;would&nbsp;have&nbsp;in<br>
-the&nbsp;n-dimensional&nbsp;index&nbsp;list&nbsp;provided&nbsp;by&nbsp;scipy.ndindex.&nbsp;If&nbsp;ndindex&nbsp;is&nbsp;a<br>
-2D&nbsp;array,&nbsp;each&nbsp;row&nbsp;is&nbsp;treated&nbsp;as&nbsp;an&nbsp;n-dimensional&nbsp;index,&nbsp;and&nbsp;the&nbsp;result<br>
-will&nbsp;be&nbsp;a&nbsp;1D&nbsp;array&nbsp;of&nbsp;indices.</tt></dd></dl>
+<dl><dt><a name="SparseLattice-ndindex2index"><strong>ndindex2index</strong></a>(self, ndindex, shape<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;index&nbsp;of&nbsp;the&nbsp;given&nbsp;n-dimensional&nbsp;index&nbsp;*ndindex*&nbsp;that&nbsp;it<br>
+would&nbsp;have&nbsp;in&nbsp;the&nbsp;n-dimensional&nbsp;index&nbsp;list&nbsp;provided&nbsp;by<br>
+:func:`scipy.ndindex`.&nbsp;If&nbsp;*ndindex*&nbsp;is&nbsp;a&nbsp;2D&nbsp;array,&nbsp;each&nbsp;row&nbsp;is&nbsp;treated<br>
+as&nbsp;a&nbsp;n-dimensional&nbsp;index,&nbsp;and&nbsp;the&nbsp;result&nbsp;will&nbsp;be&nbsp;a&nbsp;1D&nbsp;array&nbsp;of<br>
+indices.</tt></dd></dl>
 
 <dl><dt><a name="SparseLattice-size"><strong>size</strong></a>(self)</dt><dd><tt>Return&nbsp;number&nbsp;of&nbsp;cells.</tt></dd></dl>
 
-<dl><dt><a name="SparseLattice-tbmat"><strong>tbmat</strong></a>(self, format<font color="#909090">=None</font>, distinguish<font color="#909090">=False</font>)</dt><dd><tt>Return&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;of&nbsp;this&nbsp;sparse&nbsp;lattice,&nbsp;convert&nbsp;to&nbsp;the<br>
-specified&nbsp;format&nbsp;(one&nbsp;of&nbsp;dense,&nbsp;csr,&nbsp;csc,&nbsp;dok,&nbsp;coo,&nbsp;dia,&nbsp;bsr,&nbsp;or&nbsp;lil).<br>
+<dl><dt><a name="SparseLattice-tbmat"><strong>tbmat</strong></a>(self, format<font color="#909090">=None</font>, distinguish<font color="#909090">=False</font>)</dt><dd><tt>Return&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;of&nbsp;this&nbsp;sparse&nbsp;lattice,&nbsp;and&nbsp;convert&nbsp;it<br>
+to&nbsp;the&nbsp;specified&nbsp;*format*&nbsp;(dense,&nbsp;csr,&nbsp;csc,&nbsp;dok,&nbsp;coo,&nbsp;dia,&nbsp;bsr,&nbsp;or<br>
+lil).<br>
 &nbsp;<br>
-If&nbsp;distinguish&nbsp;is&nbsp;True,&nbsp;also&nbsp;return&nbsp;a&nbsp;tuple&nbsp;of&nbsp;index&nbsp;lists,&nbsp;specifying<br>
-how&nbsp;the&nbsp;positions&nbsp;can&nbsp;be&nbsp;distinguished.</tt></dd></dl>
+If&nbsp;*distinguish*&nbsp;is&nbsp;*True*,&nbsp;also&nbsp;return&nbsp;a&nbsp;tuple&nbsp;of&nbsp;index&nbsp;lists,<br>
+specifying&nbsp;how&nbsp;the&nbsp;positions&nbsp;can&nbsp;be&nbsp;distinguished.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -552,10 +557,11 @@ Data and other attributes defined here:<br>
 Methods inherited from <a href="tb.sc.html#LatticeObject">LatticeObject</a>:<br>
 <dl><dt><a name="SparseLattice-add_neigh"><strong>add_neigh</strong></a>(self, *neighs, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;neighbor&nbsp;interaction&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;to&nbsp;the&nbsp;lattice&nbsp;that&nbsp;may&nbsp;connect<br>
 several&nbsp;unitcells&nbsp;defined&nbsp;by&nbsp;relative&nbsp;vectors.&nbsp;For&nbsp;a&nbsp;complete&nbsp;list&nbsp;of<br>
-possible&nbsp;arguments,&nbsp;look&nbsp;at&nbsp;the&nbsp;definition&nbsp;of&nbsp;<a href="#Neighbor">Neighbor</a>.__init__.<br>
+possible&nbsp;arguments,&nbsp;look&nbsp;at&nbsp;the&nbsp;definition&nbsp;of<br>
+:py:meth:`<a href="#Neighbor">Neighbor</a>.__init__`.<br>
 &nbsp;<br>
 Also,&nbsp;predefined&nbsp;neighbor&nbsp;objects&nbsp;may&nbsp;be&nbsp;given&nbsp;as&nbsp;positional&nbsp;arguments.<br>
-Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd></dl>
+Then,&nbsp;keyword&nbsp;arguments&nbsp;must&nbsp;not&nbsp;be&nbsp;given.</tt></dd></dl>
 
 <dl><dt><a name="SparseLattice-get_neigh"><strong>get_neigh</strong></a>(self, label)</dt><dd><tt>Get&nbsp;neighbor&nbsp;by&nbsp;label.</tt></dd></dl>
 
@@ -573,28 +579,29 @@ Methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:
 
 <dl><dt><a name="SparseLattice-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="SparseLattice-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="SparseLattice-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="SparseLattice-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
 <dl><dt><a name="SparseLattice-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
@@ -623,84 +630,98 @@ given&nbsp;unitcell&nbsp;periodically).&nbsp;Each&nbsp;site&nbsp;may&nbsp;hold&n
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="SuperCell-__init__"><strong>__init__</strong></a>(self, dim<font color="#909090">=1</font>, margin<font color="#909090">=None</font>, label<font color="#909090">=None</font>, sites<font color="#909090">=None</font>, lats<font color="#909090">=None</font>, hops<font color="#909090">=None</font>, eps<font color="#909090">=0.1</font>)</dt><dd><tt>Initialize&nbsp;supercell.</tt></dd></dl>
+<dl><dt><a name="SuperCell-__init__"><strong>__init__</strong></a>(self, dim<font color="#909090">=1</font>, margin<font color="#909090">=None</font>, label<font color="#909090">=None</font>, sites<font color="#909090">=None</font>, lats<font color="#909090">=None</font>, hops<font color="#909090">=None</font>, eps<font color="#909090">=0.1</font>)</dt><dd><tt>Initialize&nbsp;the&nbsp;supercell.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_andheis"><strong>add_andheis</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, coup<font color="#909090">=1.0</font>, mom<font color="#909090">=1.0</font>, mix<font color="#909090">=0.1</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Implement&nbsp;Anderson-Heisenberg&nbsp;model&nbsp;with&nbsp;classical&nbsp;impurity&nbsp;spins.<br>
 This&nbsp;is&nbsp;the&nbsp;isotropic&nbsp;version,&nbsp;where&nbsp;all&nbsp;spin&nbsp;directions&nbsp;have&nbsp;equal<br>
 probability&nbsp;(SU2-invariant).<br>
 &nbsp;<br>
-coup:&nbsp;exchange&nbsp;couplings&nbsp;J&nbsp;between&nbsp;conduction&nbsp;electrons&nbsp;and&nbsp;local<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moments<br>
-mom:&nbsp;&nbsp;magnetic&nbsp;moment&nbsp;of&nbsp;each&nbsp;impurity<br>
-mix:&nbsp;&nbsp;impurity&nbsp;concentration</tt></dd></dl>
+coup<br>
+&nbsp;&nbsp;&nbsp;&nbsp;exchange&nbsp;couplings&nbsp;J&nbsp;between&nbsp;conduction&nbsp;electrons&nbsp;and&nbsp;local<br>
+&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moments<br>
+mom<br>
+&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moment&nbsp;of&nbsp;each&nbsp;impurity<br>
+mix<br>
+&nbsp;&nbsp;&nbsp;&nbsp;impurity&nbsp;concentration</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_andheisp"><strong>add_andheisp</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, coup<font color="#909090">=1.0</font>, mom<font color="#909090">=1.0</font>, mix<font color="#909090">=0.1</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Implement&nbsp;Anderson-Heisenberg&nbsp;model&nbsp;with&nbsp;classical&nbsp;impurity&nbsp;spins.<br>
 This&nbsp;is&nbsp;the&nbsp;anisotropic&nbsp;version,&nbsp;somewhat&nbsp;preferring&nbsp;spins&nbsp;pointing&nbsp;up<br>
-or&nbsp;down&nbsp;(along&nbsp;z-axis)&nbsp;due&nbsp;to&nbsp;a&nbsp;"wrong&nbsp;choice"&nbsp;of&nbsp;probability<br>
-distribution.<br>
+or&nbsp;down&nbsp;(along&nbsp;z-axis)&nbsp;due&nbsp;to&nbsp;an&nbsp;initial&nbsp;"wrong&nbsp;choice"&nbsp;of&nbsp;probability<br>
+distribution.&nbsp;It&nbsp;stays&nbsp;here&nbsp;merely&nbsp;for&nbsp;compatibility&nbsp;reasons.<br>
 &nbsp;<br>
-coup:&nbsp;exchange&nbsp;couplings&nbsp;J&nbsp;between&nbsp;conduction&nbsp;electrons&nbsp;and&nbsp;local<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moments<br>
-mom:&nbsp;&nbsp;magnetic&nbsp;moment&nbsp;of&nbsp;each&nbsp;impurity<br>
-mix:&nbsp;&nbsp;impurity&nbsp;concentration</tt></dd></dl>
+coup<br>
+&nbsp;&nbsp;&nbsp;&nbsp;exchange&nbsp;couplings&nbsp;J&nbsp;between&nbsp;conduction&nbsp;electrons&nbsp;and&nbsp;local<br>
+&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moments<br>
+mom<br>
+&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moment&nbsp;of&nbsp;each&nbsp;impurity<br>
+mix<br>
+&nbsp;&nbsp;&nbsp;&nbsp;impurity&nbsp;concentration</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_andis"><strong>add_andis</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, coup<font color="#909090">=1.0</font>, mom<font color="#909090">=1.0</font>, mix<font color="#909090">=0.1</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Implement&nbsp;Anderson-Ising&nbsp;model,&nbsp;unpolarized&nbsp;version&nbsp;(impurity&nbsp;spins<br>
 can&nbsp;point&nbsp;up&nbsp;or&nbsp;down,&nbsp;isotropic&nbsp;distribution).<br>
 &nbsp;<br>
-coup:&nbsp;exchange&nbsp;couplings&nbsp;J&nbsp;between&nbsp;conduction&nbsp;electrons&nbsp;and&nbsp;local<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moments<br>
-mom:&nbsp;&nbsp;magnetic&nbsp;moment&nbsp;of&nbsp;each&nbsp;impurity<br>
-mix:&nbsp;&nbsp;impurity&nbsp;concentration</tt></dd></dl>
+coup<br>
+&nbsp;&nbsp;&nbsp;&nbsp;exchange&nbsp;couplings&nbsp;J&nbsp;between&nbsp;conduction&nbsp;electrons&nbsp;and&nbsp;local<br>
+&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moments<br>
+mom<br>
+&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moment&nbsp;of&nbsp;each&nbsp;impurity<br>
+mix<br>
+&nbsp;&nbsp;&nbsp;&nbsp;impurity&nbsp;concentration</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_andisp"><strong>add_andisp</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, coup<font color="#909090">=1.0</font>, mom<font color="#909090">=1.0</font>, mix<font color="#909090">=0.1</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Implement&nbsp;Anderson-Ising&nbsp;model,&nbsp;polarized&nbsp;version&nbsp;(impurity&nbsp;spins<br>
-always&nbsp;point&nbsp;up).<br>
+point&nbsp;all&nbsp;upwards).<br>
 &nbsp;<br>
-coup:&nbsp;exchange&nbsp;couplings&nbsp;J&nbsp;between&nbsp;electron&nbsp;and&nbsp;local&nbsp;magnetic&nbsp;moment<br>
-mom:&nbsp;&nbsp;magnetic&nbsp;moment&nbsp;of&nbsp;the&nbsp;impurity<br>
-mix:&nbsp;&nbsp;concentration&nbsp;of&nbsp;the&nbsp;impurities</tt></dd></dl>
+*coup*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;exchange&nbsp;couplings&nbsp;J&nbsp;between&nbsp;electron&nbsp;and&nbsp;local&nbsp;magnetic&nbsp;moment<br>
+*mom*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;magnetic&nbsp;moment&nbsp;of&nbsp;the&nbsp;impurity<br>
+*mix*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;concentration&nbsp;of&nbsp;the&nbsp;impurities</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_bccnn"><strong>add_bccnn</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;3-dimensional&nbsp;1-band&nbsp;body-centered&nbsp;cubic&nbsp;lattice&nbsp;with<br>
-isotropic&nbsp;next-neighbor&nbsp;hopping&nbsp;(hop)&nbsp;only.</tt></dd></dl>
+isotropic&nbsp;next-neighbor&nbsp;hopping&nbsp;*hop*.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_diam"><strong>add_diam</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;3-dimensional&nbsp;1-band&nbsp;diamond&nbsp;lattice&nbsp;with&nbsp;isotropic<br>
-next-neighbor&nbsp;hopping&nbsp;only&nbsp;(hop).</tt></dd></dl>
+next-neighbor&nbsp;hopping&nbsp;only&nbsp;*hop*.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_fccnn"><strong>add_fccnn</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;3-dimensional&nbsp;1-band&nbsp;face-centered&nbsp;cubic&nbsp;lattice&nbsp;with<br>
-isotropic&nbsp;next-neighbor&nbsp;hopping&nbsp;(hop)&nbsp;only.</tt></dd></dl>
+isotropic&nbsp;next-neighbor&nbsp;hopping&nbsp;*hop*.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_heis"><strong>add_heis</strong></a>(self, mix<font color="#909090">=0.0</font>, mom<font color="#909090">=1.0</font>, range<font color="#909090">=1.0</font>, coup<font color="#909090">=1.0</font>, spin<font color="#909090">=1.0</font>, shell<font color="#909090">=1</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;dilute&nbsp;(homogeneous)&nbsp;Heisenberg&nbsp;system.&nbsp;Do&nbsp;not&nbsp;allow&nbsp;long<br>
-hoppings&nbsp;by&nbsp;default&nbsp;(longhops=False),&nbsp;but&nbsp;make&nbsp;sure&nbsp;that&nbsp;hoppings&nbsp;cause<br>
-a&nbsp;contribution&nbsp;to&nbsp;the&nbsp;diagonal&nbsp;matrix&nbsp;elements&nbsp;(diaghops=True).</tt></dd></dl>
+hoppings&nbsp;by&nbsp;default&nbsp;(*longhops*=*False*),&nbsp;but&nbsp;make&nbsp;sure&nbsp;that&nbsp;hoppings<br>
+cause&nbsp;a&nbsp;contribution&nbsp;to&nbsp;the&nbsp;diagonal&nbsp;matrix&nbsp;elements<br>
+(*diaghops*=*True*).</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_honey"><strong>add_honey</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;2-dimensional&nbsp;1-band&nbsp;honeycomb&nbsp;lattice&nbsp;with&nbsp;isotropic<br>
-next-neighbor&nbsp;hopping&nbsp;(hop)&nbsp;only.</tt></dd></dl>
+next-neighbor&nbsp;hopping&nbsp;*hop*.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_hop"><strong>add_hop</strong></a>(self, *ents, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;hopping&nbsp;between&nbsp;the&nbsp;given&nbsp;entities,&nbsp;additionally&nbsp;restricted&nbsp;to<br>
-a&nbsp;certain&nbsp;distance&nbsp;(delta)&nbsp;that&nbsp;must&nbsp;exist&nbsp;between&nbsp;the&nbsp;coordinates&nbsp;of<br>
+a&nbsp;certain&nbsp;distance&nbsp;*delta*&nbsp;that&nbsp;must&nbsp;exist&nbsp;between&nbsp;the&nbsp;coordinates&nbsp;of<br>
 the&nbsp;sites&nbsp;(within&nbsp;a&nbsp;certain&nbsp;tolerance)&nbsp;where&nbsp;the&nbsp;given&nbsp;entities&nbsp;are<br>
-located.&nbsp;&nbsp;The&nbsp;hopping&nbsp;parameter&nbsp;(hop)&nbsp;can&nbsp;either&nbsp;be&nbsp;given&nbsp;by&nbsp;a&nbsp;constant<br>
-or&nbsp;be&nbsp;drawn&nbsp;from&nbsp;a&nbsp;random&nbsp;distribution.&nbsp;If&nbsp;iso&nbsp;is&nbsp;True,&nbsp;also&nbsp;hopping&nbsp;in<br>
-the&nbsp;opposite&nbsp;direction&nbsp;will&nbsp;be&nbsp;allowed.</tt></dd></dl>
+located.&nbsp;&nbsp;The&nbsp;hopping&nbsp;parameter&nbsp;*hop*&nbsp;can&nbsp;either&nbsp;be&nbsp;given&nbsp;by&nbsp;a&nbsp;constant<br>
+or&nbsp;be&nbsp;drawn&nbsp;from&nbsp;a&nbsp;random&nbsp;distribution.&nbsp;If&nbsp;it&nbsp;is&nbsp;*True*,&nbsp;also&nbsp;hopping<br>
+in&nbsp;the&nbsp;opposite&nbsp;direction&nbsp;will&nbsp;be&nbsp;allowed.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_lat"><strong>add_lat</strong></a>(self, *lats, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;lattice&nbsp;to&nbsp;the&nbsp;supercell&nbsp;by&nbsp;defining&nbsp;a&nbsp;unitcell&nbsp;that&nbsp;may<br>
 contain&nbsp;multiple&nbsp;sites&nbsp;and&nbsp;that&nbsp;is&nbsp;repeated&nbsp;periodically&nbsp;in&nbsp;space&nbsp;a<br>
-given&nbsp;number&nbsp;of&nbsp;times&nbsp;in&nbsp;each&nbsp;dimension&nbsp;(shape).<br>
+given&nbsp;number&nbsp;of&nbsp;times&nbsp;in&nbsp;each&nbsp;dimension&nbsp;*shape*.<br>
 &nbsp;<br>
-Set&nbsp;the&nbsp;origin&nbsp;and&nbsp;the&nbsp;basis&nbsp;vectors&nbsp;(bvects)&nbsp;to&nbsp;control&nbsp;where&nbsp;and&nbsp;how<br>
+Set&nbsp;the&nbsp;origin&nbsp;and&nbsp;the&nbsp;basis&nbsp;vectors&nbsp;*bvects*&nbsp;to&nbsp;control&nbsp;where&nbsp;and&nbsp;how<br>
 the&nbsp;lattice&nbsp;stretches&nbsp;within&nbsp;the&nbsp;supercell.<br>
 &nbsp;<br>
 Also,&nbsp;predefined&nbsp;lattice&nbsp;objects&nbsp;may&nbsp;be&nbsp;given&nbsp;as&nbsp;positional&nbsp;arguments.<br>
 Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd></dl>
 
-<dl><dt><a name="SuperCell-add_scnn"><strong>add_scnn</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;dim-dimensional&nbsp;1-band&nbsp;simple&nbsp;cubic&nbsp;lattice&nbsp;with&nbsp;isotropic<br>
-next-neighbor&nbsp;hopping&nbsp;(hop)&nbsp;only.</tt></dd></dl>
+<dl><dt><a name="SuperCell-add_scnn"><strong>add_scnn</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;*dim*-dimensional&nbsp;1-band&nbsp;simple&nbsp;cubic&nbsp;lattice&nbsp;with<br>
+isotropic&nbsp;next-neighbor&nbsp;hopping&nbsp;*hop*.</tt></dd></dl>
 
-<dl><dt><a name="SuperCell-add_scsnn"><strong>add_scsnn</strong></a>(self, pot<font color="#909090">=0.0</font>, hop1<font color="#909090">=-1.0</font>, hop2<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;dim-dimensional&nbsp;1-band&nbsp;simple&nbsp;cubic&nbsp;lattice&nbsp;with&nbsp;isotropic<br>
-next-neighbor&nbsp;(hop1)&nbsp;and&nbsp;second-next-neighbor&nbsp;hopping&nbsp;(hop2).</tt></dd></dl>
+<dl><dt><a name="SuperCell-add_scsnn"><strong>add_scsnn</strong></a>(self, pot<font color="#909090">=0.0</font>, hop1<font color="#909090">=-1.0</font>, hop2<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;*dim*-dimensional&nbsp;1-band&nbsp;simple&nbsp;cubic&nbsp;lattice&nbsp;with<br>
+isotropic&nbsp;next-neighbor&nbsp;*hop1*&nbsp;and&nbsp;second-next-neighbor&nbsp;hopping<br>
+*hop2*.</tt></dd></dl>
 
-<dl><dt><a name="SuperCell-add_site"><strong>add_site</strong></a>(self, *sites, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;site&nbsp;to&nbsp;the&nbsp;supercell&nbsp;at&nbsp;the&nbsp;given&nbsp;coordinates&nbsp;(coord).&nbsp;For&nbsp;a<br>
+<dl><dt><a name="SuperCell-add_site"><strong>add_site</strong></a>(self, *sites, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;site&nbsp;to&nbsp;the&nbsp;supercell&nbsp;at&nbsp;the&nbsp;given&nbsp;coordinates&nbsp;*coord*.&nbsp;For&nbsp;a<br>
 complete&nbsp;list&nbsp;of&nbsp;possible&nbsp;arguments,&nbsp;look&nbsp;at&nbsp;the&nbsp;definition&nbsp;of<br>
-<a href="#Site">Site</a>.__init__.<br>
+:py:meth:`<a href="#Site">Site</a>.__init__`.<br>
 &nbsp;<br>
 Also,&nbsp;predefined&nbsp;site&nbsp;objects&nbsp;may&nbsp;be&nbsp;given&nbsp;as&nbsp;positional&nbsp;arguments.<br>
 Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd></dl>
@@ -709,19 +730,19 @@ Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd>
 may&nbsp;contain&nbsp;multiple&nbsp;sites&nbsp;and&nbsp;that&nbsp;is&nbsp;placed&nbsp;on&nbsp;only&nbsp;a&nbsp;few&nbsp;of&nbsp;the<br>
 lattice&nbsp;sites&nbsp;within&nbsp;the&nbsp;given&nbsp;shape&nbsp;of&nbsp;the&nbsp;lattice.<br>
 &nbsp;<br>
-Set&nbsp;the&nbsp;origin&nbsp;and&nbsp;the&nbsp;basis&nbsp;vectors&nbsp;(bvects)&nbsp;to&nbsp;control&nbsp;where&nbsp;and&nbsp;how<br>
+Set&nbsp;the&nbsp;origin&nbsp;and&nbsp;the&nbsp;basis&nbsp;vectors&nbsp;*bvects*&nbsp;to&nbsp;control&nbsp;where&nbsp;and&nbsp;how<br>
 the&nbsp;lattice&nbsp;stretches&nbsp;within&nbsp;the&nbsp;supercell.<br>
 &nbsp;<br>
 Also,&nbsp;predefined&nbsp;lattice&nbsp;objects&nbsp;may&nbsp;be&nbsp;given&nbsp;as&nbsp;positional&nbsp;arguments.<br>
 Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_spheres"><strong>add_spheres</strong></a>(self, mom<font color="#909090">=1.0</font>, range<font color="#909090">=1.0</font>, coup<font color="#909090">=1.0</font>, spin<font color="#909090">=1.0</font>, shell<font color="#909090">=1</font>, sconc<font color="#909090">=None</font>, iconc<font color="#909090">=None</font>, iconcin<font color="#909090">=None</font>, iconcout<font color="#909090">=None</font>, rad<font color="#909090">=1.0</font>, space<font color="#909090">=0.0</font>, timeout<font color="#909090">='30s'</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;dilute&nbsp;Heisenberg&nbsp;system&nbsp;with&nbsp;spherical&nbsp;inhomogeneities.&nbsp;Do<br>
-not&nbsp;allow&nbsp;long&nbsp;hoppings&nbsp;by&nbsp;default&nbsp;(longhops=False),&nbsp;but&nbsp;make&nbsp;sure&nbsp;that<br>
-hoppings&nbsp;cause&nbsp;a&nbsp;contribution&nbsp;to&nbsp;the&nbsp;diagonal&nbsp;matrix&nbsp;elements<br>
-(diaghops=True).</tt></dd></dl>
+not&nbsp;allow&nbsp;long&nbsp;hoppings&nbsp;by&nbsp;default&nbsp;(*longhops*=*False*),&nbsp;but&nbsp;make&nbsp;sure<br>
+that&nbsp;hoppings&nbsp;cause&nbsp;a&nbsp;contribution&nbsp;to&nbsp;the&nbsp;diagonal&nbsp;matrix&nbsp;elements<br>
+(*diaghops*=*True*).</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-add_triang"><strong>add_triang</strong></a>(self, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, shape<font color="#909090">=None</font>, bcond<font color="#909090">=None</font>, origin<font color="#909090">=None</font>, bvects<font color="#909090">=None</font>, label<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;2-dimensional&nbsp;1-band&nbsp;triangular&nbsp;lattice&nbsp;with&nbsp;isotropic<br>
-next-neighbor&nbsp;hopping&nbsp;(hop)&nbsp;only.</tt></dd></dl>
+next-neighbor&nbsp;hopping&nbsp;*hop*.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-coords"><strong>coords</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;coordinates&nbsp;of&nbsp;all&nbsp;the&nbsp;sites&nbsp;(also&nbsp;from&nbsp;all&nbsp;lattice<br>
 sites).</tt></dd></dl>
@@ -730,7 +751,7 @@ sites).</tt></dd></dl>
 lattices&nbsp;and&nbsp;all&nbsp;the&nbsp;single&nbsp;sites&nbsp;of&nbsp;this&nbsp;supercell.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-find_ent"><strong>find_ent</strong></a>(self, ent, coord<font color="#909090">=False</font>)</dt><dd><tt>Return&nbsp;indices&nbsp;(within&nbsp;the&nbsp;big&nbsp;matrix)&nbsp;that&nbsp;belong&nbsp;to&nbsp;the&nbsp;given<br>
-entity.&nbsp;&nbsp;If&nbsp;coords&nbsp;is&nbsp;True,&nbsp;also&nbsp;return&nbsp;the&nbsp;absolute&nbsp;coordinates<br>
+entity.&nbsp;&nbsp;If&nbsp;*coords*&nbsp;is&nbsp;*True*,&nbsp;also&nbsp;return&nbsp;the&nbsp;absolute&nbsp;coordinates<br>
 (within&nbsp;the&nbsp;supercell).</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-get_lat"><strong>get_lat</strong></a>(self, label)</dt><dd><tt>Get&nbsp;lattice&nbsp;by&nbsp;label.</tt></dd></dl>
@@ -738,9 +759,9 @@ entity.&nbsp;&nbsp;If&nbsp;coords&nbsp;is&nbsp;True,&nbsp;also&nbsp;return&nbsp;
 <dl><dt><a name="SuperCell-is_complex"><strong>is_complex</strong></a>(self)</dt><dd><tt>Check&nbsp;whether&nbsp;this&nbsp;supercell&nbsp;contains&nbsp;any&nbsp;complex&nbsp;potentials&nbsp;or<br>
 hoppings.</tt></dd></dl>
 
-<dl><dt><a name="SuperCell-is_hermitian"><strong>is_hermitian</strong></a>(self)</dt><dd><tt>Check&nbsp;if&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;is&nbsp;hermitian.</tt></dd></dl>
+<dl><dt><a name="SuperCell-is_hermitian"><strong>is_hermitian</strong></a>(self)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;is&nbsp;hermitian.</tt></dd></dl>
 
-<dl><dt><a name="SuperCell-is_symmetric"><strong>is_symmetric</strong></a>(self)</dt><dd><tt>Check&nbsp;if&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;is&nbsp;symmetric.</tt></dd></dl>
+<dl><dt><a name="SuperCell-is_symmetric"><strong>is_symmetric</strong></a>(self)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;is&nbsp;symmetric.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-nents"><strong>nents</strong></a>(self)</dt><dd><tt>Return&nbsp;number&nbsp;of&nbsp;entities&nbsp;of&nbsp;all&nbsp;lattices&nbsp;and&nbsp;all&nbsp;sites.&nbsp;Equals&nbsp;the<br>
 rank&nbsp;of&nbsp;the&nbsp;tight&nbsp;binding&nbsp;matrix.</tt></dd></dl>
@@ -751,14 +772,14 @@ all&nbsp;the&nbsp;lattices.</tt></dd></dl>
 <dl><dt><a name="SuperCell-size"><strong>size</strong></a>(self)</dt><dd><tt>Return&nbsp;number&nbsp;of&nbsp;unitcells&nbsp;of&nbsp;all&nbsp;lattices.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-tbmat"><strong>tbmat</strong></a>(self, format<font color="#909090">=None</font>, distinguish<font color="#909090">=False</font>)</dt><dd><tt>Return&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;of&nbsp;this&nbsp;supercell,&nbsp;convert&nbsp;to&nbsp;the<br>
-specified&nbsp;format&nbsp;(one&nbsp;of&nbsp;dense,&nbsp;csr,&nbsp;csc,&nbsp;dok,&nbsp;coo,&nbsp;dia,&nbsp;bsr,&nbsp;or&nbsp;lil).<br>
-If&nbsp;all&nbsp;is&nbsp;True,&nbsp;recalculate&nbsp;the&nbsp;whole&nbsp;matrix,&nbsp;do&nbsp;not&nbsp;return&nbsp;a&nbsp;cached<br>
-version.&nbsp;If&nbsp;random&nbsp;is&nbsp;True,&nbsp;recalculate&nbsp;only&nbsp;random&nbsp;matrix&nbsp;elements,<br>
-i.e.&nbsp;&nbsp;get&nbsp;a&nbsp;new&nbsp;realization&nbsp;of&nbsp;disorder.&nbsp;If&nbsp;cache&nbsp;is&nbsp;True,&nbsp;always<br>
-return&nbsp;the&nbsp;cached&nbsp;version&nbsp;of&nbsp;the&nbsp;matrix&nbsp;(if&nbsp;there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,<br>
-raise&nbsp;an&nbsp;exception).&nbsp;If&nbsp;all,&nbsp;random&nbsp;and&nbsp;cache&nbsp;are&nbsp;all&nbsp;False,&nbsp;calculate<br>
-the&nbsp;matrix&nbsp;only&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,&nbsp;otherwise&nbsp;just&nbsp;return<br>
-the&nbsp;cache.</tt></dd></dl>
+specified&nbsp;format&nbsp;(one&nbsp;of&nbsp;"dense",&nbsp;"csr",&nbsp;"csc",&nbsp;"dok",&nbsp;"coo",&nbsp;"dia",<br>
+"bsr",&nbsp;or&nbsp;"lil").&nbsp;&nbsp;If&nbsp;*all*&nbsp;is&nbsp;*True*,&nbsp;recalculate&nbsp;the&nbsp;whole&nbsp;matrix,&nbsp;do<br>
+not&nbsp;return&nbsp;a&nbsp;cached&nbsp;version.&nbsp;If&nbsp;*random*&nbsp;is&nbsp;*True*,&nbsp;recalculate&nbsp;only<br>
+random&nbsp;matrix&nbsp;elements,&nbsp;i.e.&nbsp;get&nbsp;a&nbsp;new&nbsp;realization&nbsp;of&nbsp;disorder.&nbsp;If<br>
+*cache*&nbsp;is&nbsp;*True*,&nbsp;always&nbsp;return&nbsp;the&nbsp;cached&nbsp;version&nbsp;of&nbsp;the&nbsp;matrix&nbsp;(if<br>
+there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,&nbsp;raise&nbsp;an&nbsp;exception).&nbsp;If&nbsp;*all*,&nbsp;*random*&nbsp;and<br>
+*cache*&nbsp;are&nbsp;all&nbsp;*False*,&nbsp;calculate&nbsp;the&nbsp;matrix&nbsp;only&nbsp;if&nbsp;there&nbsp;is&nbsp;no<br>
+cached&nbsp;version,&nbsp;otherwise&nbsp;just&nbsp;return&nbsp;the&nbsp;cache.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -770,28 +791,29 @@ Methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:
 
 <dl><dt><a name="SuperCell-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="SuperCell-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="SuperCell-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="SuperCell-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
 <dl><dt><a name="SuperCell-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
@@ -818,28 +840,29 @@ this&nbsp;abstract&nbsp;base&nbsp;class.<br>&nbsp;</tt></td></tr>
 
 <dl><dt><a name="SuperCellObject-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="SuperCellObject-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="SuperCellObject-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="SuperCellObject-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods defined here:<br>
 <dl><dt><a name="SuperCellObject-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
@@ -868,40 +891,36 @@ Methods defined here:<br>
 <dl><dt><a name="UnitCell-__init__"><strong>__init__</strong></a>(self, dim<font color="#909090">=1</font>, label<font color="#909090">=None</font>, sites<font color="#909090">=None</font>, hops<font color="#909090">=None</font>)</dt><dd><tt>Initialize&nbsp;unitcell.</tt></dd></dl>
 
 <dl><dt><a name="UnitCell-add_hop"><strong>add_hop</strong></a>(self, *ents, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;hopping&nbsp;between&nbsp;the&nbsp;given&nbsp;entities.&nbsp;All&nbsp;entities&nbsp;must&nbsp;already<br>
-exist&nbsp;in&nbsp;the&nbsp;list&nbsp;of&nbsp;entities&nbsp;of&nbsp;this&nbsp;unitcell.&nbsp;The&nbsp;hopping&nbsp;parameter<br>
-can&nbsp;either&nbsp;be&nbsp;a&nbsp;constant&nbsp;or&nbsp;drawn&nbsp;from&nbsp;a&nbsp;probability&nbsp;distribution.&nbsp;The<br>
-interaction&nbsp;may&nbsp;be&nbsp;defined&nbsp;as&nbsp;isotropic&nbsp;(iso),&nbsp;meaning&nbsp;that&nbsp;also<br>
-hopping&nbsp;in&nbsp;the&nbsp;opposite&nbsp;direction&nbsp;will&nbsp;be&nbsp;allowed.<br>
-&nbsp;<br>
-Notes:<br>
---&gt;&nbsp;Should&nbsp;check&nbsp;if&nbsp;both&nbsp;entities&nbsp;are&nbsp;of&nbsp;the&nbsp;same&nbsp;site.&nbsp;If&nbsp;so,&nbsp;hand<br>
-&nbsp;&nbsp;&nbsp;&nbsp;task&nbsp;off&nbsp;to&nbsp;<a href="#Site">Site</a>.add_hop.</tt></dd></dl>
+exist&nbsp;in&nbsp;the&nbsp;list&nbsp;of&nbsp;entities&nbsp;of&nbsp;the&nbsp;unitcell.&nbsp;The&nbsp;hopping&nbsp;parameter<br>
+can&nbsp;either&nbsp;be&nbsp;constant&nbsp;or&nbsp;drawn&nbsp;from&nbsp;a&nbsp;probability&nbsp;distribution.&nbsp;The<br>
+interaction&nbsp;may&nbsp;be&nbsp;defined&nbsp;as&nbsp;isotropic&nbsp;(*iso*=*True*),&nbsp;meaning&nbsp;that<br>
+also&nbsp;hopping&nbsp;in&nbsp;the&nbsp;opposite&nbsp;direction&nbsp;will&nbsp;be&nbsp;allowed.</tt></dd></dl>
 
-<dl><dt><a name="UnitCell-add_site"><strong>add_site</strong></a>(self, *sites, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;site&nbsp;to&nbsp;the&nbsp;unitcell&nbsp;at&nbsp;the&nbsp;given&nbsp;coordinates&nbsp;(coord).&nbsp;The<br>
-coordinates&nbsp;should&nbsp;be&nbsp;given&nbsp;as&nbsp;relative&nbsp;values&nbsp;from&nbsp;the&nbsp;range&nbsp;[0,&nbsp;1].<br>
-For&nbsp;a&nbsp;complete&nbsp;list&nbsp;of&nbsp;possible&nbsp;arguments,&nbsp;look&nbsp;at&nbsp;the&nbsp;definition&nbsp;of<br>
-<a href="#Site">Site</a>.__init__.<br>
+<dl><dt><a name="UnitCell-add_site"><strong>add_site</strong></a>(self, *sites, **kwargs)</dt><dd><tt>Add&nbsp;a&nbsp;site&nbsp;to&nbsp;the&nbsp;unitcell&nbsp;at&nbsp;the&nbsp;given&nbsp;coordinates&nbsp;*coord*.&nbsp;The<br>
+coordinates&nbsp;should&nbsp;be&nbsp;given&nbsp;as&nbsp;relative&nbsp;values&nbsp;from&nbsp;the&nbsp;range&nbsp;[0.,&nbsp;1.].<br>
+For&nbsp;a&nbsp;complete&nbsp;list&nbsp;of&nbsp;possible&nbsp;arguments,&nbsp;see&nbsp;the&nbsp;definition&nbsp;of<br>
+:py:meth:`<a href="#Site">Site</a>.__init__`.<br>
 &nbsp;<br>
 Also,&nbsp;predefined&nbsp;site&nbsp;objects&nbsp;may&nbsp;be&nbsp;given&nbsp;as&nbsp;positional&nbsp;arguments.<br>
-Then,&nbsp;no&nbsp;keyword&nbsp;arguments&nbsp;may&nbsp;be&nbsp;given.</tt></dd></dl>
+Then,&nbsp;keyword&nbsp;arguments&nbsp;must&nbsp;not&nbsp;be&nbsp;given.</tt></dd></dl>
 
 <dl><dt><a name="UnitCell-ents"><strong>ents</strong></a>(self, sites<font color="#909090">=False</font>)</dt><dd><tt>Return&nbsp;all&nbsp;entities&nbsp;of&nbsp;all&nbsp;sites&nbsp;that&nbsp;exist&nbsp;in&nbsp;this&nbsp;unitcell.&nbsp;If<br>
-sites&nbsp;is&nbsp;True,&nbsp;also&nbsp;return&nbsp;the&nbsp;site&nbsp;where&nbsp;the&nbsp;entity&nbsp;is&nbsp;located.</tt></dd></dl>
+*sites*&nbsp;is&nbsp;*True*,&nbsp;also&nbsp;return&nbsp;the&nbsp;site&nbsp;where&nbsp;the&nbsp;entity&nbsp;is&nbsp;located.</tt></dd></dl>
 
 <dl><dt><a name="UnitCell-get_site"><strong>get_site</strong></a>(self, label)</dt><dd><tt>Get&nbsp;site&nbsp;by&nbsp;label.</tt></dd></dl>
 
-<dl><dt><a name="UnitCell-is_complex"><strong>is_complex</strong></a>(self)</dt><dd><tt>Check&nbsp;whether&nbsp;this&nbsp;unitcell&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;contains&nbsp;complex&nbsp;potentials&nbsp;or<br>
-hoppings.</tt></dd></dl>
+<dl><dt><a name="UnitCell-is_complex"><strong>is_complex</strong></a>(self)</dt><dd><tt>Check&nbsp;whether&nbsp;this&nbsp;unitcell&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;contains&nbsp;any&nbsp;complex&nbsp;potentials<br>
+or&nbsp;hoppings.</tt></dd></dl>
 
 <dl><dt><a name="UnitCell-nsites"><strong>nsites</strong></a>(self)</dt><dd><tt>Return&nbsp;number&nbsp;of&nbsp;sites.</tt></dd></dl>
 
 <dl><dt><a name="UnitCell-tbmat"><strong>tbmat</strong></a>(self, format<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;submatrix&nbsp;of&nbsp;the&nbsp;unitcell,&nbsp;convert&nbsp;to&nbsp;the&nbsp;specified&nbsp;format<br>
-(one&nbsp;of&nbsp;dense,&nbsp;csr,&nbsp;csc,&nbsp;dok,&nbsp;coo,&nbsp;dia,&nbsp;bsr,&nbsp;or&nbsp;lil).&nbsp;&nbsp;If&nbsp;new&nbsp;is&nbsp;True,<br>
-recalculate&nbsp;the&nbsp;whole&nbsp;matrix,&nbsp;including&nbsp;the&nbsp;random&nbsp;hopping&nbsp;dictionary.<br>
-If&nbsp;cache&nbsp;is&nbsp;True,&nbsp;always&nbsp;return&nbsp;the&nbsp;cached&nbsp;version&nbsp;of&nbsp;the&nbsp;matrix&nbsp;(if<br>
-there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,&nbsp;raise&nbsp;an&nbsp;exception).&nbsp;If&nbsp;new&nbsp;and&nbsp;cache&nbsp;are<br>
-False,&nbsp;calculate&nbsp;the&nbsp;submatrix&nbsp;only&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,<br>
-otherwise&nbsp;just&nbsp;return&nbsp;the&nbsp;cache.</tt></dd></dl>
+(one&nbsp;of&nbsp;dense,&nbsp;csr,&nbsp;csc,&nbsp;dok,&nbsp;coo,&nbsp;dia,&nbsp;bsr,&nbsp;or&nbsp;lil).&nbsp;&nbsp;If&nbsp;*new*&nbsp;is<br>
+*True*,&nbsp;recalculate&nbsp;the&nbsp;whole&nbsp;matrix,&nbsp;including&nbsp;the&nbsp;random&nbsp;hopping<br>
+dictionary.&nbsp;&nbsp;If&nbsp;*cache*&nbsp;is&nbsp;*True*,&nbsp;always&nbsp;return&nbsp;the&nbsp;cached&nbsp;version&nbsp;of<br>
+the&nbsp;matrix&nbsp;(if&nbsp;there&nbsp;is&nbsp;no&nbsp;cached&nbsp;version,&nbsp;raise&nbsp;an&nbsp;exception).&nbsp;If<br>
+*new*&nbsp;and&nbsp;*cache*&nbsp;are&nbsp;*False*,&nbsp;calculate&nbsp;the&nbsp;submatrix&nbsp;only&nbsp;if&nbsp;there&nbsp;is<br>
+no&nbsp;cached&nbsp;version,&nbsp;otherwise&nbsp;just&nbsp;return&nbsp;the&nbsp;cache.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -913,28 +932,29 @@ Methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:
 
 <dl><dt><a name="UnitCell-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;detailed&nbsp;string&nbsp;representation.</tt></dd></dl>
 
-<dl><dt><a name="UnitCell-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;value&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;(dtype).&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
+<dl><dt><a name="UnitCell-evalmath"><strong>evalmath</strong></a>(self, value, dtype<font color="#909090">=&lt;type 'float'&gt;</font>)</dt><dd><tt>Cast&nbsp;*value*&nbsp;to&nbsp;the&nbsp;given&nbsp;data&nbsp;type&nbsp;*dtype*.&nbsp;If&nbsp;value&nbsp;is&nbsp;a&nbsp;string,<br>
 assume&nbsp;that&nbsp;it&nbsp;contains&nbsp;a&nbsp;mathematical&nbsp;expression,&nbsp;and&nbsp;evaluate&nbsp;it&nbsp;with<br>
-eval&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are&nbsp;passed<br>
-unmodified.<br>
+:func:`eval`&nbsp;before&nbsp;casting&nbsp;it&nbsp;to&nbsp;the&nbsp;specified&nbsp;type.&nbsp;Functions&nbsp;are<br>
+passed&nbsp;unmodified.<br>
 &nbsp;<br>
-The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;eval,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;slower<br>
-for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
+The&nbsp;function&nbsp;could&nbsp;always&nbsp;use&nbsp;:func:`eval`,&nbsp;but&nbsp;this&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be<br>
+slower&nbsp;for&nbsp;values&nbsp;that&nbsp;do&nbsp;not&nbsp;have&nbsp;to&nbsp;be&nbsp;evaluated.</tt></dd></dl>
 
 <dl><dt><a name="UnitCell-infertype"><strong>infertype</strong></a>(self)</dt><dd><tt>Return&nbsp;data&nbsp;type&nbsp;(complex&nbsp;or&nbsp;float)&nbsp;that&nbsp;is&nbsp;needed&nbsp;due&nbsp;to&nbsp;the<br>
 defined&nbsp;potentials&nbsp;and&nbsp;hoppings&nbsp;within&nbsp;this&nbsp;<a href="__builtin__.html#object">object</a>.&nbsp;Depends&nbsp;on&nbsp;the<br>
-method&nbsp;is_complex&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;defined&nbsp;within&nbsp;each&nbsp;child&nbsp;class.</tt></dd></dl>
+method&nbsp;:py:meth:`is_complex`&nbsp;that&nbsp;is&nbsp;expected&nbsp;to&nbsp;be&nbsp;defined&nbsp;in&nbsp;each<br>
+child&nbsp;class.</tt></dd></dl>
 
 <hr>
 Static methods inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
 <dl><dt><a name="UnitCell-ismath"><strong>ismath</strong></a>(string)</dt><dd><tt>Check&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;is&nbsp;a&nbsp;mathematical&nbsp;expression&nbsp;(containing<br>
 only&nbsp;mathematical&nbsp;operators&nbsp;like&nbsp;'+',&nbsp;'-',&nbsp;'*',&nbsp;or&nbsp;'/',&nbsp;and&nbsp;of&nbsp;course<br>
-digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;"eval"&nbsp;on&nbsp;some&nbsp;string&nbsp;to&nbsp;evaluate&nbsp;a<br>
-given&nbsp;expression.<br>
+digits).&nbsp;Can&nbsp;be&nbsp;used&nbsp;before&nbsp;using&nbsp;:func:`eval`&nbsp;on&nbsp;some&nbsp;string&nbsp;to<br>
+evaluate&nbsp;a&nbsp;given&nbsp;expression.<br>
 &nbsp;<br>
 Note:&nbsp;This&nbsp;function&nbsp;does&nbsp;not&nbsp;check&nbsp;if&nbsp;the&nbsp;numerical&nbsp;expression&nbsp;is<br>
 actually&nbsp;valid.&nbsp;It&nbsp;just&nbsp;gives&nbsp;a&nbsp;hint&nbsp;if&nbsp;the&nbsp;given&nbsp;string&nbsp;should&nbsp;be<br>
-passed&nbsp;to&nbsp;eval&nbsp;or&nbsp;not.</tt></dd></dl>
+passed&nbsp;to&nbsp;:func:`eval`&nbsp;or&nbsp;not.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellObject</a>:<br>
@@ -952,17 +972,17 @@ Data descriptors inherited from <a href="tb.sc.html#SuperCellObject">SuperCellOb
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl><dt><a name="-scnnmat"><strong>scnnmat</strong></a>(shape, pot<font color="#909090">=0.0</font>, hop<font color="#909090">=-1.0</font>, bcond<font color="#909090">=None</font>, dist<font color="#909090">=None</font>, loc<font color="#909090">=0.0</font>, scale<font color="#909090">=1.0</font>, format<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;of&nbsp;a&nbsp;1-band&nbsp;simple&nbsp;cubic&nbsp;lattice&nbsp;with<br>
-constant&nbsp;isotropic&nbsp;next-neighbor&nbsp;hopping&nbsp;(hop)&nbsp;and&nbsp;either&nbsp;constant<br>
-potentials&nbsp;(pot)&nbsp;or&nbsp;random&nbsp;potentials,&nbsp;drawn&nbsp;from&nbsp;a&nbsp;certain&nbsp;probability<br>
-distribution&nbsp;(dist)&nbsp;defined&nbsp;by&nbsp;certain&nbsp;parameters&nbsp;(loc,&nbsp;scale).&nbsp;The<br>
-boundary&nbsp;conditions&nbsp;(bcond)&nbsp;can&nbsp;chosen&nbsp;to&nbsp;be&nbsp;static&nbsp;(s),&nbsp;periodic&nbsp;(p)&nbsp;or<br>
-antiperiodic&nbsp;(a)&nbsp;and&nbsp;can&nbsp;be&nbsp;set&nbsp;differently&nbsp;for&nbsp;each&nbsp;dimension.&nbsp;The&nbsp;length<br>
-of&nbsp;the&nbsp;tuple&nbsp;that&nbsp;is&nbsp;specifying&nbsp;the&nbsp;system&nbsp;dimensions&nbsp;(shape)&nbsp;is&nbsp;also<br>
-defining&nbsp;the&nbsp;dimensionality&nbsp;of&nbsp;the&nbsp;system.<br>
+constant&nbsp;isotropic&nbsp;next-neighbor&nbsp;hopping&nbsp;*hop*&nbsp;and&nbsp;either&nbsp;constant<br>
+potentials&nbsp;*pot*&nbsp;or&nbsp;random&nbsp;potentials,&nbsp;drawn&nbsp;from&nbsp;a&nbsp;probability<br>
+distribution&nbsp;*dist*&nbsp;defined&nbsp;by&nbsp;the&nbsp;parameters&nbsp;*loc*,&nbsp;*scale*.&nbsp;The&nbsp;boundary<br>
+conditions&nbsp;*bcond*&nbsp;can&nbsp;be&nbsp;chosen&nbsp;to&nbsp;be&nbsp;static&nbsp;("s"),&nbsp;periodic&nbsp;("p")&nbsp;or<br>
+antiperiodic&nbsp;("a")&nbsp;and&nbsp;can&nbsp;be&nbsp;set&nbsp;independently&nbsp;for&nbsp;each&nbsp;dimension.&nbsp;The<br>
+length&nbsp;of&nbsp;the&nbsp;tuple&nbsp;that&nbsp;is&nbsp;specifying&nbsp;the&nbsp;system&nbsp;dimensions&nbsp;*shape*&nbsp;is<br>
+also&nbsp;defining&nbsp;the&nbsp;dimensionality&nbsp;of&nbsp;the&nbsp;system.<br>
 &nbsp;<br>
 Because&nbsp;of&nbsp;the&nbsp;restriction&nbsp;to&nbsp;this&nbsp;special&nbsp;case,&nbsp;this&nbsp;function&nbsp;reaches&nbsp;an<br>
-optimum&nbsp;of&nbsp;efficiency.&nbsp;The&nbsp;matrix&nbsp;is&nbsp;returned&nbsp;in&nbsp;a&nbsp;sparse&nbsp;matrix&nbsp;format<br>
-(format).</tt></dd></dl>
+optimum&nbsp;of&nbsp;efficiency.&nbsp;The&nbsp;matrix&nbsp;is&nbsp;returned&nbsp;in&nbsp;the&nbsp;sparse&nbsp;matrix&nbsp;format<br>
+*format*.</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
@@ -972,5 +992,5 @@ optimum&nbsp;of&nbsp;efficiency.&nbsp;The&nbsp;matrix&nbsp;is&nbsp;returned&nbsp
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><strong>__created__</strong> = '2011-08-17'<br>
 <strong>__modified__</strong> = '2014-01-26'<br>
-<strong>__warningregistry__</strong> = {('numpy.dtype size changed, may indicate binary incompatibility', &lt;type 'exceptions.RuntimeWarning'&gt;, 48): True, ('numpy.ufunc size changed, may indicate binary incompatibility', &lt;type 'exceptions.RuntimeWarning'&gt;, 48): True}</td></tr></table>
+<strong>__warningregistry__</strong> = {('numpy.dtype size changed, may indicate binary incompatibility', &lt;type 'exceptions.RuntimeWarning'&gt;, 50): True, ('numpy.ufunc size changed, may indicate binary incompatibility', &lt;type 'exceptions.RuntimeWarning'&gt;, 50): True}</td></tr></table>
 </body></html>

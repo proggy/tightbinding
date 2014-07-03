@@ -7,38 +7,40 @@
 # Copyright (C) 2013-2014 Daniel Jung
 # Contact: djungbremen@gmail.com
 #
-# This program is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the Free
-# Software Foundation; either version 2 of the License, or (at your option)
-# any later version.
+# This program is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; either version 2 of the License, or (at your option) any later
+# version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
-# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
-# more details.
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
 #
-# You should have received a copy of the GNU General Public License along
-# with this prograk; if not, write to the Free Software Foundation, Inc.,
-# 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+# You should have received a copy of the GNU General Public License along with
+# this prograk; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA 02111-1307 USA.
 #
-"""Package to define tight binding supercells and calculate their tight
-binding matrices (hamiltonians) in site-occupation basis. Start by creating an
-instance of the SuperCell class. The methods SuperCell.add_scnn and
-SuperCell.add_fccnn (and others) give good examples how to define lattices
-within the supercell.
+"""Package to define tight binding supercells and calculate their tight binding
+matrices (hamiltonians) in site-occupation basis. Start by creating an instance
+of the :class:`SuperCell` class. The methods :py:meth:`SuperCell.add_scnn`
+and :py:meth:`SuperCell.add_fccnn` (and others) give good examples of how to
+define lattices within the supercell.
 
-The submodule "dist" contains everything needed to generate random numbers from
-various probability distributions, including a few predefined distributions.
-
-Future visions:
---> supercell itself may have (anti)periodic boundary conditions (until now,
-    just lattices have boundary conditions)
---> improve Lattice.ndindex2index (increase performance even more by using a
-    lookup table)
---> add special algorithms for special cases (e.g., Lattice.scnnmat)
---> add automatic performance checks (compare times for finding the connections
-    to the setting of matrix elements, random and constant)
---> rename "dim" to "ndim", be consistent with numpy.ndarray"""
+The submodule :mod:`tb.sc.dist` contains everything needed to generate random
+numbers from various probability distributions, including a few predefined
+distributions."""
+#
+# To do:
+# --> supercell itself may have (anti)periodic boundary conditions (until now,
+#     just lattices have boundary conditions)
+# --> improve Lattice.ndindex2index (increase performance even more by using a
+#     lookup table)
+# --> add special algorithms for special cases (e.g., Lattice.scnnmat)
+# --> add automatic performance checks (compare times for finding the
+#     connections to the setting of matrix elements, random and constant)
+# --> rename "dim" to "ndim", be consistent with numpy.ndarray"""
+#
 __created__ = '2011-08-17'
 __modified__ = '2014-01-26'
 import math
@@ -76,7 +78,8 @@ class SuperCellObject(object):
     def infertype(self):
         """Return data type (complex or float) that is needed due to the
         defined potentials and hoppings within this object. Depends on the
-        method is_complex that has to be defined within each child class."""
+        method :py:meth:`is_complex` that is expected to be defined in each
+        child class."""
         # 2011-09-12
         # former sc.Lattice.infertype from 2011-08-25
         return complex if self.is_complex() else float
@@ -95,12 +98,12 @@ class SuperCellObject(object):
     def ismath(string):
         """Check if the given string is a mathematical expression (containing
         only mathematical operators like '+', '-', '*', or '/', and of course
-        digits). Can be used before using "eval" on some string to evaluate a
-        given expression.
+        digits). Can be used before using :func:`eval` on some string to
+        evaluate a given expression.
 
         Note: This function does not check if the numerical expression is
         actually valid. It just gives a hint if the given string should be
-        passed to eval or not."""
+        passed to :func:`eval` or not."""
         # 2011-09-13 - 2011-10-12
         # former tb.mathexpr from 2011-06-12
         if '+' in string or '*' in string or '/' in string:
@@ -114,13 +117,13 @@ class SuperCellObject(object):
         return False
 
     def evalmath(self, value, dtype=float):
-        """Cast value to the given data type (dtype). If value is a string,
+        """Cast *value* to the given data type *dtype*. If value is a string,
         assume that it contains a mathematical expression, and evaluate it with
-        eval before casting it to the specified type. Functions are passed
-        unmodified.
+        :func:`eval` before casting it to the specified type. Functions are
+        passed unmodified.
 
-        The function could always use eval, but this is assumed to be slower
-        for values that do not have to be evaluated."""
+        The function could always use :func:`eval`, but this is assumed to be
+        slower for values that do not have to be evaluated."""
         # 2011-10-12 - 2011-12-14
         if hasattr(value, '__call__'):
             # bypass function or callable class objects (defining a certain
@@ -148,7 +151,7 @@ class SuperCell(SuperCellObject):
 
     def __init__(self, dim=1, margin=None, label=None, sites=None,
                  lats=None, hops=None, eps=.1):  # bcond=None
-        """Initialize supercell."""
+        """Initialize the supercell."""
         # 2011-08-17 - 2011-10-12
 
         # number of dimensions
@@ -198,9 +201,9 @@ class SuperCell(SuperCellObject):
                 yield ent
 
     def add_site(self, *sites, **kwargs):
-        """Add a site to the supercell at the given coordinates (coord). For a
+        """Add a site to the supercell at the given coordinates *coord*. For a
         complete list of possible arguments, look at the definition of
-        Site.__init__.
+        :py:meth:`Site.__init__`.
 
         Also, predefined site objects may be given as positional arguments.
         Then, no keyword arguments may be given."""
@@ -222,9 +225,9 @@ class SuperCell(SuperCellObject):
     def add_lat(self, *lats, **kwargs):
         """Add a lattice to the supercell by defining a unitcell that may
         contain multiple sites and that is repeated periodically in space a
-        given number of times in each dimension (shape).
+        given number of times in each dimension *shape*.
 
-        Set the origin and the basis vectors (bvects) to control where and how
+        Set the origin and the basis vectors *bvects* to control where and how
         the lattice stretches within the supercell.
 
         Also, predefined lattice objects may be given as positional arguments.
@@ -249,7 +252,7 @@ class SuperCell(SuperCellObject):
         may contain multiple sites and that is placed on only a few of the
         lattice sites within the given shape of the lattice.
 
-        Set the origin and the basis vectors (bvects) to control where and how
+        Set the origin and the basis vectors *bvects* to control where and how
         the lattice stretches within the supercell.
 
         Also, predefined lattice objects may be given as positional arguments.
@@ -272,11 +275,11 @@ class SuperCell(SuperCellObject):
 
     def add_hop(self, *ents, **kwargs):
         """Add a hopping between the given entities, additionally restricted to
-        a certain distance (delta) that must exist between the coordinates of
+        a certain distance *delta* that must exist between the coordinates of
         the sites (within a certain tolerance) where the given entities are
-        located.  The hopping parameter (hop) can either be given by a constant
-        or be drawn from a random distribution. If iso is True, also hopping in
-        the opposite direction will be allowed."""
+        located.  The hopping parameter *hop* can either be given by a constant
+        or be drawn from a random distribution. If it is *True*, also hopping
+        in the opposite direction will be allowed."""
         # 2011-08-31 - 2012-04-05
 
         # make sure all entities exist at this site
@@ -322,14 +325,14 @@ class SuperCell(SuperCellObject):
 
     def tbmat(self, format=None, distinguish=False):
         """Return tight binding matrix of this supercell, convert to the
-        specified format (one of dense, csr, csc, dok, coo, dia, bsr, or lil).
-        If all is True, recalculate the whole matrix, do not return a cached
-        version. If random is True, recalculate only random matrix elements,
-        i.e.  get a new realization of disorder. If cache is True, always
-        return the cached version of the matrix (if there is no cached version,
-        raise an exception). If all, random and cache are all False, calculate
-        the matrix only if there is no cached version, otherwise just return
-        the cache."""
+        specified format (one of "dense", "csr", "csc", "dok", "coo", "dia",
+        "bsr", or "lil").  If *all* is *True*, recalculate the whole matrix, do
+        not return a cached version. If *random* is *True*, recalculate only
+        random matrix elements, i.e. get a new realization of disorder. If
+        *cache* is *True*, always return the cached version of the matrix (if
+        there is no cached version, raise an exception). If *all*, *random* and
+        *cache* are all *False*, calculate the matrix only if there is no
+        cached version, otherwise just return the cache."""
         # 2011-09-01 - 2012-09-04
 
         # first, fill all blocks on the main diagonal, containing all
@@ -402,14 +405,14 @@ class SuperCell(SuperCellObject):
             return mat.asformat(format)
 
     def is_symmetric(self):
-        """Check if tight binding matrix is symmetric."""
+        """Check if the tight binding matrix is symmetric."""
         # 2012-02-02
         # Convert the matrix to the dok-format before comparison
         mat = self.tbmat()  # cache=True
         return mat.transpose().todok() == mat.todok()
 
     def is_hermitian(self):
-        """Check if tight binding matrix is hermitian."""
+        """Check if the tight binding matrix is hermitian."""
         # 2012-02-02
         # Convert the matrix to the dok-format before comparison
         mat = self.tbmat()  # cache=True
@@ -417,7 +420,7 @@ class SuperCell(SuperCellObject):
 
     def find_ent(self, ent, coord=False):
         """Return indices (within the big matrix) that belong to the given
-        entity.  If coords is True, also return the absolute coordinates
+        entity.  If *coords* is *True*, also return the absolute coordinates
         (within the supercell)."""
         # 2011-09-02 - 2011-09-05
 
@@ -485,8 +488,8 @@ class SuperCell(SuperCellObject):
 
     def add_scnn(self, pot=0., hop=-1., shape=None, bcond=None, origin=None,
                  bvects=None, label=None):
-        """Create a dim-dimensional 1-band simple cubic lattice with isotropic
-        next-neighbor hopping (hop) only."""
+        """Create a *dim*-dimensional 1-band simple cubic lattice with
+        isotropic next-neighbor hopping *hop*."""
         # 2011-08-28 - 2011-11-09
         # former tb.SuperCell.add_scnn
         lat = self.add_lat(shape=shape, bcond=bcond, origin=origin,
@@ -501,7 +504,7 @@ class SuperCell(SuperCellObject):
     def add_triang(self, pot=0., hop=-1., shape=None, bcond=None, origin=None,
                    bvects=None, label=None):
         """Create a 2-dimensional 1-band triangular lattice with isotropic
-        next-neighbor hopping (hop) only."""
+        next-neighbor hopping *hop*."""
         # 2011-12-11
         ### bvects should be chosen to get lattice with equilateral triangles
         lat = self.add_lat(shape=shape, bcond=bcond, origin=origin,
@@ -520,7 +523,7 @@ class SuperCell(SuperCellObject):
                                              # ploc=0., pscale=1., hloc=-1.,
                                              # hscale=1.
         """Create a 3-dimensional 1-band face-centered cubic lattice with
-        isotropic next-neighbor hopping (hop) only."""
+        isotropic next-neighbor hopping *hop*."""
         # 2011-08-28 - 2011-11-09
         # former tb.SuperCell.add_fccnn
         assert self.dim == 3, 'a fcc lattice can only be created in a ' + \
@@ -613,7 +616,7 @@ class SuperCell(SuperCellObject):
                   bvects=None, label=None):  # pdist=None, ploc=0., pscale=1.,
                                              # hdist=None, hloc=-1., hscale=1.
         """Create a 3-dimensional 1-band body-centered cubic lattice with
-        isotropic next-neighbor hopping (hop) only."""
+        isotropic next-neighbor hopping *hop*."""
         # 2011-08-28 - 2011-11-09
         # former tb.SuperCell.add_bccnn
         assert self.dim == 3, 'a bcc lattice can only be created in a ' + \
@@ -657,8 +660,9 @@ class SuperCell(SuperCellObject):
                                                           # h2dist=None,
                                                           # h2loc=-1.,
                                                           # h2scale=1.
-        """Create a dim-dimensional 1-band simple cubic lattice with isotropic
-        next-neighbor (hop1) and second-next-neighbor hopping (hop2)."""
+        """Create a *dim*-dimensional 1-band simple cubic lattice with
+        isotropic next-neighbor *hop1* and second-next-neighbor hopping
+        *hop2*."""
         # 2011-08-28 - 2011-11-09
 
         # create lattice
@@ -693,7 +697,7 @@ class SuperCell(SuperCellObject):
                   label=None):  # pdist=None, ploc=0., pscale=1., hdist=None,
                                 # hloc=-1., hscale=1.
         """Create a 2-dimensional 1-band honeycomb lattice with isotropic
-        next-neighbor hopping (hop) only."""
+        next-neighbor hopping *hop*."""
         # 2011-08-28 - 2011-11-09
         # former tb.SuperCell.add_honey
         assert self.dim == 2, 'a honeycomb lattice can only be created in ' + \
@@ -747,7 +751,7 @@ class SuperCell(SuperCellObject):
                  bvects=None, label=None):  # pdist=None, ploc=0., pscale=1.,
                                             # hdist=None, hloc=-1., hscale=1.
         """Create a 3-dimensional 1-band diamond lattice with isotropic
-        next-neighbor hopping only (hop)."""
+        next-neighbor hopping only *hop*."""
         # 2011-08-28 - 2011-11-09
         # former tb.SuperCell.add_diam
         assert self.dim == 3, 'a diamond lattice can only be created in a ' + \
@@ -833,8 +837,9 @@ class SuperCell(SuperCellObject):
     def add_heis(self, mix=0., mom=1., range=1., coup=1., spin=1., shell=1,
                  shape=None, bcond=None, origin=None, bvects=None, label=None):
         """Create a dilute (homogeneous) Heisenberg system. Do not allow long
-        hoppings by default (longhops=False), but make sure that hoppings cause
-        a contribution to the diagonal matrix elements (diaghops=True)."""
+        hoppings by default (*longhops*=*False*), but make sure that hoppings
+        cause a contribution to the diagonal matrix elements
+        (*diaghops*=*True*)."""
         # 2012-03-14 - 2012-08-01
 
         # create lattice
@@ -870,9 +875,9 @@ class SuperCell(SuperCellObject):
                     shape=None, bcond=None, origin=None, bvects=None,
                     label=None):
         """Create a dilute Heisenberg system with spherical inhomogeneities. Do
-        not allow long hoppings by default (longhops=False), but make sure that
-        hoppings cause a contribution to the diagonal matrix elements
-        (diaghops=True)."""
+        not allow long hoppings by default (*longhops*=*False*), but make sure
+        that hoppings cause a contribution to the diagonal matrix elements
+        (*diaghops*=*True*)."""
         # 2012-07-06 - 2012-08-01
 
         # create lattice
@@ -909,11 +914,14 @@ class SuperCell(SuperCellObject):
     def add_andisp(self, pot=0., hop=-1., coup=1., mom=1., mix=.1, shape=None,
                    bcond=None, origin=None, bvects=None, label=None):
         """Implement Anderson-Ising model, polarized version (impurity spins
-        always point up).
+        point all upwards).
 
-        coup: exchange couplings J between electron and local magnetic moment
-        mom:  magnetic moment of the impurity
-        mix:  concentration of the impurities"""
+        *coup*
+            exchange couplings J between electron and local magnetic moment
+        *mom*
+            magnetic moment of the impurity
+        *mix*
+            concentration of the impurities"""
         # 2012-06-18 - 2012-06-19
         lat = self.add_lat(shape=shape, bcond=bcond, origin=origin,
                            bvects=bvects, label=label)
@@ -950,10 +958,13 @@ class SuperCell(SuperCellObject):
         """Implement Anderson-Ising model, unpolarized version (impurity spins
         can point up or down, isotropic distribution).
 
-        coup: exchange couplings J between conduction electrons and local
-              magnetic moments
-        mom:  magnetic moment of each impurity
-        mix:  impurity concentration"""
+        coup
+            exchange couplings J between conduction electrons and local
+            magnetic moments
+        mom
+            magnetic moment of each impurity
+        mix
+            impurity concentration"""
         # 2013-06-27 - 2013-06-27
         # based on tb.sc.SuperCell.add_andis (2012-06-18 - 2012-06-19)
         lat = self.add_lat(shape=shape, bcond=bcond, origin=origin,
@@ -992,13 +1003,16 @@ class SuperCell(SuperCellObject):
                      label=None):
         """Implement Anderson-Heisenberg model with classical impurity spins.
         This is the anisotropic version, somewhat preferring spins pointing up
-        or down (along z-axis) due to a "wrong choice" of probability
-        distribution.
+        or down (along z-axis) due to an initial "wrong choice" of probability
+        distribution. It stays here merely for compatibility reasons.
 
-        coup: exchange couplings J between conduction electrons and local
-              magnetic moments
-        mom:  magnetic moment of each impurity
-        mix:  impurity concentration"""
+        coup
+            exchange couplings J between conduction electrons and local
+            magnetic moments
+        mom
+            magnetic moment of each impurity
+        mix
+            impurity concentration"""
         # 2012-08-04 - 2012-08-21
 
         # create lattice
@@ -1043,10 +1057,13 @@ class SuperCell(SuperCellObject):
         This is the isotropic version, where all spin directions have equal
         probability (SU2-invariant).
 
-        coup: exchange couplings J between conduction electrons and local
-              magnetic moments
-        mom:  magnetic moment of each impurity
-        mix:  impurity concentration"""
+        coup
+            exchange couplings J between conduction electrons and local
+            magnetic moments
+        mom
+            magnetic moment of each impurity
+        mix
+            impurity concentration"""
         # 2013-06-27 - 2013-06-27
         # based on tb.sc.SuperCell.add_andheis (2012-08-04 - 2012-08-21)
 
@@ -1159,7 +1176,7 @@ class SuperCell(SuperCellObject):
 
 class LatticeObject(SuperCellObject):
     """Define shared methods and attributes of the lattice classes (so far:
-    Lattice and SparseLattice."""
+    :class:`Lattice` and :class:`SparseLattice`)."""
     # 2012-05-01
     # copied from tb.sc.Lattice from 2011-08-11 - 2012-04-05
     # former tb.Lattice from 2011-03-05 - 2011-03-31
@@ -1208,10 +1225,11 @@ class LatticeObject(SuperCellObject):
     def add_neigh(self, *neighs, **kwargs):
         """Add a neighbor interaction object to the lattice that may connect
         several unitcells defined by relative vectors. For a complete list of
-        possible arguments, look at the definition of Neighbor.__init__.
+        possible arguments, look at the definition of
+        :py:meth:`Neighbor.__init__`.
 
         Also, predefined neighbor objects may be given as positional arguments.
-        Then, no keyword arguments may be given."""
+        Then, keyword arguments must not be given."""
         # 2011-08-20 - 2012-05-01
 
         kwargs.update(dim=self.dim)
@@ -1308,8 +1326,8 @@ class Lattice(LatticeObject):
         return scipy.prod(self.shape)
 
     def ndindex2index(self, ndindex, shape=None):
-        """Return index of the given n-dimensional index that it would have in
-        the n-dimensional index list provided by scipy.ndindex. If ndindex is a
+        """Return index of the given n-dimensional index *ndindex* that it would have in
+        the n-dimensional index list provided by :func:`scipy.ndindex`. If *ndindex* is a
         2D array, each row is treated as an n-dimensional index, and the result
         will be a 1D array of indices.  Can also be given a list of nd-indices
         (2d-array)."""
@@ -1321,9 +1339,9 @@ class Lattice(LatticeObject):
         ### re-calculated for every vector, because it is universal!
 
     def indmat(self, vects):
-        """Return index matrix. Format will be coordinate sparse format (coo).
-        It will contain ones for those blocks that have to be set to enable
-        hopping in the direction of the given vector (vect), and zeros
+        """Return index matrix. Format will be coordinate sparse format
+        ("coo").  It will contain ones for those blocks that have to be set to
+        enable hopping in the direction of the given vectors *vects*, and zeros
         elsewhere."""
         # 2011-08-25
 
@@ -1537,7 +1555,7 @@ class UnitCell(SuperCellObject):
 
     def ents(self, sites=False):
         """Return all entities of all sites that exist in this unitcell. If
-        sites is True, also return the site where the entity is located."""
+        *sites* is *True*, also return the site where the entity is located."""
         # 2011-08-22 - 2011-09-02
         for site in self.sites:
             for ent in site.ents:
@@ -1547,13 +1565,13 @@ class UnitCell(SuperCellObject):
                     yield ent
 
     def add_site(self, *sites, **kwargs):
-        """Add a site to the unitcell at the given coordinates (coord). The
-        coordinates should be given as relative values from the range [0, 1].
-        For a complete list of possible arguments, look at the definition of
-        Site.__init__.
+        """Add a site to the unitcell at the given coordinates *coord*. The
+        coordinates should be given as relative values from the range [0., 1.].
+        For a complete list of possible arguments, see the definition of
+        :py:meth:`Site.__init__`.
 
         Also, predefined site objects may be given as positional arguments.
-        Then, no keyword arguments may be given."""
+        Then, keyword arguments must not be given."""
         # 2011-08-20 - 2012-05-01
 
         kwargs.update(dim=self.dim)
@@ -1571,14 +1589,15 @@ class UnitCell(SuperCellObject):
 
     def add_hop(self, *ents, **kwargs):
         """Add a hopping between the given entities. All entities must already
-        exist in the list of entities of this unitcell. The hopping parameter
-        can either be a constant or drawn from a probability distribution. The
-        interaction may be defined as isotropic (iso), meaning that also
-        hopping in the opposite direction will be allowed.
-
-        Notes:
-        --> Should check if both entities are of the same site. If so, hand
-            task off to Site.add_hop."""
+        exist in the list of entities of the unitcell. The hopping parameter
+        can either be constant or drawn from a probability distribution. The
+        interaction may be defined as isotropic (*iso*=*True*), meaning that
+        also hopping in the opposite direction will be allowed."""
+        #
+        # To do:
+        # --> Should check if both entities are of the same site. If so, hand
+        # task off to Site.add_hop.
+        #
         # 2011-09-06 - 2011-11-09
 
         # make sure all entities exist at this site
@@ -1623,12 +1642,12 @@ class UnitCell(SuperCellObject):
 
     def tbmat(self, format=None):  # new=False, cache=False
         """Return submatrix of the unitcell, convert to the specified format
-        (one of dense, csr, csc, dok, coo, dia, bsr, or lil).  If new is True,
-        recalculate the whole matrix, including the random hopping dictionary.
-        If cache is True, always return the cached version of the matrix (if
-        there is no cached version, raise an exception). If new and cache are
-        False, calculate the submatrix only if there is no cached version,
-        otherwise just return the cache."""
+        (one of dense, csr, csc, dok, coo, dia, bsr, or lil).  If *new* is
+        *True*, recalculate the whole matrix, including the random hopping
+        dictionary.  If *cache* is *True*, always return the cached version of
+        the matrix (if there is no cached version, raise an exception). If
+        *new* and *cache* are *False*, calculate the submatrix only if there is
+        no cached version, otherwise just return the cache."""
         # 2011-08-22 - 2012-01-24
 
         # initialize data structures
@@ -1659,8 +1678,8 @@ class UnitCell(SuperCellObject):
         return mat.asformat(format)
 
     def is_complex(self):
-        """Check whether this unitcell object contains complex potentials or
-        hoppings."""
+        """Check whether this unitcell object contains any complex potentials
+        or hoppings."""
         # 2011-08-22 - 2012-08-01
         for site in self.sites:
             if site.is_complex():
@@ -1747,16 +1766,18 @@ class Neighbor(SuperCellObject):
         """Add a hopping from entity 1 of the unitcell to entity 2 of each of
         the specified neighbor cells (which are specified by the given relative
         vectors). All entities must be defined within the unitcell of the
-        lattice.  The hopping parameter can either be a constant or drawn from
-        a probability distribution. The interaction may be defined as isotropic
-        (iso), also allowing hopping from entity 2 to entity 1 (but still in
-        the same direction, from this unitcell to the neighbor cell).
+        lattice.  The hopping parameter can either be constant or drawn from a
+        probability distribution. The interaction may be defined as isotropic
+        (*iso*=*True*), also allowing hopping from entity 2 to entity 1 (but
+        still in the same direction, from this unitcell to the neighbor cell).
 
-        If more than two entities are given, all combinations are added. If iso
-        is True, even all permutations are added. Example with three entities
-        e1, e2, e3: The possible combinations are (e1, e2), (e1, e3), (e2, e3).
-        If iso is True, there will also be the hoppings (e3, e2), (e3, e1),
-        (e2, e1)."""
+        If more than two entities are given in the list *ents*, all possible
+        **combinations** are added. If *iso* is *True*, even all
+        **permutations** are added.
+
+        Example with three entities e1, e2, e3: The possible combinations are
+        (e1, e2), (e1, e3), (e2, e3).  If *iso* is *True*, there will also be
+        the hoppings (e3, e2), (e3, e1), (e2, e1)."""
         # 2011-08-20 - 2012-05-01
 
         # check if unitcell object can be accessed
@@ -1792,26 +1813,26 @@ class Neighbor(SuperCellObject):
                 self.add_hop(ent2, ent1, hop=hop, iso=False)
 
     def add_vect(self, vect=None, iso=False, perm=False, permall=False):
-        """Add a vector to this neighbor interaction object, leading to a
-        specific neighbor cell.
+        """Add a vector *vect* to this neighbor interaction object, leading to
+        a specific neighbor cell.
 
-        If iso is set to True, also the neighbor of the negative vector is set,
+        If *iso* is *True*, also the neighbor of the negative vector is set,
         with the adjoint (complex conjugated and transposed) of the hopping
         matrix of this neighbor.
 
-        If perm is set to True, the neighbors of all permutations of the given
-        vector are set with the same neighbor hopping matrix. Of course, if
-        both iso and perm are set to True, the neighbors of the negative
+        If *perm* is *True*, the neighbors of all permutations of the given
+        vector *vect* are set with the same neighbor hopping matrix. Of course,
+        if both *iso* and *perm* are True, the neighbors of the negative
         vectors of all permutations are set with the adjoint of the matrix.
-        This case could be useful for bcc-like structures.
+        This case is especially useful for bcc-like structures.
 
-        If permall is set to True, the blocks of all permutations of the given
-        vector are set with the neighbor's hopping matrix, including all
-        negative values, i.e. covering all possible directions. Not the
-        adjoint, but the matrix itself is always used. USE THIS OPTION WITH
-        CAUTION! It should only be used in systems with only one site per
-        unitcell. Otherwise, unwanted hoppings will probably occur. This option
-        overrides the options iso and perm."""
+        If *permall* is *True*, the blocks of all permutations of the given
+        vector *vect* are set with the neighbor's hopping matrix, **including
+        all negative values**, i.e. covering all possible directions. Not the
+        adjoint, but the matrix itself is always used. **USE THIS OPTION WITH
+        CAUTION!** It should only be used in systems with only one site per
+        unitcell. Otherwise, unwanted hoppings could occur. This option
+        overrides the options *iso* and *perm*."""
         # 2011-08-20
         # former tb.Lattice.add_vect
 
@@ -1844,7 +1865,7 @@ class Neighbor(SuperCellObject):
 
     def tbmat(self, format=None):
         """Return submatrix of this neighbor interaction object, containing all
-        constant hopping parameters. Convert to the specified format (one of
+        constant hopping parameters. Convert to the specified *format* (one of
         dense, csr, csc, dok, coo, dia, bsr, or lil)."""
         # 2012-05-01
         # based on tb.sc.Neighbor.tbmat from 2011-08-20 - 2012-03-02
@@ -1876,8 +1897,7 @@ class Neighbor(SuperCellObject):
         return mat.asformat(format)
 
     def is_complex(self):
-        """Check whether this neighbor object contains complex potentials or
-        hoppings."""
+        """Check whether this neighbor object contains any complex hoppings."""
         # 2011-08-20 - 2012-08-01
         for ent in self.ents():
             if ent.is_complex():
@@ -1890,8 +1910,8 @@ class Neighbor(SuperCellObject):
         return False
 
     def checkhops(self):
-        """Check if all the entities of the defined hoppings exist in the
-        unitcell."""
+        """Check if all the entities of the defined hoppings really exist in
+        the unitcell."""
         # 2011-08-22
 
         # check if a unitcell definition is given
@@ -1911,14 +1931,14 @@ class Neighbor(SuperCellObject):
 
 class Site(SuperCellObject):
     """Define a site. May be part of the unitcell of a lattice, or a single
-    site within the supercell. May contain several entities (potentials)."""
+    site within the supercell. May contain several entities (orbitals)."""
     # 2011-08-19 - 2012-03-02
 
     # initialize instance counter
     count = 0
 
     def __init__(self, dim=1, coord=None, label=None, ents=None, hops=None):
-        """Initialize site."""
+        """Initialize the site."""
         # 2011-08-19 - 2012-03-02
 
         # number of dimensions
@@ -1944,11 +1964,11 @@ class Site(SuperCellObject):
         self.label = label
 
     def add_ent(self, *ents, **kwargs):
-        """Add an entity to the site. The entity is characterized by a constant
-        or random potential (pot).
+        """Add an entity (an orbital) to the site. An entity is characterized
+        by the constant or random potential *pot*.
 
         Also, predefined site objects may be given as positional arguments.
-        Then, no keyword arguments may be given."""
+        Then, keyword arguments must not be given."""
         # 2011-08-19 - 2012-05-01
 
         if len(ents) == 0:
@@ -1964,11 +1984,12 @@ class Site(SuperCellObject):
                     self.ents.append(ent)
 
     def add_hop(self, *ents, **kwargs):
-        """Add a hopping between the given entities. All entities must already
-        exist in the list of entities of this site. The hopping parameter can
-        either be constant or drawn from a probability distribution. The
-        interaction may be defined as isotropic (iso), meaning that also
-        hopping in the opposite direction will be allowed."""
+        """Add a hopping between the given list of entities *ents*. All
+        entities must already exist in the list of entities of this site. The
+        hopping parameter can either be constant or drawn from a probability
+        distribution. The interaction may be defined as isotropic
+        (*iso*=*True*), meaning that also hopping in the opposite direction is
+        allowed."""
         # 2011-08-19 - 2011-11-09
 
         # make sure all entities exist at this site
@@ -2011,12 +2032,12 @@ class Site(SuperCellObject):
     def tbmat(self, format=None):
         """Return submatrix of this site, containing all constant hoppings and
         potentials. Convert to the specified format (one of dense, csr, csc,
-        dok, coo, dia, bsr, or lil).  If new is True, recalculate the whole
-        matrix, including the random hopping dictionary. If cache is True,
-        always return the cached version of the matrix (if there is no cached
-        version, raise an exception). If new and cache are False, calculate the
-        submatrix only if there is no cached version, otherwise just return the
-        cache."""
+        dok, coo, dia, bsr, or lil).  If *new* is *True*, recalculate the whole
+        matrix, including the random hopping dictionary. If *cache* is *True*,
+        return the cached version of the matrix (if there is no cached version,
+        raise an exception). If *new* and *cache* are both *False*, calculate
+        the submatrix only if there is no cached version, otherwise return the
+        cached version."""
         # 2011-08-19 - 2012-08-04
 
         # initialize data structures
@@ -2050,7 +2071,8 @@ class Site(SuperCellObject):
         return mat.asformat(format)
 
     def is_complex(self):
-        """Check whether this site has complex potentials or hoppings."""
+        """Check whether this site contains any complex potentials or
+        hoppings."""
         # 2011-08-19 - 2012-08-01
         for ent in self.ents:
             if ent.is_complex():
@@ -2064,7 +2086,7 @@ class Site(SuperCellObject):
 
     def checkhops(self, unitcell=None):
         """Check if all the entities of the hoppings exist in the list of
-        entities. If a unitcell object is given, also checks if all the hopping
+        entities. If a *unitcell* is specified, also check if all the hopping
         entities exist in that unitcell."""
         # 2011-08-22
 
@@ -2100,15 +2122,15 @@ class Site(SuperCellObject):
 
 
 class Entity(SuperCellObject):
-    """Define an entity, characterized by a constant or random potential
-    (pot)."""
+    """Define an entity (i.e., an orbital), characterized by the constant or
+    random potential *pot*."""
     # 2011-08-19 - 2011-11-09
 
     # initialize instance counter
     count = 0
 
     def __init__(self, pot=0., label=None):
-        """Initialize entity."""
+        """Initialize the entity."""
         # 2011-08-19 - 2011-11-09
 
         # initialize data structures
@@ -2142,17 +2164,17 @@ _dist = dist  # "dist" is already defined inside the function
 def scnnmat(shape, pot=0., hop=-1., bcond=None, dist=None, loc=0., scale=1.,
             format=None):
     """Return tight binding matrix of a 1-band simple cubic lattice with
-    constant isotropic next-neighbor hopping (hop) and either constant
-    potentials (pot) or random potentials, drawn from a certain probability
-    distribution (dist) defined by certain parameters (loc, scale). The
-    boundary conditions (bcond) can chosen to be static (s), periodic (p) or
-    antiperiodic (a) and can be set differently for each dimension. The length
-    of the tuple that is specifying the system dimensions (shape) is also
-    defining the dimensionality of the system.
+    constant isotropic next-neighbor hopping *hop* and either constant
+    potentials *pot* or random potentials, drawn from a probability
+    distribution *dist* defined by the parameters *loc*, *scale*. The boundary
+    conditions *bcond* can be chosen to be static ("s"), periodic ("p") or
+    antiperiodic ("a") and can be set independently for each dimension. The
+    length of the tuple that is specifying the system dimensions *shape* is
+    also defining the dimensionality of the system.
 
     Because of the restriction to this special case, this function reaches an
-    optimum of efficiency. The matrix is returned in a sparse matrix format
-    (format)."""
+    optimum of efficiency. The matrix is returned in the sparse matrix format
+    *format*."""
     # 2011-09-06 - 2014-01-26
     # based on former tb.scnnmat from 2011-02-28 to 2011-06-20
 
@@ -2235,13 +2257,15 @@ def scnnmat(shape, pot=0., hop=-1., bcond=None, dist=None, loc=0., scale=1.,
 
 class SparseLattice(LatticeObject):
     """Define a sparse lattice, using a unitcell that may contain multiple
-    sites, but in contrast to a regular lattice, is not repeated periodically
-    in space, but exists only at given positions within the lattice grid.
+    sites. In contrast to a regular lattice, the unitcell is not repeated
+    periodically in space, but exists only at given positions within the
+    lattice grid.
 
-    Allow "long" hoppings if "longhops" is set to True. "Long" hoppings are
+    Allow "long" hoppings if *longhops* is set to *True*. "Long" hoppings are
     those that circle the whole lattice in at least one dimension due to
     periodic boundary conditions (dangerous, because hoppings from a site to
-    itself could be possible)."""
+    itself could be possible, which would alter the value of the site
+    potentials)."""
     # 2012-04-27 - 2012-09-06
     # based on tb.sc.Lattice from 2011-08-11 - 2012-04-05
     # former tb.Lattice from 2011-03-05 - 2011-03-31
@@ -2252,7 +2276,7 @@ class SparseLattice(LatticeObject):
     def __init__(self, dim=1, shape=None, bcond=None, origin=None, bvects=None,
                  label=None, neighs=None, positions=None, longhops=False,
                  diaghops=False):
-        """Initialize sparse lattice object."""
+        """Initialize the sparse lattice."""
         # 2012-04-27 - 2012-09-06
         # based on tb.sc.Lattice.__init__ from 2011-08-11 - 2012-03-02
 
@@ -2330,10 +2354,10 @@ class SparseLattice(LatticeObject):
             return len(self.positions)
 
     def indmat(self, vects, positions):
-        """Return index matrix. Format will be coordinate sparse format (coo).
-        It will contain ones for those blocks that have to be set to enable
-        hopping in the direction of the given vector (vect), and zeros
-        elsewhere (and minus one where a sign flip should occur due to
+        """Return index matrix. The output format will be the coordinate sparse
+        format (coo).  It will contain ones for those blocks that have to be
+        set to enable hopping in the direction of the given vector *vect*, and
+        zeros elsewhere (and minus one where a sign flip should occur due to
         antiperiodic boundary conditions)."""
         # 2012-04-27 - 2012-05-06
         # based on tb.sc.Lattice.indmat from 2011-08-25
@@ -2426,11 +2450,12 @@ class SparseLattice(LatticeObject):
                 #yield tuple(self.origin+scipy.dot(self.bvects, site.coord))
 
     def tbmat(self, format=None, distinguish=False):
-        """Return tight binding matrix of this sparse lattice, convert to the
-        specified format (one of dense, csr, csc, dok, coo, dia, bsr, or lil).
+        """Return tight binding matrix of this sparse lattice, and convert it
+        to the specified *format* (dense, csr, csc, dok, coo, dia, bsr, or
+        lil).
 
-        If distinguish is True, also return a tuple of index lists, specifying
-        how the positions can be distinguished."""
+        If *distinguish* is *True*, also return a tuple of index lists,
+        specifying how the positions can be distinguished."""
         # 2012-05-06 - 2012-09-03
         # based on tb.sc.Lattice.tbmat from 2011-08-20 - 2012-03-02
 
@@ -2565,11 +2590,11 @@ class SparseLattice(LatticeObject):
             return mat.asformat(format)
 
     def _ndindex2index_old(self, ndindex):
-        """Return index of the given n-dimensional index that it would have in
-        the n-dimensional index list provided by scipy.ndindex. If ndindex is a
-        2D array, each row is treated as an n-dimensional index, and the result
-        will be a 1D array of indices.  Can also be given a list of nd-indices
-        (2d-array)."""
+        """Return index of the given n-dimensional index *ndindex* that it
+        would have in the n-dimensional index list provided by
+        :func:`scipy.ndindex`. If *ndindex* is a 2D array, each row is treated
+        as a n-dimensional index, and the result will be a 1D array of indices.
+        Can also be given a list of nd-indices (2d-array)."""
         # 2012-09-03
         # copied from tb.sc.Lattice.ndindex2index (developed 2011-08-23)
         return scipy.dot(ndindex, scipy.cumprod((1,) +
@@ -2578,10 +2603,11 @@ class SparseLattice(LatticeObject):
         ### re-calculated for every vector, because it is universal!
 
     def ndindex2index(self, ndindex, shape=None):
-        """Return index of the given n-dimensional index that it would have in
-        the n-dimensional index list provided by scipy.ndindex. If ndindex is a
-        2D array, each row is treated as an n-dimensional index, and the result
-        will be a 1D array of indices."""
+        """Return index of the given n-dimensional index *ndindex* that it
+        would have in the n-dimensional index list provided by
+        :func:`scipy.ndindex`. If *ndindex* is a 2D array, each row is treated
+        as a n-dimensional index, and the result will be a 1D array of
+        indices."""
         # 2012-09-03
         # copied from tb.sc.Lattice.ndindex2index (developed 2011-08-23
         # - 2012-09-03)

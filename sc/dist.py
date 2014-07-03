@@ -24,18 +24,19 @@
 """This submodule contains everything needed to generate random numbers from
 various probability distributions, including a few predefined
 distributions. Also, mathematical expressions consisting of such abstract
-distribution definitions are possible.
-
-To do:
---> define even more mathematical operators and functions (e.g. atan, acos,
-    asin, e, ...)
---> define even more more probability distributions
---> scale the triangular distribution to make it comparable to the others
-    (see the paper by Thouless...)
---> allow other values for the c parameter of the triangular distribution
-    (asymmetric distributions)"""
+distribution definitions are possible."""
+#
+# To do:
+# --> define even more mathematical operators and functions (e.g. log etc.)
+# --> define even more more probability distributions
+# --> scale the triangular distribution to make it comparable to the others
+#     (see the paper by Thouless...)
+# --> allow other values for the c parameter of the triangular distribution
+#     (asymmetric distributions)"""
+#
 __created__ = '2012-05-01'
 __modified__ = '2013-06-27'
+
 import math
 import scipy
 import scipy.stats
@@ -53,7 +54,7 @@ class Distribution(object):
     __modified__ = '2012-08-04'
 
     def __init__(self, *args, **kwargs):
-        """Initialize Distribution object."""
+        """Initialize the distribution object."""
         # 2011-11-09
         self.args = args
         self.kwargs = kwargs
@@ -68,13 +69,13 @@ class Distribution(object):
         return ''+self.__class__.__name__+'('+attrstr+')'
 
     def evalmath(self, value, dtype=float):
-        """Cast value to the given data type (dtype). If value is a string,
+        """Cast value to the given data type *dtype*. If *value* is a string,
         assume that it contains a mathematical expression, and evaluate it with
-        eval before casting it to the specified type. Functions are passed
-        unmodified.
+        :func:`eval` before casting it to the specified type. Functions are
+        passed unmodified.
 
-        The function could always use eval, but this is assumed to be slower
-        for values that do not have to be evaluated."""
+        The function could always use :func:`eval`, but this is assumed to be
+        slower for values that do not have to be evaluated."""
         # 2011-12-14
         # copied from tb.sc.SuperCellObject from 2011-10-12 - 2011-12-14
         if hasattr(value, '__call__'):
@@ -93,12 +94,12 @@ class Distribution(object):
     def ismath(string):
         """Check if the given string is a mathematical expression (containing
         only mathematical operators like '+', '-', '*', or '/', and of course
-        digits). Can be used before using "eval" on some string to evaluate a
-        given expression.
+        digits). Can be used before using :func:`eval` on some string to
+        evaluate a given expression.
 
         Note: This function does not check if the numerical expression is
         actually valid. It just gives a hint if the given string should be
-        passed to eval or not."""
+        passed to :func:`eval` or not."""
         # 2011-12-14
         # copied from tb.sc.SuperCellObject from 2011-09-13 - 2011-10-12
         # former tb.mathexpr from 2011-06-12
@@ -509,8 +510,8 @@ class _SubDistributions(Distribution):
 
 
 class uniform(Distribution):
-    """Generate random variates from a uniform
-    distribution (box distribution) with the given parameters."""
+    """Generate random variates from a uniform distribution (box distribution)
+    with the given parameters *loc* and *scale*."""
     # 2011-11-09 - 2012-06-18
 
     def __init__(self, loc=0., scale=1., copies=1):
@@ -560,14 +561,14 @@ class uniform(Distribution):
 
 
 def box(*args, **kwargs):
-    """Alias for uniform distribution."""
+    """Alias for :class:`uniform`."""
     # 2011-11-09
     return uniform(*args, **kwargs)
 
 
 class cauchy(Distribution):
-    """Generate random variates from a Cauchy
-    distribution (Lorentzian distribution) with the given parameters."""
+    """Generate random variates from a Cauchy distribution (Lorentzian
+    distribution) with the given parameters *loc* and *scale*."""
     # 2011-11-09 - 2012-08-20
 
     def __init__(self, loc=0., scale=1., copies=1):
@@ -616,14 +617,14 @@ class cauchy(Distribution):
 
 
 def lorentz(*args, **kwargs):
-    """Alias for Cauchy distribution."""
+    """Alias for ."""
     # 2011-11-09
     return cauchy(*args, **kwargs)
 
 
 class norm(Distribution):
-    """Generate random variates from a normal
-    distribution (Gaussian distribution) with the given parameters."""
+    """Generate random variates from a normal distribution (Gaussian
+    distribution) with the given parameters *loc* and *scale*."""
     # 2011-11-09 - 2012-08-20
 
     def __init__(self, loc=0., scale=1., copies=1):
@@ -673,19 +674,20 @@ class norm(Distribution):
 
 
 def gauss(*args, **kwargs):
-    """Alias for normal distribution."""
+    """Alias for :class:`norm`."""
     # 2011-11-09
     return norm(*args, **kwargs)
 
 
 class triang(Distribution):
     """Return function object to generate random variates from a triangular
-    distribution with the given parameters.
-
-    To do:
-    --> scale the distribution to make it comparable to the others
-        (see the paper by Thouless...)
-    --> allow other values for the c parameter (asymmetric distributions)"""
+    distribution with the given parameters *loc* and *scale*."""
+    #
+    # To do:
+    # --> scale the distribution to make it comparable to the others
+    #     (see the paper by Thouless...)
+    # --> allow other values for the c parameter (asymmetric distributions)"""
+    #
     # 2011-11-09 - 2012-08-20
 
     def __init__(self, loc=0., scale=1., copies=1):
@@ -735,7 +737,7 @@ class triang(Distribution):
 
 class binary(Distribution):
     """Generate random variates from a discrete binary distribution with the
-    given mixing ratio (mix) and values (a and b)."""
+    given mixing ratio *mix* and the values *a* and *b*."""
     # 2011-11-09 - 2012-06-18
 
     def __init__(self, mix=.5, a=0., b=1., copies=1):
@@ -845,12 +847,12 @@ class multi(Distribution):
         return self.variates
 
 
-def copies(self, copies):
-    """Reset the copy counter and request the given number of copies."""
-    # 2012-08-20
-    # copied from tb.sc.dist.uniform, developed 2012-06-18
-    self._copies = copies
-    self.delivered = 0
+# def copies(self, copies):
+#     """Reset the copy counter and request the given number of copies."""
+#     # 2012-08-20
+#     # copied from tb.sc.dist.uniform, developed 2012-06-18
+#     self._copies = copies
+#     self.delivered = 0
 
 
 #=========================================================#
@@ -884,7 +886,7 @@ def choose(string):
 
 
 def select(string):
-    """Alias for "choose()"."""
+    """Alias for :func:`choose`."""
     # 2012-08-20
     return choose(string)
 
@@ -938,16 +940,16 @@ def exp(x):
 
 class _Pi(Distribution):
     """Represent the number pi symbolically (technically a distribution
-    object).  Evaluate only on call.
+    object). Evaluate only on call.
 
     Just exists to allow expressions consisting of distribution objects and
     including the number pi, e.g. "dist = pi*binary(a=-1, b=1, mix=.1)" or
     similar expressions are possible in this way, being evaluated only on call
-    "dist()" (about 10% of the resulting random numbers will be -pi, 90% will
-    be +pi).
+    ``dist()`` (in the above example, about 10 % of the resulting random
+    numbers will be -pi, 90 % will be +pi).
 
-    (Of course, the above example is equal to "binary(a=-pi, b=pi, mix=.1)".
-    Just let it serve as an example.)"""
+    The above example is obviously equivalent to ``binary(a=-pi, b=pi,
+    mix=.1)``. It merely serves as an example."""
     # 2012-08-01
     # based on tb.sc.dist.SinDistribution from 2012-08-01
 

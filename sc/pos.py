@@ -22,8 +22,8 @@
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
 """Utilities to choose a list of random positions with the given number of
-dimensions (dim) and of the given length (size) from a uniform grid with the
-given shape (shape)."""
+dimensions *dim* and of the given length *size* from a uniform grid with the
+given *shape*."""
 __created__ = '2012-05-02'
 __modified__ = '2014-01-26'
 import math
@@ -41,14 +41,14 @@ class PosRule(dist.Distribution):
 
 
 class all(PosRule):
-    """Get all positions of a lattice with the given shape. So, there is no
-    randomness included, hence this class is (as you may think) very simple in
-    nature."""
+    """Simply get all positions of a lattice with the given shape. So, there is
+    no randomness included, hence this class is (as you may think) very simple
+    in nature."""
     # 2012-05-02 - 2014-01-26
 
     def __init__(self, shape=None, mix=None, num=None):
         """Initialize homogeneous position generator. Set either mixing ratio
-        (mix) or fixed number of positions (num). Set lattice shape (shape)."""
+        *mix* or fixed number of positions *num*. Set lattice *shape*."""
         # 2012-05-03 - 2014-01-26
 
         # set attributes
@@ -61,7 +61,7 @@ class all(PosRule):
         self.kwargs = dict(shape=shape, num=num, mix=mix)
 
     def __call__(self, distinguish=False):
-        """Get all positions as a list. If distinguish is True, nest the
+        """Get all positions as a list. If *distinguish* is *True*, nest the
         position list inside a 1-tuple (as the positions cannot be
         distinguished any further in this case)."""
         # 2012-05-03 - 2012-09-03
@@ -71,17 +71,17 @@ class all(PosRule):
 
 class hom(PosRule):
     """Generate random positions (integer tuples) of a lattice with the given
-    shape. It is made sure that no position is generated twice. The positions
+    *shape*. It is made sure that no position is generated twice. The positions
     are distributed homogeneously, i.e. every possible position is chosen with
     the same probability.
 
-    Call an instance of this class, providing the shape of the lattice (shape)
-    and the number of positions needed (size)."""
+    Call an instance of this class, providing the *shape* of the lattice and
+    the number of positions *size* needed."""
     # 2012-05-03 - 2012-09-03
 
     def __init__(self, shape=None, mix=None, num=None):
         """Initialize homogeneous position generator. Set either mixing ratio
-        (mix) or fixed number of positions (num). Set lattice shape (shape)."""
+        *mix* or fixed number of positions *num*. Set lattice *shape*."""
         # 2012-05-03
 
         # check that either mix or num is set
@@ -109,7 +109,7 @@ class hom(PosRule):
 
     def __call__(self, distinguish=False):
         """Return random positions (get a new realization of the disordered
-        system). If distinguish is True, nest the position list inside a
+        system). If *distinguish* is *True*, nest the position list inside a
         1-tuple (as the positions cannot be distinguished any further in this
         case)."""
         # 2012-05-03 - 2012-09-03
@@ -141,35 +141,41 @@ class hom(PosRule):
 
 class spheres(PosRule):
     """Generate random positions (integer tuples) of a lattice with the given
-    shape under the existence of spherical imhomogeneities.
+    *shape* under the existence of spherical imhomogeneities.
 
     It is made sure that no position is generated twice.
 
-    Call an instance of this class, providing the shape of the lattice (shape)
-    and the number of positions needed (size)."""
+    Call an instance of this class, providing the *shape* of the lattice
+    and the number of positions *size* needed."""
     # 2012-05-03 - 2012-07-06
 
     def __init__(self, shape=None, rad=1., space=0., sconc=None,
                  iconc=None, iconcin=None, iconcout=None, timeout='10s'):
         """Initialize position generator for spherical inhomogeneities. Set
-        lattice shape (shape), radius of spheres (rad) and minimum space
-        between the spheres (space). Set exactly 3 of the 4 concentrations
-        sconc, iconc, iconcin and iconcout:
+        lattice *shape*, radius of the spheres *rad* and minimum space
+        between the spheres *space*. Set exactly 3 of the 4 concentrations
+        *sconc*, *iconc*, *iconcin* and *iconcout*:
 
-        sconc    : concentration of spheres throughout the system
-        iconc    : total concentration of impurities within the system
-        iconcin  : concentration of impurities inside the spheres
-        iconcout : concentration of impurities outside the spheres
+        sconc
+            concentration of spheres throughout the system
+        iconc
+            total concentration of impurities within the system
+        iconcin
+            concentration of impurities inside the spheres
+        iconcout
+            concentration of impurities outside the spheres
 
-        Instead of concentrations (floats between 0 and 1 or strings with
-        character %), also numbers (integers) can be given.
+        Instead of concentrations (floats between 0. and 1. or strings with
+        character % at the end), also an actual number of sites (integer) may
+        be given.
 
         If the given timeout is exceeded and still no valid configuration could
-        be found, the program exits.
-
-        Possible extensions:
-        --> allow spheres to overlap boundaries (with periodic boundary
-            conditions)?"""
+        be found, the program will exit with an error message."""
+        #
+        # To do:
+        # --> allow spheres to overlap boundaries (with periodic boundary
+        #     conditions)?
+        #
         # 2012-07-05 - 2012-07-06
 
         # check arguments
@@ -238,8 +244,8 @@ class spheres(PosRule):
 
     def __call__(self, distinguish=False):
         """Return random positions (get a new realization of the disordered
-        system). If distinguish is True, return the lists of positions inside/
-        outside the spheres separately (list of two lists)."""
+        system). If *distinguish* is *True*, return the lists of positions
+        inside/ outside the spheres separately (list of two lists)."""
         # 2012-07-05 - 2012-09-03
 
         # Plan:
@@ -363,9 +369,9 @@ class spheres(PosRule):
 
     @staticmethod
     def in_sphere(radius, dim=1):
-        """Find the number of points of a dim-dimensional uniform grid that are
-        located within a sphere with the given radius, assuming the sphere
-        itself is centred on one of the grid points."""
+        """Find the number of points of a *dim*-dimensional uniform grid that
+        are located within a sphere with the given *radius*, assuming the
+        sphere itself is centred on one of the grid points."""
         # 2012-07-05
         gridsize = math.ceil(radius)
         grid = numpy.mgrid[(slice(-gridsize, gridsize+1),)*dim]
