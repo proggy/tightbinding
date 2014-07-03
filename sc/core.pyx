@@ -21,8 +21,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
-"""Core algorithms of the supercell package, using Cython. To accelerate
-and parallelize certain parts of the code."""
+"""Core algorithms of the supercell package (:mod:`tb.sc`), written in Cython
+to accelerate and parallelize certain parts of the code."""
 # 2012-05-01 - 2012-05-04
 import numpy as _np
 cimport numpy as _np
@@ -63,12 +63,13 @@ ctypedef _np.complex128_t COMt
 
 @cython.boundscheck(False)
 def findinds(positions, vectors):
-    """Search for the given vectors in the list of vectors "positions" and
-    return the indices they have in that list. Only the first index is returned
-    (it is assumed that they are unique in "positions"). If a vector has not
-    been found in the list of positions, return -1 for that index.  All
-    involved data types are integer. positions and vectors are expected to be
-    Numpy arrays with shape n x d and m x d, where d is the number of
+    """Search for the given *vectors* in the list of *positions* and return the
+    indices they have in that list. Only the first index is returned (it is
+    assumed that they only occur once in the *positions* list). If a vector has
+    not been found in the list of positions, return -1 for that index.
+
+    All involved data types are integer. positions and vectors are expected to
+    be numpy arrays with shape n x d and m x d, where d is the number of
     dimensions of the given vectors, n is the number of positions, and m is the
     number of vectors to probe. The result will be a 1D Numpy array of length
     m."""

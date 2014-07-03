@@ -10,11 +10,9 @@
 ><td align=right valign=bottom
 ><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/djung/lib/tb/__init__.py">/home/djung/lib/tb/__init__.py</a></font></td></tr></table>
     <p><tt>Tight&nbsp;binding&nbsp;package.&nbsp;Define&nbsp;tight&nbsp;binding&nbsp;systems&nbsp;(see&nbsp;submodule<br>
-"define")&nbsp;as&nbsp;objects&nbsp;of&nbsp;the&nbsp;class&nbsp;tb.sc.SuperCell&nbsp;and&nbsp;create&nbsp;the&nbsp;dynamic<br>
-matrix&nbsp;(tight-binding&nbsp;matrix)&nbsp;using&nbsp;its&nbsp;method&nbsp;"tbmat".<br>
-&nbsp;<br>
-To&nbsp;do:<br>
---&gt;&nbsp;improve&nbsp;h5obj,&nbsp;then&nbsp;use&nbsp;it&nbsp;(important&nbsp;for&nbsp;supercell&nbsp;objects&nbsp;etc.)</tt></p>
+:mod:`tb.define`)&nbsp;as&nbsp;instances&nbsp;of&nbsp;the&nbsp;class&nbsp;:class:`tb.sc.SuperCell`&nbsp;and&nbsp;create<br>
+the&nbsp;dynamic&nbsp;matrix&nbsp;(tight-binding&nbsp;matrix)&nbsp;using&nbsp;its&nbsp;method<br>
+:py:meth:`tb.sc.SuperCell.tbmat`.</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -34,8 +32,9 @@ To&nbsp;do:<br>
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl><dt><a name="-intersect"><strong>intersect</strong></a>(*params)</dt><dd><tt>Return&nbsp;intersection&nbsp;of&nbsp;given&nbsp;parameter&nbsp;sets.&nbsp;Expect&nbsp;list&nbsp;of&nbsp;instances<br>
-of&nbsp;bundle.Bundle.&nbsp;Return&nbsp;instance&nbsp;of&nbsp;bundle.Bundle.</tt></dd></dl>
- <dl><dt><a name="-tbmat"><strong>tbmat</strong></a>(scell, format<font color="#909090">=None</font>)</dt><dd><tt>Calculate&nbsp;the&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;of&nbsp;the&nbsp;given&nbsp;supercell&nbsp;definition.</tt></dd></dl>
+of&nbsp;:class:`bundle.Bundle`.&nbsp;Return&nbsp;instance&nbsp;of&nbsp;:class:`bundle.Bundle`.</tt></dd></dl>
+ <dl><dt><a name="-tbmat"><strong>tbmat</strong></a>(scell, format<font color="#909090">=None</font>)</dt><dd><tt>Calculate&nbsp;the&nbsp;tight&nbsp;binding&nbsp;matrix&nbsp;of&nbsp;the&nbsp;given&nbsp;supercell&nbsp;definition<br>
+*scell*.</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">

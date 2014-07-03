@@ -22,14 +22,13 @@
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
 """Tight binding package. Define tight binding systems (see submodule
-"define") as objects of the class tb.sc.SuperCell and create the dynamic
-matrix (tight-binding matrix) using its method "tbmat".
-
-To do:
---> improve h5obj, then use it (important for supercell objects etc.)"""
+:mod:`tb.define`) as instances of the class :class:`tb.sc.SuperCell` and create
+the dynamic matrix (tight-binding matrix) using its method
+:py:meth:`tb.sc.SuperCell.tbmat`."""
 __created__ = '2013-07-07'
 __modified__ = '2013-10-31'
 # former tb (developed 2011-11-03 - 2013-06-27)
+
 import bundle
 import dummy
 
@@ -51,13 +50,14 @@ except ImportError:
              'whose value is not the same throughout the input files.')
 def intersect(*params):
     """Return intersection of given parameter sets. Expect list of instances
-    of bundle.Bundle. Return instance of bundle.Bundle."""
+    of :class:`bundle.Bundle`. Return instance of :class:`bundle.Bundle`."""
     return bundle.intersection(*params)
 
 
 @Frog(inmap=dict(scell='$0/scell'))
 def tbmat(scell, format=None):
-    """Calculate the tight binding matrix of the given supercell definition."""
+    """Calculate the tight binding matrix of the given supercell definition
+    *scell*."""
     __created__ = '2014-01-26'
     __modified__ = '2014-01-26'
     return scell.tbmat(format=format)
