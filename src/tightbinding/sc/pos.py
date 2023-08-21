@@ -4,8 +4,8 @@
 # Copyright notice
 # ----------------
 #
-# Copyright (C) 2013-2014 Daniel Jung
-# Contact: djungbremen@gmail.com
+# Copyright (C) 2013-2023 Daniel Jung
+# Contact: proggy-contact@mailbox.org
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -23,18 +23,17 @@
 #
 """Utilities to choose a list of random positions with the given number of
 dimensions *dim* and of the given length *size* from a uniform grid with the
-given *shape*."""
-__created__ = '2012-05-02'
-__modified__ = '2014-01-26'
+given *shape*.
+"""
+
 import math
 import numpy
-import tb
-import dist
-import progress
+import tightbinding as tb
+from tightbinding.sc import dist
+import progmon
 
 
 class PosRule(dist.Distribution):
-    # 2012-05-02 - 2012-05-02
     ### is there anything extra to be done? Or is it just the same as a
     ### distribution object?
     pass
@@ -43,14 +42,12 @@ class PosRule(dist.Distribution):
 class all(PosRule):
     """Simply get all positions of a lattice with the given shape. So, there is
     no randomness included, hence this class is (as you may think) very simple
-    in nature."""
-    # 2012-05-02 - 2014-01-26
-
+    in nature.
+    """
     def __init__(self, shape=None, mix=None, num=None):
         """Initialize homogeneous position generator. Set either mixing ratio
-        *mix* or fixed number of positions *num*. Set lattice *shape*."""
-        # 2012-05-03 - 2014-01-26
-
+        *mix* or fixed number of positions *num*. Set lattice *shape*.
+        """
         # set attributes
         self.shape = shape
         self.num = num
@@ -63,8 +60,8 @@ class all(PosRule):
     def __call__(self, distinguish=False):
         """Get all positions as a list. If *distinguish* is *True*, nest the
         position list inside a 1-tuple (as the positions cannot be
-        distinguished any further in this case)."""
-        # 2012-05-03 - 2012-09-03
+        distinguished any further in this case).
+        """
         return (list(numpy.ndindex(self.shape)),) if distinguish \
             else list(numpy.ndindex(self.shape))
 
@@ -76,14 +73,12 @@ class hom(PosRule):
     the same probability.
 
     Call an instance of this class, providing the *shape* of the lattice and
-    the number of positions *size* needed."""
-    # 2012-05-03 - 2012-09-03
-
+    the number of positions *size* needed.
+    """
     def __init__(self, shape=None, mix=None, num=None):
         """Initialize homogeneous position generator. Set either mixing ratio
-        *mix* or fixed number of positions *num*. Set lattice *shape*."""
-        # 2012-05-03
-
+        *mix* or fixed number of positions *num*. Set lattice *shape*.
+        """
         # check that either mix or num is set
         if mix is not None and num is not None or mix is None and num is None:
             raise ValueError('exactly one of "mix" and "num" must be None')
@@ -111,9 +106,8 @@ class hom(PosRule):
         """Return random positions (get a new realization of the disordered
         system). If *distinguish* is *True*, nest the position list inside a
         1-tuple (as the positions cannot be distinguished any further in this
-        case)."""
-        # 2012-05-03 - 2012-09-03
-
+        case).
+        """
         # choose random positions one by one
         ### One could also choose many random indices at once, put them into a
         ### set, and repeat this until the requested number of positions is
@@ -146,9 +140,8 @@ class spheres(PosRule):
     It is made sure that no position is generated twice.
 
     Call an instance of this class, providing the *shape* of the lattice
-    and the number of positions *size* needed."""
-    # 2012-05-03 - 2012-07-06
-
+    and the number of positions *size* needed.
+    """
     def __init__(self, shape=None, rad=1., space=0., sconc=None,
                  iconc=None, iconcin=None, iconcout=None, timeout='10s'):
         """Initialize position generator for spherical inhomogeneities. Set
@@ -170,14 +163,8 @@ class spheres(PosRule):
         be given.
 
         If the given timeout is exceeded and still no valid configuration could
-        be found, the program will exit with an error message."""
-        #
-        # To do:
-        # --> allow spheres to overlap boundaries (with periodic boundary
-        #     conditions)?
-        #
-        # 2012-07-05 - 2012-07-06
-
+        be found, the program will exit with an error message.
+        """
         # check arguments
         if sum([arg is not None
                 for arg in [sconc, iconc, iconcin, iconcout]]) != 3:
@@ -208,7 +195,7 @@ class spheres(PosRule):
                                               roundfunc=math.ceil)
             inumin = tb.misc.get_num_from_ratio(iconcin, total=sps*snum)
             inumout = tb.misc.get_num_from_ratio(iconcout, total=size-sps*snum)
-            inum = inumin+inumout
+            inum = inumin + inumout
         elif sconc is None:
             # deducing snum from impurity concentrations not yet possible
             # (solution difficult... but possible?)
@@ -245,9 +232,8 @@ class spheres(PosRule):
     def __call__(self, distinguish=False):
         """Return random positions (get a new realization of the disordered
         system). If *distinguish* is *True*, return the lists of positions
-        inside/ outside the spheres separately (list of two lists)."""
-        # 2012-07-05 - 2012-09-03
-
+        inside/ outside the spheres separately (list of two lists).
+        """
         # Plan:
         # 1. select the centres of the spheres
         # 2. select random impurity positions inside the spheres
@@ -263,22 +249,21 @@ class spheres(PosRule):
                      # list
         probed = 0  # how many positions have been probed in total
         dim = len(self.shape)
-        tout = progress.Until(self.timeout)  # timeout handler
+        tout = progmon.Until(self.timeout)  # timeout handler
         while len(centers) < self.snum:
             # check timeout
             if tout.check():
-                print 'found only %i of %i centers' % (len(centers),
-                                                       self.snum),
-                print 'at %s' % str(centers),
-                print '(started %ix, now at try #%i,' % (started, tries),
-                print 'probed %i positions in total)' % probed
+                print('found only %i of %i centers' % (len(centers), self.snum), end=" ")
+                print('at %s' % str(centers), end=" ")
+                print('(started %ix, now at try #%i,' % (started, tries), end=" ")
+                print('probed %i positions in total)' % probed)
                 raise ValueError('sphere PosRule timed out (%s) '
                                  % self.timeout)
                 # could not find suitable sphere centers... maybe the system is
                 # too small for the chosen sphere concentration?
 
             # check try counter
-            if tries > size*dim:  # hopefully a good estimate
+            if tries > size * dim:  # hopefully a good estimate
                 # then start all over
                 centers = []
                 tries = 0
@@ -318,9 +303,9 @@ class spheres(PosRule):
             centers.append(newpos)
 
         centers.sort()
-        #print 'the centers are %s' % str(centers)
-        #print '(started %ix, now at try #%i,' % (started, tries),
-        #print 'probed %i positions in total)' % probed
+        #print('the centers are %s' % str(centers))
+        #print('(started %ix, now at try #%i,' % (started, tries), end=" ")
+        #print('probed %i positions in total)' % probed)
 
         # identify all lattice sites that belong to the spheres (index list)
         allsites = list(numpy.ndindex(self.shape))
@@ -361,8 +346,8 @@ class spheres(PosRule):
 
     @staticmethod
     def distance(coord1, coord2):
-        """Calculate euclidian distance between the two given coordinates."""
-        # 2012-07-06
+        """Calculate euclidian distance between the two given coordinates.
+        """
         coord1 = numpy.array(coord1)
         coord2 = numpy.array(coord2)
         return math.sqrt(numpy.sum((coord1-coord2)**2))
@@ -371,8 +356,8 @@ class spheres(PosRule):
     def in_sphere(radius, dim=1):
         """Find the number of points of a *dim*-dimensional uniform grid that
         are located within a sphere with the given *radius*, assuming the
-        sphere itself is centred on one of the grid points."""
-        # 2012-07-05
+        sphere itself is centred on one of the grid points.
+        """
         gridsize = math.ceil(radius)
         grid = numpy.mgrid[(slice(-gridsize, gridsize+1),)*dim]
         return numpy.sum(numpy.sum(grid**2, axis=0) <= radius**2)

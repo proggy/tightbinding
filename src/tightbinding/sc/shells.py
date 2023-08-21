@@ -4,8 +4,8 @@
 # Copyright notice
 # ----------------
 #
-# Copyright (C) 2013-2014 Daniel Jung
-# Contact: djungbremen@gmail.com
+# Copyright (C) 2013-2023 Daniel Jung
+# Contact: proggy-contact@mailbox.org
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -35,9 +35,9 @@ shells with the characteristic vectors (5, 0) and (4, 3).
 
 The lattice sites that belong to a certain shell can be calculated by
 obtaining all permutations of its characteristic vector including all
-possible sign changes. To do that, use the function :func:`signperms`."""
-__created__ = '2012-05-06'
-__modified__ = '2012-07-05'
+possible sign changes. To do that, use the function :func:`signperms`.
+"""
+
 import itertools
 import numpy
 
@@ -65,9 +65,6 @@ def cvects(order, dim=1):
         >>> cvects(3, dim=2)  # find neighbors in a 2D lattice up to order 3
         [(0, 0), (1, 0), (1, 1), (2, 0)]
     """
-    # 2012-05-06
-    # former tb.sc.shells from 2012-04-04 - 2012-05-01
-
     # check order
     order = int(order)
     if order < 0:
@@ -165,10 +162,6 @@ def signperms(tup):
         >>> perms[:5]  # just show a few here
         [(-7, -5, -1), (-1, -7, 5), (7, -5, 1), (-5, 7, 1), (7, 5, -1)]
     """
-    # 2012-05-06 - 2012-05-06
-    # former tb.sc.signperms from 2012-04-04 - 2012-05-01
-    # former Neighbor.signperms from 2011-08-20
-    # former tb.signperms from 2011-03-06
     tup = tuple(tup)
     dim = len(tup)
 
@@ -180,7 +173,7 @@ def signperms(tup):
     signperm = numpy.array(list(itertools.product(*signlist)))
 
     # calculate all possible permutations including sign changes
-    allperm = list((signperm*perm[:, None]).reshape(-1, dim))
+    allperm = list((signperm * perm[:, None]).reshape(-1, dim))
 
     # make a list of tuples out of it
     for ind in xrange(len(allperm)):
@@ -193,9 +186,8 @@ def signperms(tup):
 #def in_sphere(radius, dim=1):
   #"""Find the number of points of a uniform grid that are within a sphere
   #with the given radius, if the sphere itself is centred on one of the grid
-  #points."""
-  #__created__ = '2012-07-05'
-
+  #points.
+  #"""
   ## get characteristic vectors
   #maxvect = math.ceil(radius)
   #vectors = cvects(maxvect, dim=dim)

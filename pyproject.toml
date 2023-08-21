@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools >= 61.0.0", "cython"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project]
+name = "tightbinding"
+version = "0.1.0"
+authors = [
+  { name="Daniel Jung", email="proggy-contact@mailbox.org" },
+]
+maintainers = [
+  { name="Daniel Jung", email="proggy-contact@mailbox.org" },
+]
+description = "Tight binding package. Define tight binding systems (a concept from solid state theoretical physics) and create the system's corresponding dynamic matrix (tight-binding matrix)."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "cython",
+  "numpy",
+  "scipy",
+  "progmon",
+]
+
+[project.urls]
+"Source" = "https://github.com/proggy/tightbinding"
+"Homepage" = "https://github.com/proggy/tightbinding"
+"Bug Tracker" = "https://github.com/proggy/tightbinding/issues"

@@ -1,4 +1,5 @@
 *.pyc
 *.pxd
 *.so
-*.c
+__pycache__
+*.code-workspace

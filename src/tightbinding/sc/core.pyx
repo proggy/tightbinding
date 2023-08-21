@@ -4,8 +4,8 @@
 # Copyright notice
 # ----------------
 #
-# Copyright (C) 2013-2014 Daniel Jung
-# Contact: djungbremen@gmail.com
+# Copyright (C) 2013-2023 Daniel Jung
+# Contact: proggy-contact@mailbox.org
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -21,9 +21,10 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
-"""Core algorithms of the supercell package (:mod:`tb.sc`), written in Cython
-to accelerate and parallelize certain parts of the code."""
-# 2012-05-01 - 2012-05-04
+"""Core algorithms of the supercell package (:mod:`tightbinding.sc`), written
+in Cython to accelerate and parallelize certain parts of the code.
+"""
+
 import numpy as _np
 cimport numpy as _np
 from cython.parallel import *
@@ -72,9 +73,8 @@ def findinds(positions, vectors):
     be numpy arrays with shape n x d and m x d, where d is the number of
     dimensions of the given vectors, n is the number of positions, and m is the
     number of vectors to probe. The result will be a 1D Numpy array of length
-    m."""
-    # 2012-05-01 - 2012-05-04
-
+    m.
+    """
     # get and check shapes
     if len(positions.shape) != 2:
         raise ValueError('positions must be a 2D array')

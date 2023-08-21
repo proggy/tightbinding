@@ -4,8 +4,8 @@
 # Copyright notice
 # ----------------
 #
-# Copyright (C) 2013-2014 Daniel Jung
-# Contact: djungbremen@gmail.com
+# Copyright (C) 2013-2023 Daniel Jung
+# Contact: proggy-contact@mailbox.org
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -24,17 +24,16 @@
 """General collection of supplementary functions and classes that do not
 really fit in anywhere else.
 
-Performance of some of the functions is enhanced using Cython."""
-# 2011-09-13 - 2012-05-08
+Performance of some of the functions is enhanced using Cython.
+"""
 import numpy
 import os
-import commands
+import subprocess
 
 
 def allscalar(seq):
-    """Test if all elements of the sequence or set are scalar."""
-    # 2011-09-13
-    # former tb.allscalar from 2011-03-30
+    """Test if all elements of the sequence or set are scalar.
+    """
     for element in seq:
         if isiterable(element):
             return False
@@ -43,9 +42,8 @@ def allscalar(seq):
 
 def anyobject(seq):
     """Test if any element of the sequence or set is an instance of a
-    user-defined class."""
-    # 2011-09-13
-    # former tb.anyobject from 2011-03-30
+    user-defined class.
+    """
     for element in seq:
         if isobject(element):
             return True
@@ -54,9 +52,8 @@ def anyobject(seq):
 
 def basename(path, suffix=''):
     """My variation of os.path.basename, in which a given suffix can be
-    canceled out (like in the php version of this function)."""
-    # 06/01/2011-28/01/2011
-    # former mytools.basename() from 05/01/2010
+    canceled out (like in the php version of this function).
+    """
     basename = os.path.basename(path)
     suffixlen = len(suffix)
     if suffixlen > 0:
@@ -67,19 +64,16 @@ def basename(path, suffix=''):
 
 def capitalize(string):
     """Return string with first letter in uppercase and the rest of the
-    characters in lowercase."""
-    # 2011-09-13
-    # former tb.capitalize from 2011-01-28
+    characters in lowercase.
+    """
     if not typename(string) == 'str':
         raise TypeError('string expected')
     return string[:1].upper()+string[1:].lower()
 
 
 def commonprefix(*args):
-    """Finds the common prefix of all given strings."""
-    # 2011-09-13
-    # former tb.commonprefix from 2011-06-09
-
+    """Finds the common prefix of all given strings.
+    """
     # Handle two special cases
     if len(args) == 0:
         return ''
@@ -105,10 +99,8 @@ def eqlist(**dictionary):
     the specified number. Instead, just note the shape of the array. For sparse
     matrices, maxshape gives the maximum number of nonzero elements. If the
     keyword "dense" is set to True, sparse matrices are converted to dense
-    matrices before displaying."""
-    # 2011-09-13
-    # former tb.eqlist from 2011-02-10 - 2011-02-24
-
+    matrices before displaying.
+    """
     # Handle special keyword arguments
     if 'maxshape' in dictionary:
         maxshape = dictionary.pop('maxshape')
@@ -122,13 +114,12 @@ def eqlist(**dictionary):
     # Local function definition
     def strrep(value, indent=0):
         """Return string representation of value, but in multirow format,
-        with the given indentation after each line break."""
-
+        with the given indentation after each line break.
+        """
         # Is value a sparse matrix, and has the dense keyword been set to True?
         if typename(value) in ['csr_matrix', 'csc_matrix'] and dense:
             value = value.todense()
 
-        # 10/02/2011
         if typename(value) == 'list':
             if 'list' in types(value) or 'tuple' in types(value) \
                     or 'dict' in types(value) or 'struct' in types(value) \
@@ -241,19 +232,15 @@ def eqlist(**dictionary):
     if len(dictionary) == 0:
         return False
     maxkeylen = max([len(key) for key in dictionary])
-    keys = dictionary.keys()
-    keys.sort()
+    keys = sorted(dictionary.keys())
     for key in keys:
-        print expandstr(key, length=maxkeylen)+' = '+strrep(dictionary[key],
-                                                            indent=maxkeylen+3)
+        print(expandstr(key, length=maxkeylen) + ' = ' + strrep(dictionary[key], indent=maxkeylen+3))
 
 
 def equal(*objects):
-    """My version of the function "all" with equality check (==), that
-    works with all types of objects, even with scalars and nested lists."""
-    # 2011-09-13
-    # former tb.equal from 2011-02-09
-    # former mytools.equal
+    """Version of the function "all" with equality check (==) that works with
+    all types of objects, even with scalars and nested lists.
+    """
     if len(objects) > 2:
         a = objects[0]
         for b in objects[1:]:
@@ -283,9 +270,8 @@ def equal(*objects):
 
 
 def equaltype(seq):
-    """Test if all elements of the sequence or set have the same type."""
-    # 2011-09-13
-    # former tb.equaltype from 2011-03-30
+    """Test if all elements of the sequence or set have the same type.
+    """
     seq = list(seq)
     first = seq.pop()
     for element in seq:
@@ -297,10 +283,8 @@ def equaltype(seq):
 def expandstr(string, length=None, ch=' ', flip=False):
     """Return the string, but expand it to the given length with the given
     character.  If flip is True, fill characters in front of string instead of
-    behind it."""
-    # 2011-09-13 - 2012-05-03
-    # former tb.expandstr from 2011-02-09
-    # former mytools.expandstr
+    behind it.
+    """
     string = str(string)
     lenght = int(length)
 
@@ -321,9 +305,8 @@ def expandstr(string, length=None, ch=' ', flip=False):
 
 
 def typename(obj):
-    """Just a shortcut to return the name of the type of the given object."""
-    # 2011-09-13
-    # former tb.typename from 2011-02-10
+    """Shortcut to return the name of the type of the given object.
+    """
     return type(obj).__name__
 
 
@@ -331,33 +314,29 @@ def dump(*args, **kwargs):
     """Print values of the passed arguments to the screen, together with
     additional information about the value, like length or shape of a list or
     an array. The name of the value may be specified by using keyword
-    arguments."""
-    # 2011-09-13
-    # former tb.dump from 2011-01-10 - 2011-04-06
-    # former mytools.dump from 20/04/2010
+    arguments.
+    """
     for arg in args:
         if typename(arg) == 'ndarray':
-            print arg.shape, arg
+            print(arg.shape, arg)
         elif typename(arg) == 'list':
-            print len(arg), arg
+            print(len(arg), arg)
         else:
-            print arg
-    for key, value in kwargs.iteritems():
+            print(arg)
+    for key, value in kwargs.items():
         if typename(value) == 'ndarray':
-            print key, value.shape, value
+            print(key, value.shape, value)
         elif typename(value) == 'list':
-            print key, len(value), value
+            print(key, len(value), value)
         else:
-            print key, value
+            print(key, value)
 
 
 def humanbytes(bytes):
     """Return given byte count (integer) in a human readable format (string).
     Example: 664070 --> 649Ki.  Supported binary prefixes: kibi, mebi, gibi,
-    tebi, pebi, exbi, zebi, yobi."""
-    # 2011-09-13
-    # former tb.humanbytes from 2011-02-13
-    # former mytools.humanbytes
+    tebi, pebi, exbi, zebi, yobi.
+    """
     assert typename(bytes) in ['int', 'long'], \
         'integer expected, but value of type %s given' % typename(bytes)
     assert bytes >= 0, \
@@ -387,10 +366,8 @@ def humanbytes(bytes):
 
 def nicetime(seconds):
     """Return nice string representation of the given number of seconds in a
-    human-readable format (approximated). Example: 3634 s --> 1 h."""
-    # 2012-02-17
-    from itertools import izip
-
+    human-readable format (approximated). Example: 3634 s --> 1 h.
+    """
     # create list of time units (must be sorted from small to large units)
     units = [{'factor': 1,  'name': 'sec'},
              {'factor': 60, 'name': 'min'},
@@ -401,11 +378,11 @@ def nicetime(seconds):
              {'factor': 12, 'name': 'yrs'}]
 
     value = int(seconds)
-    for unit1, unit2 in izip(units[:-1], units[1:]):
-        if value/unit2['factor'] == 0:
+    for unit1, unit2 in zip(units[:-1], units[1:]):
+        if value // unit2['factor'] == 0:
             return '%i %s' % (value, unit1['name'])
         else:
-            value /= unit2['factor']
+            value //= unit2['factor']
     return '%i %s' % (value, unit2['name'])
 
 
@@ -413,41 +390,33 @@ def isiterable(obj):
     """Check if an object is iterable. Return True for lists, tuples,
     dictionaries and numpy arrays (all objects that possess an __iter__
     method).  Return False for scalars (float, int, etc.), strings, bool and
-    None."""
-    # 2011-09-13
-    # former tb.isiterable from 2011-01-27
-    # former mytools.isiterable
+    None.
+    """
     # Initial idea from
     # http://bytes.com/topic/python/answers/514838-how-test-if-object-sequence-
     # iterable:
-    # return isinstance(obj, basestring) or getattr(obj, '__iter__', False)
+    # return isinstance(obj, str) or getattr(obj, '__iter__', False)
     # I found this to be better:
     return not getattr(obj, '__iter__', False) is False
 
 
 def isobject(obj):
     """Return True if obj possesses an attribute called "__dict__", otherwise
-    return False."""
-    # 2011-09-13
-    # former tb.isobject from 2011-02-09
-    # former mytools.isobject
+    return False.
+    """
     return not getattr(obj, '__dict__', False) is False
 
 
 def nearest(a, v):
-    """Return index of the nearest value in a to v."""
-    # 2011-09-13
-    # former tb.nearest from 2011-06-17
-    # former mytools.nearest
-    return numpy.argmin([numpy.abs(i-v) for i in a])
+    """Return index of the nearest value in a to v.
+    """
+    return numpy.argmin([numpy.abs(i - v) for i in a])
 
 
 def npc():
     """Return number of processor cores on this machine. Supported operating
-    systems: Linux/Unix, MacOS, Windows."""
-    # 2011-09-13
-    # former tb.npc from 2011-02-10
-    # former mytools.detectCPUs
+    systems: Linux/Unix, MacOS, Windows.
+    """
     # based on code from http://www.boduch.ca/2009/06/python-cpus.html
 
     # Linux, Unix and Mac OS
@@ -474,9 +443,8 @@ def npc():
 def opt2list(opt, dtype=int):
     """Return list of values as specified by an option string of the form
     "x1,x2,x3,x4,x5". dtype specifies the type of the values (int, float,
-    str, etc.). Default: int."""
-    # 2011-09-13 - 2011-11-29
-    # former tb.opt2list from 2011-01-31
+    str, etc.). Default: int.
+    """
     if opt is None or opt == '':
         return []
     if typename(opt) != 'str':
@@ -497,9 +465,8 @@ def opt2mathlist(opt, dtype=int):
     """Return list of values as specified by an option string of the form
     "x1,x2,x3,x4,x5". dtype specifies the type of the values (int, float, str,
     etc.). If mathematical expressions are contained inside the option strings,
-    they are evaluated. Default: int."""
-    __created__ = '2012-02-19'
-    __modified__ = '2012-10-09'
+    they are evaluated. Default: int.
+    """
     if type(opt) in (int, long, float):
         return [dtype(opt)]
     if type(opt) in (list, tuple):
@@ -525,9 +492,8 @@ def opt2range(opt, lower=None, upper=None):
     """Return list of integers as specified by an option string of the form
     "x:y:z". z has to be a positive integer, x and y have to be non-negative
     integers. Use lower and upper to define the lower and upper limits. In this
-    way, the user can specify ranges by leaving x or y empty."""
-    # 2011-09-13
-    # former tb.opt2range from 2011-01-29 - 2011-02-24
+    way, the user can specify ranges by leaving x or y empty.
+    """
     assert typename(opt) == 'str', 'string input required'
     strlist = opt.split(':')
     if len(strlist) > 0 and strlist[0] == '' and lower is not None:
@@ -544,7 +510,7 @@ def opt2range(opt, lower=None, upper=None):
         intlist.append(1)
     assert all([b >= 0 for b in intlist]), \
         'bad order range: Only positive integers or zero allowed.'
-    result = range(*intlist)
+    result = list(range(*intlist))
     result.sort()
     return result
 
@@ -554,9 +520,8 @@ def opt2ranges(opt, lower=None, upper=None):
     "x1:y1:z1,x2:y2:z2,...". Each z has to be a positive integer, x and y have
     to be positive integers or zero. Use lower and upper to define the lower
     and upper limits for the ranges. In this way, the user can specify ranges
-    by leaving x or y empty."""
-    # 2011-09-13
-    # former tb.opt2ranges from 2011-01-29 - 2011-02-24
+    by leaving x or y empty.
+    """
     assert typename(opt) == 'str', 'string input required'
     rangelist = opt.split(',')
     resultset = set()
@@ -575,13 +540,12 @@ def ismath(string):
 
     Note: This function does not check if the numerical expression is actually
     valid. It just gives a hint if the given string should be passed to eval or
-    not."""
-    # 2011-09-13 - 2011-10-12
-    # former tb.mathexpr from 2011-06-12
+    not.
+    """
     if '+' in string or '*' in string or '/' in string:
         return True
 
-    # Special handling of minus sign
+    # special handling of minus sign
     if string.count('-') == 1 and string[0] == '-':
         return False
     if '-' in string:
@@ -595,8 +559,8 @@ def evalmath(value, dtype=float):
     before casting it to the specified type.
 
     The function could always use eval, but this is assumed to be slower for
-    values that do not have to be evaluated."""
-    # 2011-10-12
+    values that do not have to be evaluated.
+    """
     if type(value).__name__ == 'str' and ismath(value):
         return dtype(eval(value))
     else:
@@ -606,15 +570,13 @@ def evalmath(value, dtype=float):
 def printcols(strlist, ret=False):
     """Print the strings in the given list in column by column (similar the
     bash command "ls"), respecting the width of the shell window. If ret is
-    True, give back the resulting string instead of printing it to stdout."""
-    # 2011-09-13
-    # former tb.printcols from 2011-02-13 - 2011-08-02
-    # former mytools.printcols
+    True, give back the resulting string instead of printing it to stdout.
+    """
     numstr = len(strlist)
 
-    # Try to get the width of the shell window (will only work on Unix systems)
+    # try to get the width of the shell window (will only work on Unix systems)
     try:
-        cols = int(commands.getoutput('tput cols'))-1
+        cols = int(subprocess.getoutput('tput cols')) - 1
     except ValueError:
         cols = 80
 
@@ -633,22 +595,22 @@ def printcols(strlist, ret=False):
         for cind in xrange(numcols):  # column index
             sind = cind*numrows+rind  # string list index
             if sind < numstr:
-                result += strlist[sind]+' '*(maxwidth-len(strlist[sind])+1)
-                #print strlist[sind]+' '*(maxwidth-len(strlist[sind])+1),
+                result += strlist[sind] + ' ' * (maxwidth - len(strlist[sind]) + 1)
+                #print(strlist[sind] + ' ' * (maxwidth - len(strlist[sind]) + 1), end=' ')
         result += '\n'
 
     if ret:
         return result
     else:
-        print result
+        print(result)
 
 
 def prod(seq):
     """Return the product of all elements of the given sequence.
 
     I use this function mainly to avoid importing the huge numpy module (which
-    takes up to 1.5 seconds on my computer)."""
-    # 2011-10-12
+    takes up to 1.5 seconds on my computer).
+    """
     if len(seq) == 0:
         return 0
     elif len(seq) == 1:
@@ -662,13 +624,12 @@ def prod(seq):
 
 def sepnumstr(string):
     """Separate numeric values from characters within a string. Return
-    resulting numeric values and strings as a list."""
-    # 2011-09-13
-    # former tb.sepnumstr from 2011-02-03 - 2011-04-06
+    resulting numeric values and strings as a list.
+    """
     if not typename(string) == 'str':
         raise TypeError('string expected')
 
-    # If string is empty, just return empty list
+    # if string is empty, just return empty list
     if string == '':
         return []
 
@@ -692,7 +653,7 @@ def sepnumstr(string):
             currval = char
             currisnum = not currisnum
 
-    # Add last value
+    # add last value
     if currisnum:
         if currval == '.':
             result.append(0.)
@@ -703,16 +664,14 @@ def sepnumstr(string):
     else:
         result.append(currval)
 
-    # Return result
+    # return result
     return result
 
 
 class tic:
     """Implements a object-oriented Python version of the Matlab tic and toc
-    functions."""
-    # 2011-09-13
-    # former tb.tic from 2011-02-27
-
+    functions.
+    """
     def __init__(self):
         from time import time
         self._start = time()
@@ -723,9 +682,8 @@ class tic:
 
 
 def types(value):
-    """Return list of typenames that the iterable value contains."""
-    # 2011-11-15
-    # former tb.types from 2011-02-10
+    """Return list of typenames that the iterable value contains.
+    """
     if not type(value).__name__ in ['list', 'tuple', 'dict', 'struct']:
         raise TypeError('expecting value of type list, tuple, dict or struct')
     # should be enabled for any iterable, also for set and frozenset
@@ -739,14 +697,14 @@ def types(value):
 
 
 class Tab(object):
-    """Display data in form of a table, print to stdout."""
-    # 2011-12-18 - 2011-12-19
+    """Display data in form of a table, print to stdout.
+    """
 
     def __init__(self, titles=None, sep='  ', head=False, width=None):
         """Initialize object to hold table data. Specify the columns in the
         order given by titles.Separate columns by sep. Show head row if head is
-        True."""
-        # 2011-12-18 - 2011-12-19
+        True.
+        """
         if titles is not None and not isiterable(titles):
             self.titles = ['']*int(titles)
         else:
@@ -758,13 +716,11 @@ class Tab(object):
         self.width = width
 
     def add(self, **rowdata):
-        """Add a data row to the table."""
-        # 2011-12-18 - 2011-12-19
-
+        """Add a data row to the table.
+        """
         # determine column titles, if not done already
         if self.titles is None:
-            self.titles = rowdata.keys()
-            self.titles.sort()
+            self.titles = sorted(rowdata.keys())
         elif len(self.titles) < len(rowdata):
             # add new titles
             for title in rowdata.keys():
@@ -774,9 +730,8 @@ class Tab(object):
         self.rowdata.append(rowdata)
 
     def display(self):
-        """Display the table (write to stdout)."""
-        # 2011-12-18 - 2011-12-19
-
+        """Display the table (write to stdout).
+        """
         # make sure all row data contain all columns
         for ind in xrange(len(self.rowdata)):
             for title in self.titles:
@@ -832,18 +787,18 @@ class Tab(object):
         if self.head:
             headline = self.sep.join(expandstr(title, length=widths[title])
                                      for title in self.titles)
-            print headline[:(console_width-1)]
+            print(headline[:(console_width-1)])
         for rd in self.rowdata:
             # build string line
             line = self.sep.join(expandstr(rd[title], length=widths[title])
                                  for title in self.titles)
-            print line[:(console_width-1)]
+            print(line[:(console_width-1)])
 
 
 def minima(a, include_boundaries=False):
     """Find indices of all local minima of the function given by the array
-    a."""
-    # 2012-02-29
+    a.
+    """
     # based on:
     # http://stackoverflow.com/questions/4624970/finding-local-maxima-
     # minima-with-numpy-in-a-1d-numpy-array
@@ -860,10 +815,8 @@ cpdef get_num_or_acc(string):
     a percentage (ending with "%"), as a parts-per-million value (ending with
     "ppm") or as a parts-per-billion value (ending with "ppb"). Additionally,
     return the number of digits that would be needed to represent the targeted
-    accuracy."""
-    # 2012-04-24
-    # based on _Gdos.get_ssize from 2012-03-02 - 2012-04-16
-
+    accuracy.
+    """
     # force string input
     string = str(string)
 
@@ -911,9 +864,8 @@ def get_ratio(string):
     can be given as a floating point number (including a "."), as a percentage
     (ending with "%"), as a parts-per-million value (ending with "ppm") or as a
     parts-per-billion value (ending with "ppb"). If mathematical operators are
-    found ("*", "/", "+", "-"), evaluate the expression."""
-    # 2012-05-03 - 2012-05-08
-
+    found ("*", "/", "+", "-"), evaluate the expression.
+    """
     # force string input
     string = str(string)
 
@@ -964,9 +916,8 @@ def get_num_from_ratio(value, total=1, roundfunc=round):
 
     Always, an integer is returned. Note that also negative numbers may be
     returned (if the given ratio is negative). This could be useful in some
-    situations."""
-    # 2012-07-05 - 2012-07-13
-
+    situations.
+    """
     # check for None
     if value is None:
         return None
@@ -984,7 +935,7 @@ def get_num_from_ratio(value, total=1, roundfunc=round):
             raise ValueError('bad float ratio: %s. ' % value +
                              'Must be from interval [-1, 1]')
         part = value*total
-    elif isinstance(value, basestring):
+    elif isinstance(value, str):
         # check for None
         if value == 'None':
             return None
@@ -1023,15 +974,15 @@ def get_num_from_ratio(value, total=1, roundfunc=round):
             if ratio < -1 or ratio > 1:
                 raise ValueError('bad float ratio: %s. ' % value +
                                  'Must be from interval [-1, 1]')
-            part = ratio*total
+            part = ratio * total
 
     # return rounded part
     return int(roundfunc(part))
 
 
 def hasattrs(object, names):
-    """Return whether the object has all attributes with the given names."""
-    __created__ = '2012-07-13'
+    """Return whether the object has all attributes with the given names.
+    """
     for name in names:
         if not hasattr(object, name):
             return False

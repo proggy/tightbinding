@@ -4,8 +4,8 @@
 # Copyright notice
 # ----------------
 #
-# Copyright (C) 2013-2014 Daniel Jung
-# Contact: djungbremen@gmail.com
+# Copyright (C) 2013-2023 Daniel Jung
+# Contact: proggy-contact@mailbox.org
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -21,29 +21,30 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
-"""Check matrices for symmetry."""
-__created__ = '2013-07-25'
-__modified__ = '2013-07-25'
+"""Check matrices for symmetry.
+"""
+
 import numpy
 import scipy.sparse
-import dummy
+from tightbinding import dummy
 
 try:
-    from frog import Frog
+    from comliner import Comliner
 except ImportError:
-    Frog = dummy.Decorator
+    Comliner = dummy.Decorator
 
 
-# common frog configuration for all frogs defined here
-prolog = 'This frog wrapper of the function uses the supercell definition ' + \
-         '(dataset "scell") of the given file and creates a tight-binding ' + \
-         'matrix on-the-fly using the method "tbmat".'
+# common comliner configuration for all comliners defined here
+prolog = 'This comliner wrapper of the function uses the supercell definition ' + \
+         '(dataset `scell`) of the given file and creates a tight-binding ' + \
+         'matrix on-the-fly using the method `tbmat()`.'
 
 
-@Frog(inmap=dict(mat='$0/scell'), prolog=prolog,
+@Comliner(inmap=dict(mat='$0/scell'), prolog=prolog,
       preproc=dict(mat=lambda scell: scell.tbmat()))
 def symmetric(mat):
-    """Check if given matrix is symmetric."""
+    """Check if given matrix is symmetric.
+    """
     if scipy.sparse.base.isspmatrix(mat):
         return mat.transpose().todok() == mat.todok()
     else:
@@ -51,10 +52,11 @@ def symmetric(mat):
         return numpy.all(mat.transpose() == mat)
 
 
-@Frog(inmap=dict(mat='$0/scell'), prolog=prolog,
+@Comliner(inmap=dict(mat='$0/scell'), prolog=prolog,
       preproc=dict(mat=lambda scell: scell.tbmat()))
 def hermitian(mat):
-    """Check if given matrix is hermitian."""
+    """Check if given matrix is hermitian.
+    """
     if scipy.sparse.base.isspmatrix(mat):
         return mat.transpose().conjugate().todok() == mat.todok()
     else:
