@@ -3,3 +3,6 @@
 *.so
 __pycache__
 *.code-workspace
+.DS_Store
+build/
+*.c
