@@ -2,17 +2,17 @@ tb
 ==
 
 Tight binding package. Define effective tight binding systems as instances of
-the class tb.sc.SuperCell and create the tight binding matrix using the method
-tbmat. Several common tight binding models are predefined in the submodule
-define.
+the class `tb.sc.SuperCell` and create the tight binding matrix using the
+method `tbmat()`. Several common tight binding models are predefined in the
+submodule `define`.
 
 
 
 Copyright notice
 ----------------
 
-Copyright (C) 2013-2014 Daniel Jung.
-Contact: djungbremen@gmail.com
+Copyright (C) 2013-2023 Daniel Jung.
+Contact: proggy-contact@mailbox.org
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

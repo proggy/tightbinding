@@ -4,8 +4,8 @@
 # Copyright notice
 # ----------------
 #
-# Copyright (C) 2013-2014 Daniel Jung
-# Contact: djungbremen@gmail.com
+# Copyright (C) 2013-2023 Daniel Jung
+# Contact: proggy-contact@mailbox.org
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -21,21 +21,21 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
-"""Define tight binding systems using instances of :class:`tb.sc.SuperCell`."""
-__created__ = '2013-07-12'
-__modified__ = '2014-01-27'
-import bundle
-import dummy
-import misc
-import sc
+"""Define tight binding systems using instances of :class:`tightbinding.sc.SuperCell`.
+"""
+
+from tightbinding import dummy
+from tightbinding import sc
+from tightbinding import misc
 
 try:
-    from frog import Frog, eval_if_str
+    from comliner import Comliner, eval_if_str
 except ImportError:
-    Frog = dummy.Decorator
+    Comliner = dummy.Decorator
+    eval_if_str = dummy.function1
 
 
-# common frog configuration for all frogs defined in this module
+# common comliner configuration for all comliners defined in this module
 shortopts = dict(scale='c', shape='s', mom='m', mix='x', iconcin='i',
                  iconcout='o', coup='j', rad='r', range='a', sconc='x',
                  iconc='t', space='d', shell='l')
@@ -80,136 +80,119 @@ optdoc = dict(scale='scale of the continuous probability ' +
 outmap = {0: '%0/scell', 1: '%0/param'}
 
 
-@Frog(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
+@Comliner(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
 def anderson(hop=-1., dist='uniform', loc=0., scale=1., shape=(10,),
              bcond='p'):
     """Define 1-band simple-cubic tight binding system with site-diagonal
     disorder and constant isotropic next-neighbor hopping, using a continuous
     probability distribution. Return supercell object (instance of
-    :class:`tb.sc.SuperCell`) and parameter set (instance of
-    :class:`bundle.Bundle`)."""
-    # created 2013-07-07, modified 2013-07-12
-    # former tb._anderson (developed 2011-09-15 - 2012-11-28)
-    # former tb._Anderson from 2011-03-29
-    # former anderson.py from 21/01/2010-03/09/2010
+    :class:`tightbinding.sc.SuperCell`) and parameter set (dict).
+    """
     dim = len(shape)
     scell = sc.SuperCell(dim=dim)
     dist = sc.dist.select(dist)
     scell.add_scnn(pot=dist(loc, scale), hop=hop, bcond=bcond,
                    shape=shape)
-    pset = bundle.Bundle(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
+    pset = dict(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
                          hop=hop, pot=loc)
     return scell, pset
 
 
-@Frog(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
+@Comliner(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
 def andisp(hop=-1., dist='uniform', loc=0., scale=1., shape=(10,), bcond='p',
            coup=1., mix=.1, mom=1.):
-    """Define Anderson-Ising model with polarized impurity spins (spin-up)."""
-    # created 2013-07-12, modified 2014-01-27
-    # former tb._andis (developed 2012-09-10 - 2012-11-19)
-    # former tb._Andis (developed 2012-06-15 - 2012-06-19)
+    """Define Anderson-Ising model with polarized impurity spins (spin-up).
+    """
     mix = misc.get_ratio(mix)
     dim = len(shape)
     scell = sc.SuperCell(dim=dim)
     dist = sc.dist.select(dist)
     scell.add_andisp(pot=dist(loc, scale), hop=hop, bcond=bcond,
                      shape=shape, coup=coup, mix=mix, mom=mom)
-    pset = bundle.Bundle(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
+    pset = dict(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
                          mix=mix, coup=coup, mom=mom, hop=hop, pot=loc)
     return scell, pset
 
 
-@Frog(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
+@Comliner(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
 def andis(hop=-1., dist='uniform', loc=0., scale=1., shape=(10,), bcond='p',
           coup=1., mix=.1, mom=1.):
     """Define Anderson-Ising model with unpolarized impurity spins (spin-up and
-    spin-down)."""
-    # created 2013-07-12, modified 2014-01-27
-    # former tb._andisi (developed 2013-06-27 - 2013-06-27)
-    # based on tb._andis (2012-09-10 - 2012-11-19)
-    # former tb._Andis (developed 2012-06-15 - 2012-06-19)
+    spin-down).
+    """
     mix = misc.get_ratio(mix)
     dim = len(shape)
     scell = sc.SuperCell(dim=dim)
     dist = sc.dist.select(dist)
     scell.add_andis(pot=dist(loc, scale), hop=hop, bcond=bcond, shape=shape,
                     coup=coup, mix=mix, mom=mom)
-    pset = bundle.Bundle(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
+    pset = dict(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
                          mix=mix, coup=coup, mom=mom, hop=hop, pot=loc)
     return scell, pset
 
 
-@Frog(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
+@Comliner(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
 def andheisp(hop=-1., dist='uniform', loc=0., scale=1., shape=(10,),
              bcond='p', coup=1., mix=.1, mom=1.):
     """Define Anderson-Heisenberg model with random impurity spins (somewhat
-    preferring the z-axis)."""
-    # created 2013-07-12, modified 2014-01-27
-    # former tb._andheis (developed 2012-09-10 - 2012-12-17)
-    # based on tb._andis from 2012-09-10
+    preferring the z-axis).
+    """
     mix = misc.get_ratio(mix)
     dim = len(shape)
     scell = sc.SuperCell(dim=dim)
     dist = sc.dist.select(dist)
     scell.add_andheisp(pot=dist(loc, scale), hop=hop, bcond=bcond,
                        shape=shape, coup=coup, mix=mix, mom=mom)
-    pset = bundle.Bundle(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
+    pset = dict(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
                          mix=mix, coup=coup, mom=mom, hop=hop, pot=loc)
     return scell, pset
 
 
-@Frog(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
+@Comliner(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
 def andheis(hop=-1., dist='uniform', loc=0., scale=1., shape=(10,),
             bcond='p', coup=1., mix=.1, mom=1.):
     """Define Anderson-Heisenberg model with isotropic random impurity spins
-    (conforming to the SU(2) group)."""
-    # created 2013-07-12, modified 2014-01-27
-    # former tb._andheisi (developed 2013-06-27 - 2013-06-27)
-    # based on tb._andheis (2012-09-10 - 2012-12-17)
-    # based on tb._andis from 2012-09-10
+    (conforming to the SU(2) group).
+    """
     mix = misc.get_ratio(mix)
     dim = len(shape)
     scell = sc.SuperCell(dim=dim)
     dist = sc.dist.select(dist)
     scell.add_andheis(pot=dist(loc, scale), hop=hop, bcond=bcond,
                       shape=shape, coup=coup, mix=mix, mom=mom)
-    pset = bundle.Bundle(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
+    pset = dict(dist=dist, dim=dim, loc=loc, scale=scale, shape=shape,
                          mix=mix, coup=coup, mom=mom, hop=hop, pot=loc)
     return scell, pset
 
 
-@Frog(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
+@Comliner(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts)
 def heis(mix=.1, range=1., coup=1., mom=1., shell=1, bcond='p', shape=(10,)):
-    """Define homogeneous dilute Heisenberg model."""
-    # created 2013-07-12, modified 2013-07-18
-    # former tb._Heis (developed 2012-03-14 - 2012-09-06)
+    """Define homogeneous dilute Heisenberg model.
+    """
     mix = misc.get_ratio(mix)
     dim = len(shape)
     scell = sc.SuperCell(dim=dim)
     scell.add_heis(range=range, coup=coup, mix=mix, mom=mom, bcond=bcond,
                    shape=shape, shell=shell)
-    pset = bundle.Bundle(dim=dim, shape=shape, mix=mix, coup=coup, mom=mom,
+    pset = dict(dim=dim, shape=shape, mix=mix, coup=coup, mom=mom,
                          shell=shell, range=range)
     return scell, pset
 
 
-@Frog(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts,
+@Comliner(outmap=outmap, preproc=preproc, optdoc=optdoc, shortopts=shortopts,
       longopts=longopts)
 def spheres(mix=.1, range=1., coup=1., mom=1., shell=1, bcond='p',
             shape=(10,), sconc=None, iconc=None, iconcin=None, iconcout=None,
             space=.1, rad=1., timeout='30s'):
-    """Define dilute Heisenberg model with sphere-like inhomogeneities."""
-    # created 2013-07-12, modified 2013-07-18
-    # former tb._Spheres (developed 2012-03-14 - 2012-09-06)
-    # former tb._Heis (developed 2012-03-14 - 2012-09-06)
+    """Define dilute Heisenberg model with sphere-like inhomogeneities.
+    """
     dim = len(shape)
     scell = sc.SuperCell(dim=dim)
     scell.add_spheres(range=range, coup=coup, mom=mom, bcond=bcond,
                       shape=shape, shell=shell, sconc=sconc, iconc=iconc,
                       iconcin=iconcin, space=space, iconcout=iconcout,
                       rad=rad, timeout=timeout)
-    pset = bundle.Bundle(dim=dim, range=range, coup=coup, mom=mom, bcond=bcond,
+    pset = dict(dim=dim, range=range, coup=coup, mom=mom, bcond=bcond,
                          shape=shape, shell=shell, sconc=sconc, iconc=iconc,
                          iconcin=iconcin, space=space, iconcout=iconcout,
                          rad=rad, timeout=timeout)

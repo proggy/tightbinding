@@ -4,8 +4,8 @@
 # Copyright notice
 # ----------------
 #
-# Copyright (C) 2011-2014 Daniel Jung
-# Contact: djungbremen@gmail.com
+# Copyright (C) 2013-2023 Daniel Jung
+# Contact: proggy-contact@mailbox.org
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -22,8 +22,9 @@
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 #
 """Implements a standalone version of the function scnnmat.  The original is
-included in the submodule tb.sc of the tb package."""
-# 2011-01-03 -2014-02-08
+included in the submodule tightbinding.sc of the tightbinding package.
+"""
+
 import numpy as np
 import scipy.sparse as spa
 
@@ -37,9 +38,8 @@ def scnnmat(dims, pot=0., hop=1., bcond='p', format='lil'):
     "a").  Return matrix in LIL-sparse format.
 
     bcond may be at most of length dim. In this way, each dimension can have
-    it's own boundary condition."""
-    # 2011-02-28
-
+    it's own boundary condition.
+    """
     # check arguments
     assert format \
         in ['lil', 'dok', 'csr', 'csc', 'dia', 'coo', 'bsr', 'dense'], \
@@ -131,27 +131,27 @@ def scnnmat(dims, pot=0., hop=1., bcond='p', format='lil'):
 def isiterable(obj):
     """Checks if an object is iterable. Returns True for lists, tuples and
     dictionaries. Returns False for scalars (float, int, etc.), strings, bool
-    and None."""
-    # 2011-01-27
-    # Inicial idea from:
+    and None.
+    """
+    # Initial idea from:
     # http://bytes.com/topic/python/answers/514838-how-test-if-object-sequence-
     # iterable
-    #return isinstance(obj, basestring) or getattr(obj, '__iter__', False)
+    #return isinstance(obj, str) or getattr(obj, '__iter__', False)
     # I found this to be better:
     return not getattr(obj, '__iter__', False) is False
 
 
 # example call, if this module is executed directly
 if __name__ == '__main__':
-    print """Create Hamiltonian matrix of a 2D simple-cubic tight-binding
+    print("""Create Hamiltonian matrix of a 2D simple-cubic tight-binding
     system with all site-diagonal entries (potentials) pot=2 and hopping
-    parameter hop=1. System dimensions: 4 x 3."""
+    parameter hop=1. System dimensions: 4 x 3.""")
     hamilt = scnnmat((4, 3), pot=2, hop=1)
 
-    print 'Convert to dense format and print to screen:'
-    print hamilt.todense()
+    print('Convert to dense format and print to screen:')
+    print(hamilt.todense())
 
-    print """Create the same matrix, but with anti-periodic boundary conditions
+    print("""Create the same matrix, but with anti-periodic boundary conditions
     in both dimensions. Note that some of the hopping matrix elements have
-    switched their sign:"""
-    print scnnmat((4, 3), hop=1, pot=2, bcond='a', format='dense')
+    switched their sign:""")
+    print(scnnmat((4, 3), hop=1, pot=2, bcond='a', format='dense'))
