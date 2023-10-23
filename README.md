@@ -1,5 +1,5 @@
-tb
-==
+tightbinding
+============
 
 Tight binding package. Define effective tight binding systems as instances of
 the class `tb.sc.SuperCell` and create the tight binding matrix using the
