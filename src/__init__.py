@@ -27,7 +27,7 @@ the dynamic matrix (tight-binding matrix) using its method
 :py:meth:`tightbinding.sc.SuperCell.tbmat`.
 """
 
-from tightbinding import dummy
+from . import dummy
 
 try:
     from comliner import Comliner

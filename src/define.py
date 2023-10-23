@@ -24,9 +24,9 @@
 """Define tight binding systems using instances of :class:`tightbinding.sc.SuperCell`.
 """
 
-from tightbinding import dummy
-from tightbinding import sc
-from tightbinding import misc
+from . import dummy
+from . import sc
+from . import misc
 
 try:
     from comliner import Comliner, eval_if_str

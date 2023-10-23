@@ -28,8 +28,8 @@ given *shape*.
 
 import math
 import numpy
-import tightbinding as tb
-from tightbinding.sc import dist
+from .. import misc
+from ..sc import dist
 import progmon
 
 
@@ -179,22 +179,22 @@ class spheres(PosRule):
 
         # interprete concentrations
         if iconcout is None:
-            snum = tb.misc.get_num_from_ratio(sconc, total=size/float(sps),
+            snum = misc.get_num_from_ratio(sconc, total=size/float(sps),
                                               roundfunc=math.ceil)
-            inum = tb.misc.get_num_from_ratio(iconc, total=size)
-            inumin = tb.misc.get_num_from_ratio(iconcin, total=sps*snum)
+            inum = misc.get_num_from_ratio(iconc, total=size)
+            inumin = misc.get_num_from_ratio(iconcin, total=sps*snum)
             inumout = inum-inumin
         elif iconcin is None:
-            snum = tb.misc.get_num_from_ratio(sconc, total=size/float(sps),
+            snum = misc.get_num_from_ratio(sconc, total=size/float(sps),
                                               roundfunc=math.ceil)
-            inum = tb.misc.get_num_from_ratio(iconc, total=size)
-            inumout = tb.misc.get_num_from_ratio(iconcout, total=size-sps*snum)
+            inum = misc.get_num_from_ratio(iconc, total=size)
+            inumout = misc.get_num_from_ratio(iconcout, total=size-sps*snum)
             inumin = inum-inumout
         elif iconc is None:
-            snum = tb.misc.get_num_from_ratio(sconc, total=size/float(sps),
+            snum = misc.get_num_from_ratio(sconc, total=size/float(sps),
                                               roundfunc=math.ceil)
-            inumin = tb.misc.get_num_from_ratio(iconcin, total=sps*snum)
-            inumout = tb.misc.get_num_from_ratio(iconcout, total=size-sps*snum)
+            inumin = misc.get_num_from_ratio(iconcin, total=sps*snum)
+            inumout = misc.get_num_from_ratio(iconcout, total=size-sps*snum)
             inum = inumin + inumout
         elif sconc is None:
             # deducing snum from impurity concentrations not yet possible

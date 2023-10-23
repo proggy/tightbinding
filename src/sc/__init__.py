@@ -36,10 +36,11 @@ import math
 import itertools
 import scipy
 import string
-from tightbinding.sc import core
-from tightbinding.sc import dist
-from tightbinding.sc import pos
-from tightbinding.sc import shells
+from . import core
+from . import dist
+from . import pos
+from . import shells
+from .. import dummy
 
 try:
     from comliner import Comliner
@@ -79,7 +80,7 @@ class SuperCellObject(object):
         """
         result = ''
         for letter in s:
-            if letter in string.uppercase:
+            if letter in string.ascii_uppercase:
                 result += letter
         return result
 
@@ -369,7 +370,7 @@ class SuperCell(SuperCellObject):
             helper = scipy.sparse.coo_matrix((data,
                                               (einds1[inds1], einds2[inds2])),
                                              shape=mat.shape)
-            mat.update(helper.todok())
+            mat._update(helper.todok())
 
             # another, presumably slower approach, using nested Python
             # for-loops select entities, together with their coordinates and
@@ -1412,7 +1413,7 @@ class Lattice(LatticeObject):
                                               [inds[ent2]])),
                                              shape=(ne, ne), dtype=int)
             diag = scipy.sparse.spdiags([variates], [0], size, size)
-            mat.update(scipy.sparse.kron(diag, helper).todok())
+            mat._update(scipy.sparse.kron(diag, helper).todok())
 
             ### old method. Problem: "+=" only works with lil
             #self._tbmat[inds[ent1]::ne, inds[ent2]::ne] += spdiags([variates],
@@ -1432,7 +1433,7 @@ class Lattice(LatticeObject):
             # this neighbor interaction object
             submat = neigh.tbmat()
             helper3 = scipy.sparse.kron(indmat, submat).todok()
-            mat.update(helper3)
+            mat._update(helper3)
 
             # set certain blocks of the big matrix with the adjoint of this
             # hopping matrix
@@ -2308,7 +2309,7 @@ class SparseLattice(LatticeObject):
             # exclude "long" hopping vectors
             if not self.longhops:
                 toolong = False
-                for d in xrange(self.dim):
+                for d in range(self.dim):
                     # is this vector element greater or equal than the lattice
                     # in this dimension?
                     if abs(vect[d]) >= self.shape[d]:
@@ -2443,7 +2444,7 @@ class SparseLattice(LatticeObject):
                                               [inds[ent2]])),
                                              shape=(ne, ne), dtype=int)
             diag = scipy.sparse.spdiags([variates], [0], size, size)
-            mat.update(scipy.sparse.kron(diag, helper).todok())
+            mat._update(scipy.sparse.kron(diag, helper).todok())
             #mat = mat+scipy.sparse.kron(diag, helper)
 
             ### old method. Problem: "+=" only works with lil

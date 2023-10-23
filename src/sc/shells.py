@@ -95,7 +95,7 @@ def cvects(order, dim=1):
             neighcount[surfsite] = 0
 
             # find neighbors (try to increment all dimensions by one)
-            for d in xrange(dim):
+            for d in range(dim):
                 # do not leave the irreducibe wedge
                 if d > 0 and surfsite[d]+1 > surfsite[d-1]:
                     continue
@@ -123,7 +123,7 @@ def cvects(order, dim=1):
 
         # find the neighbor with the shortest distance to the origin
         next = min(neighs,
-                   key=lambda vect: sum(vect[i]**2 for i in xrange(dim)))
+                   key=lambda vect: sum(vect[i]**2 for i in range(dim)))
         # it would be nice if all the distances would not have to be calculated
         # again everytime the surface has changed
         vects.append(next)
@@ -176,7 +176,7 @@ def signperms(tup):
     allperm = list((signperm * perm[:, None]).reshape(-1, dim))
 
     # make a list of tuples out of it
-    for ind in xrange(len(allperm)):
+    for ind in range(len(allperm)):
         allperm[ind] = tuple(allperm[ind])
 
     # return list of tuples, filtering double entries
